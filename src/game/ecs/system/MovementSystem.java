@@ -4,10 +4,11 @@ import game.ecs.EntityManager;
 import game.ecs.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
-import game.ecs.component.SpriteComponent;
+import game.ecs.component.SpritesComponent;
 import game.ecs.entity.AbstractEntity;
-import utils.Settings.Interaction;
+import utils.Settings.Actions;
 import utils.Settings.Movement;
+import utils.Settings.SpriteState;
 import utils.Settings.Window;
 
 /**
@@ -24,9 +25,6 @@ public class MovementSystem extends AbstractSystem
 	public MovementSystem()
 	{
 		super();
-		
-		// TODO Remove
-		System.out.println("System created : " + this.getClass());
 	}
 
 	@Override
@@ -49,30 +47,32 @@ public class MovementSystem extends AbstractSystem
 			if (entity.hasComponent(KeyInputComponent.class)) 
 			{
 				KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
-				// TODO Diagonals normal speed
-				
-				// Cardinal directions
+				SpritesComponent sprites = entity.getComponent(SpritesComponent.class);
 				if (inputs.getInput(Movement.UP) == true)
 				{
 					movement.translateY((-1)*movement.getSpeed());
-				}
-				if (inputs.getInput(Movement.RIGHT) == true)
-				{
-					movement.translateX(movement.getSpeed());
+					sprites.setState(SpriteState.WALK);
+					sprites.setSpriteDirection(Movement.UP);
 				}
 				if (inputs.getInput(Movement.DOWN) == true)
 				{
 					movement.translateY(movement.getSpeed());
+					sprites.setState(SpriteState.WALK);
+					sprites.setSpriteDirection(Movement.DOWN);
+				}
+				if (inputs.getInput(Movement.RIGHT) == true)
+				{
+					movement.translateX(movement.getSpeed());
+					sprites.setState(SpriteState.WALK);
+					sprites.setSpriteDirection(Movement.RIGHT);
 				}
 				if (inputs.getInput(Movement.LEFT) == true)
 				{
 					movement.translateX((-1)*movement.getSpeed());
+					sprites.setState(SpriteState.WALK);
+					sprites.setSpriteDirection(Movement.LEFT);
 				}
-				// TEMPORARY
-				if (inputs.getInput(Interaction.ACTIVATE) == true)
-				{
-					movement.setPos(Window.SCREEN_W/2, Window.SCREEN_H/2);
-				}
+				sprites.setFlag(FlagECS.TO_UPDATE);
 			}
 			
 			// TODO Update for entities that movement is not based on inputs
@@ -80,10 +80,6 @@ public class MovementSystem extends AbstractSystem
 			
 			// Update components flag
 			movement.setFlag(FlagECS.STABLE);
-			entity.getComponent(SpriteComponent.class).setFlag(FlagECS.TO_UPDATE);
-			
-			// TODO Remove
-			System.out.println("UID: " + entity.getUID() + " ; Pos:" + movement.getPos());
 		}
 	}
 

@@ -37,7 +37,6 @@ public class EntityManager
 	public static void addEntity(int uid, AbstractEntity entity)
 	{
 		entities.put(uid, entity);
-		System.out.println("Entity added : " + uid);
 	}
 	
 	/**

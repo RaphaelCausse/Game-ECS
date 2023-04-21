@@ -27,9 +27,6 @@ public abstract class AbstractEntity
 	{
 		uid = entityCount++;
 		components = new HashMap<Class<? extends AbstractComponent>, AbstractComponent>();
-		
-		// TODO Remove
-		System.out.println("Entity created : " + uid);
 	}
 	
 	/**
@@ -42,8 +39,6 @@ public abstract class AbstractEntity
 		{
 			components.put(component.getClass(), component);
 		}
-		
-		System.out.println("Component added : " + component.getClass());
 	}
 
 	/**

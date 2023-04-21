@@ -35,7 +35,7 @@ public final class Settings
 	{
 		public static final String PLAYER_IDLE = DirPaths.PLAYER + "player-idle.png";
 		public static final String PLAYER_WALK = DirPaths.PLAYER + "player-walk.png";
-		public static final String PLAYER_ATTACK = DirPaths.PLAYER + "attack.png";
+		public static final String PLAYER_ATTACK = DirPaths.PLAYER + "player-attack.png";
 	}
 	
 	/**
@@ -44,15 +44,17 @@ public final class Settings
 	public static class SpriteSize
 	{
 		public static final int PLAYER_SIZE = 64;
-		public static final int PLAYER_SCALE = 2;
+		public static final int PLAYER_SCALE= 2;
 	}
 	
 	/**
 	 * Etats de mouvement des sprites.
 	 */
-	public enum SpriteState
+	public static class SpriteState
 	{
-		IDLE, WALK, ATTACK, INERT
+		public static final int IDLE = 0;
+		public static final int WALK = 1;
+		public static final int ATTACK = 2;
 	}
 	
 	/**
@@ -66,13 +68,13 @@ public final class Settings
 		public static final int DOWN = 2;
 		public static final int LEFT = 3;
 		// Movements
-		public static final int PLAYER_SPEED = 5;
+		public static final int PLAYER_SPEED = 4;		
 	}
 	
 	/**
 	 * Interactions entre les entities.
 	 */
-	public static class Interaction
+	public static class Actions
 	{
 		public static final int ACTIVATE = 64;
 		public static final int ATTACK = 65;

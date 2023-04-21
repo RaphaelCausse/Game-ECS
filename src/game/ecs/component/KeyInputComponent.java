@@ -2,7 +2,7 @@ package game.ecs.component;
 
 import java.util.HashMap;
 import java.util.Map;
-import utils.Settings.Interaction;
+import utils.Settings.Actions;
 import utils.Settings.Movement;
 
 /**
@@ -28,11 +28,8 @@ public class KeyInputComponent extends AbstractComponent
 		inputMap.put(Movement.RIGHT, false);
 		inputMap.put(Movement.DOWN, false);
 		inputMap.put(Movement.LEFT, false);
-		inputMap.put(Interaction.ACTIVATE, false);
-		inputMap.put(Interaction.ATTACK, false);
-		
-		// TODO Remove
-		System.out.println("Component created : " + this.getClass());
+		inputMap.put(Actions.ACTIVATE, false);
+		inputMap.put(Actions.ATTACK, false);
 	}
 	
 	/*----------------------------------------*/

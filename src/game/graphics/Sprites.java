@@ -7,14 +7,13 @@ import javafx.scene.image.WritableImage;
 /**
  * Classe qui represente un ensemble de sprites.
  */
-public class Sprite
+public class Sprites
 {
 	/*----------------------------------------*/
 	
-    private Image[] sprites;
-    private int nbRows;
-    private int nbCols;
-    private int spriteCount;
+    private Image[][] sprites;
+    public int rows;
+    public int cols;
     private int spriteWidth;
     private int spriteHeight;
 
@@ -26,28 +25,27 @@ public class Sprite
      * @param _spriteWidth Largeur d'un sprite
      * @param _spriteHeight Hauteur d'un sprite
      */
-    public Sprite(Image spritesheet, int _spriteWidth, int _spriteHeight)
+    public Sprites(Image spritesheet, int _spriteWidth, int _spriteHeight)
     {
     	spriteWidth = _spriteWidth;
     	spriteHeight = _spriteHeight;
     	
-    	nbRows = (int) spritesheet.getHeight() / spriteHeight;
-        nbCols = (int) spritesheet.getWidth() / spriteWidth;
-        spriteCount = nbRows * nbCols;
+    	rows = (int) spritesheet.getHeight() / spriteHeight;
+        cols = (int) spritesheet.getWidth() / spriteWidth;
 
-        sprites = new Image[spriteCount];
+        sprites = new Image[rows][cols];
 
         PixelReader reader = spritesheet.getPixelReader();
 
-        for (int row = 0; row < nbRows; row++)
+        for (int row = 0; row < rows; row++)
         {
-            for (int col = 0; col < nbCols; col++)
+            for (int col = 0; col < cols; col++)
             {
                 int x = col * spriteWidth;
                 int y = row * spriteHeight;
 
                 WritableImage spriteImage = new WritableImage(reader, x, y, spriteWidth, spriteHeight);
-                sprites[row * nbCols + col] = spriteImage;
+                sprites[row][col] = spriteImage;
             }
         }
     }
@@ -56,14 +54,15 @@ public class Sprite
     
     /**
      * Retourner le sprite correspondant a l'index.
-     * @param index Index du sprite
+     * @param direction Direction du sprite, row
+     * @param index Index du sprite, col
      * @return image
      */
-    public Image getSpriteImage(int index) { return sprites[index]; }
+    public Image getSpriteImage(int direction, int index) { return sprites[direction][index]; }
     
     /**
-     * Retourner les sprites, tableau d'images.
+     * Retourner les sprites, matrice d'images.
      * @return sprites
      */
-    public Image[] getSprites() { return sprites; }
+    public Image[][] getSprites() { return sprites; }
 }

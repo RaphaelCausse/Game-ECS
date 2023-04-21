@@ -16,9 +16,6 @@ public class HealthComponent extends AbstractComponent
 	public HealthComponent()
 	{
 		super();
-		
-		// TODO Remove
-		System.out.println("Component created : " + this.getClass());
 	}
 
 	/*----------------------------------------*/

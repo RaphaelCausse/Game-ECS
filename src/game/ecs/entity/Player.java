@@ -2,10 +2,11 @@ package game.ecs.entity;
 
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
-import game.ecs.component.SpriteComponent;
-import game.graphics.Sprite;
+import game.ecs.component.SpritesComponent;
+import game.graphics.Sprites;
 import javafx.scene.image.Image;
 import utils.Settings.ImageFiles;
+import utils.Settings.Movement;
 import utils.Settings.SpriteSize;
 import utils.Settings.SpriteState;
 
@@ -36,9 +37,9 @@ public class Player extends AbstractEntity
 		
 		MovementComponent movement = new MovementComponent(x, y, speed);
 		
-		SpriteComponent sprites = new SpriteComponent();
-		sprites.addSprite(SpriteState.IDLE, new Sprite(new Image(ImageFiles.PLAYER_IDLE), SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE));
-		sprites.addSprite(SpriteState.WALK, new Sprite(new Image(ImageFiles.PLAYER_WALK), SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE));
+		SpritesComponent sprites = new SpritesComponent();
+		sprites.addSprite(SpriteState.IDLE, new Sprites(new Image(ImageFiles.PLAYER_IDLE), SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE));
+		sprites.addSprite(SpriteState.WALK, new Sprites(new Image(ImageFiles.PLAYER_WALK), SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE));
 		
 		// Add components to entity
 		addComponent(inputs);

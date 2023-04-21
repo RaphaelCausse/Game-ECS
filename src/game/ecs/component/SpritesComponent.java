@@ -3,35 +3,35 @@ package game.ecs.component;
 import java.util.HashMap;
 import java.util.Map;
 
-import game.graphics.Sprite;
+import game.graphics.Sprites;
+import utils.Settings.Movement;
 import utils.Settings.SpriteState;
 
 /**
  * Classe qui represente un composant de sprite.
  * @see AbstractComponent
  */
-public class SpriteComponent extends AbstractComponent
+public class SpritesComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
 	
+	private Map<Integer, Sprites> spriteMap;
+	private int state;
 	private int spriteIndex;
-	private SpriteState state;
-	private Map<SpriteState, Sprite> spriteMap;
+	private int spriteDirection;
 	
 	/*----------------------------------------*/
 	
 	/**
 	 * Constructeur de la classe SpriteComponent.
 	 */
-	public SpriteComponent()
+	public SpritesComponent()
 	{
 		super();
-		spriteIndex = 0;
+		spriteMap = new HashMap<Integer, Sprites>();
 		state = SpriteState.IDLE;
-		spriteMap = new HashMap<SpriteState, Sprite>();
-		
-		// TODO Remove
-		System.out.println("Component created : " + this.getClass());
+		spriteIndex = 0;
+		spriteDirection = 0;
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class SpriteComponent extends AbstractComponent
 	 * @param state Etat associe a Sprite
 	 * @param sprite Instance de Sprite, comporte un ensemble de sprites
 	 */
-	public void addSprite(SpriteState state, Sprite sprite)
+	public void addSprite(int state, Sprites sprite)
 	{
 		spriteMap.put(state, sprite);
 	}
@@ -48,7 +48,7 @@ public class SpriteComponent extends AbstractComponent
 	 * Retirer un ensemble de sprites associe a un etat au composant.
 	 * @param state Etat associe a Sprite
 	 */
-	public void removeSprite(SpriteState state)
+	public void removeSprite(int state)
 	{
 		spriteMap.remove(state);
 	}
@@ -58,35 +58,54 @@ public class SpriteComponent extends AbstractComponent
 	 * @param state Etat associe a Sprite
 	 * @return true, false
 	 */
-	public boolean hasSprite(SpriteState state)
+	public boolean hasSprite(int state)
 	{
 		return spriteMap.containsKey(state);
 	}
 	
 	/*----------------------------------------*/
 	
-	/**
-	 * Retourner l'index du sprite actuel.
-	 * @return spriteIndex
-	 */
-	public int getSpriteIndex() { return spriteIndex; }
 	
 	/**
 	 * Retourner l'etat de mouvement de sprite.
 	 * @return state
 	 */
-	public SpriteState getState() { return state; }
+	public int getState() { return state; }
 	
 	/**
 	 * Definir l'etat de mouvement du sprite.
 	 * @param _state
 	 */
-	public void setState(SpriteState _state) { state = _state; }
+	public void setState(int _state) { state = _state; }
+
+	/**
+	 * Retourner l'index d'image du sprite actuel.
+	 * @return spriteIndex
+	 */
+	public int getSpriteIndex() { return spriteIndex; }
 	
 	/**
-	 * Retourner le Sprite associe a l'etat donne.
+	 * Definir l'index d'image du sprite actuel.
+	 * @param _state
+	 */
+	public void setSpriteIndex(int index) { spriteIndex = index; }
+	
+	/**
+	 * Retourner la direction du sprite actuel.
+	 * @return spriteIndex
+	 */
+	public int getSpriteDirection() { return spriteDirection; }
+	
+	/**
+	 * Definir la direction du sprite.
+	 * @param _state
+	 */
+	public void setSpriteDirection(int _direction) { spriteDirection = _direction; }
+	
+	/**
+	 * Retourner le Sprites associe a l'etat donne.
 	 * @param state Etat associe a Sprite
 	 * @return Sprite associe a state
 	 */
-	public Sprite getSprite(SpriteState state) { return spriteMap.get(state); }
+	public Sprites getSprites(int state) { return spriteMap.get(state); }
 }

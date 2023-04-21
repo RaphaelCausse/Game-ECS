@@ -10,7 +10,7 @@ import game.scenes.GameScene;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import utils.Settings.Interaction;
+import utils.Settings.Actions;
 import utils.Settings.Movement;
 
 /**
@@ -36,9 +36,6 @@ public class KeyInputSystem extends AbstractSystem
 		scene = _scene;
 		keyInputs = GameScene.keyInputs;
 		initKeyEvents();
-		
-		// TODO Remove
-		System.out.println("System created : " + this.getClass());
 	}
 	
 	/**
@@ -77,7 +74,13 @@ public class KeyInputSystem extends AbstractSystem
 			// Update key input component
 			KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
 			Map<Integer, Boolean> inputMap = inputs.getInputMap();
+			
+			// Check if component needs to be update
 			MovementComponent movement = entity.getComponent(MovementComponent.class);
+			if (inputs.getFlag() == FlagECS.STABLE)
+			{
+				continue;
+			}
 			
 			// KEY PRESSED
 			if (isPressed(KeyCode.Z))
@@ -102,12 +105,13 @@ public class KeyInputSystem extends AbstractSystem
 			}
 			if (isPressed(KeyCode.E))
 			{
-				inputMap.put(Interaction.ACTIVATE, true);
+				inputMap.put(Actions.ACTIVATE, true);
 				movement.setFlag(FlagECS.TO_UPDATE);
 			}
-			if (isPressed(KeyCode.M))
+			if (isPressed(KeyCode.SPACE))
 			{
-				inputMap.put(Interaction.ATTACK, true);
+				inputMap.put(Actions.ATTACK, true);
+				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 			
 			// KEY RELEASED
@@ -127,13 +131,13 @@ public class KeyInputSystem extends AbstractSystem
 			{
 				inputMap.put(Movement.LEFT, false);
 			}
-			if (isPressed(KeyCode.E))
+			if (isReleased(KeyCode.E))
 			{
-				inputMap.put(Interaction.ACTIVATE, false);
+				inputMap.put(Actions.ACTIVATE, false);
 			}
-			if (isPressed(KeyCode.M))
+			if (isReleased(KeyCode.SPACE))
 			{
-				inputMap.put(Interaction.ATTACK, true);
+				inputMap.put(Actions.ATTACK, false);
 			}
 		}
 	}

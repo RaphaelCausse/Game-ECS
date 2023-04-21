@@ -5,6 +5,7 @@ import java.util.List;
 import game.ecs.system.AbstractSystem;
 import game.ecs.system.KeyInputSystem;
 import game.ecs.system.MovementSystem;
+import game.ecs.system.RenderSystem;
 import game.ecs.system.SpriteSystem;
 import game.scenes.GameScene;
 import javafx.scene.Scene;
@@ -33,7 +34,8 @@ public class SystemManager
     	// Order systems for execution
     	addSystem(new KeyInputSystem(scene));
     	addSystem(new MovementSystem());
-    	addSystem(new SpriteSystem(gctx));
+    	addSystem(new SpriteSystem());
+    	addSystem(new RenderSystem(gctx));
     }
 
     /**
@@ -43,7 +45,6 @@ public class SystemManager
     public void addSystem(AbstractSystem system)
     {
         systems.add(system);
-        System.out.println("System added : " + system.getClass());
     }
 
     /**

@@ -1,7 +1,6 @@
 package game.ecs.component;
 
 import utils.Point2D;
-import utils.Settings.Movement;
 
 /**
  * Classe qui represente un composant de movement compose de position et de vitesse.
@@ -18,25 +17,15 @@ public class MovementComponent extends AbstractComponent
 
 	/**
 	 * Constructeur de la classe MovementComponent.
-	 * @param x Abscisse du point
-	 * @param y Ordonnee du point
+	 * @param _x Abscisse du point
+	 * @param _y Ordonnee du point
+	 * @param _speed Vitesse de deplacement
 	 */
 	public MovementComponent(int _x, int _y, int _speed)
 	{
 		super();
 		pos = new Point2D(_x, _y);
 		speed = _speed;
-		
-		// TODO Remove
-		System.out.println("Component created : " + this.getClass());
-	}
-	
-	/**
-	 * Constructeur par defaut de la classe MovementComponent.
-	 */
-	public MovementComponent()
-	{
-		this(0, 0, 0);
 	}
 	
 	/*----------------------------------------*/

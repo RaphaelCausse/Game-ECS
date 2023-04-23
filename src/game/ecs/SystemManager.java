@@ -7,9 +7,7 @@ import game.ecs.system.KeyInputSystem;
 import game.ecs.system.MovementSystem;
 import game.ecs.system.RenderSystem;
 import game.ecs.system.SpriteSystem;
-import game.scenes.GameScene;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 /**

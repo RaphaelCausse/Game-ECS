@@ -6,7 +6,6 @@ import game.ecs.component.SpritesComponent;
 import game.graphics.Sprites;
 import javafx.scene.image.Image;
 import utils.Settings.ImageFiles;
-import utils.Settings.Movement;
 import utils.Settings.SpriteSize;
 import utils.Settings.SpriteState;
 
@@ -34,14 +33,12 @@ public class Player extends AbstractEntity
 	{
 		// Init components
 		KeyInputComponent inputs = new KeyInputComponent();
-		
 		MovementComponent movement = new MovementComponent(x, y, speed);
-		
 		SpritesComponent sprites = new SpritesComponent();
 		sprites.addSprite(SpriteState.IDLE, new Sprites(new Image(ImageFiles.PLAYER_IDLE), SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE));
 		sprites.addSprite(SpriteState.WALK, new Sprites(new Image(ImageFiles.PLAYER_WALK), SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE));
 		
-		// Add components to entity
+		// Add components
 		addComponent(inputs);
 		addComponent(movement);
 		addComponent(sprites);

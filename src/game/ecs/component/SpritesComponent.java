@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import game.graphics.Sprites;
-import utils.Settings.Movement;
 import utils.Settings.SpriteState;
 
 /**

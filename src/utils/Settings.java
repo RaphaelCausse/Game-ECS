@@ -11,8 +11,8 @@ public final class Settings
 	{
 		// Window settings
 		public static final String TITLE = "Project-Unknown";
-		public static final int SCREEN_W = 900;
-		public static final int SCREEN_H = 600;
+		public static final int SCREEN_W = 1280;
+		public static final int SCREEN_H = 800;
 		// Framerate settings
 		public static final int FPS = 60;
 		public static final Duration FRAME_TIME = Duration.millis(1000/FPS);
@@ -24,8 +24,9 @@ public final class Settings
 	public static class DirPaths
 	{
 		public static final String ASSETS = "res/assets/";
-		public static final String MAPS = "res/maps/";
+		public static final String MAP = ASSETS + "map/";
 		public static final String PLAYER = ASSETS + "player/";
+		public static final String NPC = ASSETS + "npc/";
 	}
 	
 	/**
@@ -68,7 +69,7 @@ public final class Settings
 		public static final int DOWN = 2;
 		public static final int LEFT = 3;
 		// Movements
-		public static final int PLAYER_SPEED = 4;		
+		public static final int PLAYER_SPEED = 3;		
 	}
 	
 	/**

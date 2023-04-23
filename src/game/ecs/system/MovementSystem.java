@@ -6,10 +6,8 @@ import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.SpritesComponent;
 import game.ecs.entity.AbstractEntity;
-import utils.Settings.Actions;
 import utils.Settings.Movement;
 import utils.Settings.SpriteState;
-import utils.Settings.Window;
 
 /**
  * Classe responsable de la gestion des mouvements.

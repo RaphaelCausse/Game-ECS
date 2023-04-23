@@ -1,7 +1,5 @@
 package game.ecs.system;
 
-import java.awt.SystemColor;
-
 import game.ecs.EntityManager;
 import game.ecs.FlagECS;
 import game.ecs.component.SpritesComponent;
@@ -41,6 +39,8 @@ public class SpriteSystem extends AbstractSystem
 			{
 				continue;
 			}
+			
+			timeElapsed += System.currentTimeMillis();
 			
 			// TODO Update sprites index data based on time for animation
 		}

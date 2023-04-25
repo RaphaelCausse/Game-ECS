@@ -5,6 +5,7 @@ import game.ecs.FlagECS;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.SpritesComponent;
 import game.ecs.entity.AbstractEntity;
+import game.graphics.GameMap;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import utils.Point2D;
@@ -15,6 +16,7 @@ public class RenderSystem extends AbstractSystem
 	/*----------------------------------------*/
 	
 	private GraphicsContext gctx;
+	private GameMap map;
 	
 	/*----------------------------------------*/
 	
@@ -22,6 +24,7 @@ public class RenderSystem extends AbstractSystem
 	{
 		super();
 		gctx = _gctx;
+		map = new GameMap(_gctx);
 	}
 
 	@Override
@@ -29,8 +32,11 @@ public class RenderSystem extends AbstractSystem
 	{
 		// Reset graphics context
 		gctx.clearRect(0, 0, gctx.getCanvas().getWidth(), gctx.getCanvas().getHeight());
-		gctx.fillRect(0, 0, gctx.getCanvas().getWidth(), gctx.getCanvas().getHeight());
 		
+		// Render map texture
+		map.renderMapTexture();
+		// Render map objects
+		map.renderMapObjects();
 		
 		// Render entities
 		entities = EntityManager.getEntitiesWithComponent(SpritesComponent.class);
@@ -48,5 +54,8 @@ public class RenderSystem extends AbstractSystem
 			// Reset component flag
 			sprites.setFlag(FlagECS.STABLE);
 		}
+		
+		// Render map objects above
+		map.renderMapObjectsAbove();
 	}
 }

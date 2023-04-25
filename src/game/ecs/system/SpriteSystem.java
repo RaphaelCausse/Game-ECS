@@ -12,7 +12,6 @@ public class SpriteSystem extends AbstractSystem
 {	
 	/*----------------------------------------*/
 	
-	private double timeElapsed;
 	
 	/*----------------------------------------*/
 	
@@ -22,7 +21,6 @@ public class SpriteSystem extends AbstractSystem
 	public SpriteSystem()
 	{
 		super();
-		timeElapsed = 0;
 	}
 
 	@Override
@@ -40,7 +38,6 @@ public class SpriteSystem extends AbstractSystem
 				continue;
 			}
 			
-			timeElapsed += System.currentTimeMillis();
 			
 			// TODO Update sprites index data based on time for animation
 		}

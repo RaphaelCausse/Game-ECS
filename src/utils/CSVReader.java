@@ -9,8 +9,8 @@ public class CSVReader
 	/*----------------------------------------*/
 
 	/**
-	 * Lecture d'un fichier 'cvs' pour en extraire les donnees sour forme de matrix de dimension deux.
-	 * @return data Matrice dimension deux d'entier
+	 * Lecture d'un fichier '.csv' pour en extraire les donnees sour forme de matrice.
+	 * @return data
 	 */
     public static int[][] readCSV(String filename)
     {

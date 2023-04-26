@@ -2,7 +2,7 @@ package utils;
 
 import javafx.util.Duration;
 
-public final class Settings
+public class Settings
 {
 	/**
 	 * Parametres de l'application.
@@ -16,6 +16,8 @@ public final class Settings
 		// Framerate settings
 		public static final int FPS = 60;
 		public static final Duration FRAME_TIME = Duration.millis(1000/FPS);
+		// Camera
+		public static final int CAMERA_SCALE = 2;
 	}
 	
 	/**
@@ -36,9 +38,7 @@ public final class Settings
 	public static class ResFiles
 	{
 		// Spritesheets
-		public static final String PLAYER_IDLE = DirPaths.PLAYER + "player-idle.png";
-		public static final String PLAYER_WALK = DirPaths.PLAYER + "player-walk.png";
-		public static final String PLAYER_ATTACK = DirPaths.PLAYER + "player-attack.png";
+		public static final String PLAYER_SPRITESHEET = DirPaths.PLAYER + "player_spritesheet.png";
 		// Maps csv
 		public static final String MAP_TEXTURE = DirPaths.MAPS_DIR + "map_texture.csv";
 		public static final String MAP_OBJECTS = DirPaths.MAPS_DIR + "map_objects.csv";
@@ -48,27 +48,19 @@ public final class Settings
 	}
 	
 	/**
-	 * Taille des sprites.
+	 * Parametres des sprites.
 	 */
-	public static class SpriteSize
+	public static class Sprites
 	{
+		// Sizes
 		public static final int TILE_SIZE = 32;
 		public static final int PLAYER_SIZE = 64;
-		public static final int PLAYER_SCALE= 2;
+		// Animations
+		public static final int PLAYER_ANIM_FRAMES = 12;
 	}
 	
 	/**
-	 * Etats de mouvement des sprites.
-	 */
-	public static class SpriteState
-	{
-		public static final int IDLE = 0;
-		public static final int WALK = 1;
-		public static final int ATTACK = 2;
-	}
-	
-	/**
-	 * Constantes de movements.
+	 * Parametres des movements.
 	 */
 	public static class Movement
 	{
@@ -77,8 +69,12 @@ public final class Settings
 		public static final int RIGHT = 1;
 		public static final int DOWN = 2;
 		public static final int LEFT = 3;
-		// Movements
-		public static final int PLAYER_SPEED = 3;		
+		// States
+		public static final int IDLE = 0;
+		public static final int WALK = 1;
+		public static final int ATTACK = 2;
+		// Speeds
+		public static final int PLAYER_SPEED = 2;
 	}
 	
 	/**

@@ -2,7 +2,7 @@ package game.ecs.system;
 
 import java.util.Map;
 import game.ecs.EntityManager;
-import game.ecs.FlagECS;
+import game.ecs.component.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.entity.AbstractEntity;
@@ -118,18 +118,22 @@ public class KeyInputSystem extends AbstractSystem
 			if (isReleased(KeyCode.Z))
 			{
 				inputMap.put(Movement.UP, false);
+				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 			if (isReleased(KeyCode.D))
 			{
 				inputMap.put(Movement.RIGHT, false);
+				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 			if (isReleased(KeyCode.S))
 			{
 				inputMap.put(Movement.DOWN, false);
+				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 			if (isReleased(KeyCode.Q))
 			{
 				inputMap.put(Movement.LEFT, false);
+				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 			if (isReleased(KeyCode.E))
 			{
@@ -143,12 +147,7 @@ public class KeyInputSystem extends AbstractSystem
 	}
 
 	/*----------------------------------------*/
-	
-	/**
-	 * Verifier si la touche est appuyee.
-	 * @param key Code de touche
-	 * @return true, false
-	 */
+
 	public boolean isPressed(KeyCode key)
 	{ 
 		if (keyInputs.containsKey(key))
@@ -158,11 +157,6 @@ public class KeyInputSystem extends AbstractSystem
 		return false;
 	}
 	
-	/**
-	 * Verifier si la touche est relachee.
-	 * @param key Code de touche
-	 * @return true, false
-	 */
 	public boolean isReleased(KeyCode key)
 	{
 		if (keyInputs.containsKey(key))

@@ -34,9 +34,5 @@ public abstract class AbstractScene extends Scene
 	
 	/*----------------------------------------*/
 
-	/**
-     * Retourner le gestionnaire de scene.
-     * @return sceneManager
-     */
 	public SceneManager getSceneManager() { return sceneManager; }
 }

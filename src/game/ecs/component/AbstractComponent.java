@@ -1,7 +1,5 @@
 package game.ecs.component;
 
-import game.ecs.FlagECS;
-
 /**
  * Classe abstraire qui represente un composant des entites.
  */
@@ -23,16 +21,8 @@ public abstract class AbstractComponent
 	}
 	
 	/*----------------------------------------*/
-	
-	/**
-	 * Retourner le flag ECS.
-	 * @return flag
-	 */
+
 	public FlagECS getFlag() { return flag; }
 	
-	/**
-	 * Definir le flag ECS.
-	 * @param flag Flag de mise a jour du composant
-	 */
 	public void setFlag(FlagECS _flag) { flag = _flag; }
 }

@@ -65,16 +65,8 @@ public abstract class AbstractEntity
 	
 	/*----------------------------------------*/
 	
-	/**
-	 * Retourner le Unique ID de l'entity.
-	 * @return uid
-	 */
 	public int getUID() { return uid; }
 	
-	/**
-	 * Retourner un composant de la collection de l'entity.
-	 * @return component
-	 */
 	public <T extends AbstractComponent> T getComponent(Class<T> componentClass)
 	{
         return componentClass.cast(components.get(componentClass));

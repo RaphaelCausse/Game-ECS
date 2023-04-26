@@ -75,15 +75,7 @@ public class SceneManager
 	
 	/*----------------------------------------*/
 	
-	/**
-	 * Retourner le stage principal de l'application.
-	 * @return stage
-	 */
 	public Stage getStage() { return stage; }
-	
-	/**
-	 * Retourner la scene active de l'application.
-	 * @return activeScene
-	 */
+
 	public AbstractScene getActiveScene() { return activeScene; }
 }

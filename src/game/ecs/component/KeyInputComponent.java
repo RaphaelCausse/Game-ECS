@@ -34,11 +34,6 @@ public class KeyInputComponent extends AbstractComponent
 	
 	/*----------------------------------------*/
 	
-	/**
-	 * Retourner la valeur de l'input associe a la key dans la collection.
-	 * @param key Cle de la collection
-	 * @return true, false
-	 */
 	public Boolean getInput(int key)
 	{
 		if (inputMap.containsKey(key))
@@ -48,9 +43,5 @@ public class KeyInputComponent extends AbstractComponent
 		return false;
 	}
 	
-	/**
-	 * Retourner la collection d'inputs.
-	 * @return inputMap
-	 */
 	public Map<Integer, Boolean> getInputMap() { return inputMap; }
 }

@@ -1,16 +1,21 @@
 package game.ecs.system;
 
 import game.ecs.EntityManager;
-import game.ecs.FlagECS;
+import game.ecs.component.AnimationComponent;
 import game.ecs.component.MovementComponent;
-import game.ecs.component.SpritesComponent;
+import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import game.graphics.GameMap;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import utils.Point2D;
-import utils.Settings.SpriteSize;
+import utils.Settings.Sprites;
+import utils.Settings.Window;
 
+/**
+ * Classe responsable du system de rendu de la map, des entites.
+ * @see AbstractSystem
+ */
 public class RenderSystem extends AbstractSystem
 {
 	/*----------------------------------------*/
@@ -34,28 +39,38 @@ public class RenderSystem extends AbstractSystem
 		gctx.clearRect(0, 0, gctx.getCanvas().getWidth(), gctx.getCanvas().getHeight());
 		
 		// Render map texture
-		map.renderMapTexture();
+		map.renderMapLayer(map.getLayerTexture());
 		// Render map objects
-		map.renderMapObjects();
+		map.renderMapLayer(map.getLayerObjects());
 		
 		// Render entities
-		entities = EntityManager.getEntitiesWithComponent(SpritesComponent.class);
+		entities = EntityManager.getEntitiesWithComponent(SpriteComponent.class);
 		for (AbstractEntity entity : entities)
 		{
-			// Render sprite component in grphics context
-			SpritesComponent sprites = entity.getComponent(SpritesComponent.class);
 			MovementComponent movement = entity.getComponent(MovementComponent.class);
 			Point2D pos = movement.getPos();
+			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
+			AnimationComponent animation = entity.getComponent(AnimationComponent.class);
 			
-			Image spriteImage = sprites.getSprites(sprites.getState()).getSpriteImage(sprites.getSpriteDirection(), sprites.getSpriteIndex());
-			gctx.drawImage(spriteImage, pos.getX(), pos.getY(), SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE);
-			
-
-			// Reset component flag
-			sprites.setFlag(FlagECS.STABLE);
+			Image spriteImage = sprite.getSpritesheet();
+			gctx.drawImage(
+					spriteImage, 
+					animation.getFrameIndex()*sprite.getSpriteWidth(), // src X
+					(movement.getNbDirection()*movement.getState() + movement.getDirection())*sprite.getSpriteHeight(), // src Y
+					Sprites.PLAYER_SIZE, // src W
+					Sprites.PLAYER_SIZE, // src H
+					pos.getX()*Window.CAMERA_SCALE, // dst X
+					pos.getY()*Window.CAMERA_SCALE, // dst Y
+					Sprites.PLAYER_SIZE*Window.CAMERA_SCALE, // dst H
+					Sprites.PLAYER_SIZE*Window.CAMERA_SCALE // dst W
+			);
+//			
+//
+//			// Reset component flag
+//			sprites.setFlag(FlagECS.STABLE);
 		}
 		
 		// Render map objects above
-		map.renderMapObjectsAbove();
+		map.renderMapLayer(map.getLayerObjectsAbove());
 	}
 }

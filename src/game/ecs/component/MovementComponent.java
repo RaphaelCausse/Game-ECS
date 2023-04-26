@@ -3,7 +3,7 @@ package game.ecs.component;
 import utils.Point2D;
 
 /**
- * Classe qui represente un composant de movement compose de position et de vitesse.
+ * Classe qui represente un composant de movement, position et vitesse.
  * @see AbstractComponent
  */
 public class MovementComponent extends AbstractComponent
@@ -11,74 +11,63 @@ public class MovementComponent extends AbstractComponent
 	/*----------------------------------------*/
 	
 	private Point2D pos;
-	private int speed;
+	private int velocity;
+	private int state;
+	private int direction;
+	private int nbDirections;
 	
 	/*----------------------------------------*/
 
 	/**
 	 * Constructeur de la classe MovementComponent.
-	 * @param _x Abscisse du point
-	 * @param _y Ordonnee du point
-	 * @param _speed Vitesse de deplacement
+	 * @param _x Origine en X
+	 * @param _y Origine en Y
+	 * @param _velocity Vitesse de deplacement
+	 * @param _direction Direction initiale
+	 * @param _state Etat initial
 	 */
-	public MovementComponent(int _x, int _y, int _speed)
+	public MovementComponent(int _x, int _y, int _velocity, int _state, int _direction, int _nbDirections)
 	{
 		super();
 		pos = new Point2D(_x, _y);
-		speed = _speed;
+		velocity = _velocity;
+		state = _state;
+		direction = _direction;
+		nbDirections = _nbDirections;
 	}
 	
-	/*----------------------------------------*/
-
-	/**
-	 * Retourner la position.
-	 * @return position
-	 */
-	public Point2D getPos() { return pos; }
-	
-	/**
-	 * Definir la position en abscisse et en ordonnee.
-	 * @param x Abcsisse
-	 * @param y	Ordonnee
-	 */
-	public void setPos(int x, int y)
+	public void translateX(int dx)
 	{
-		pos.setX(x);
-		pos.setY(y);
+		pos.translateX(dx); 
 	}
 	
-	/**
-	 * Retourner la vitesse de deplacement;
-	 * @return speed
-	 */
-	public int getSpeed() { return speed; }
-	
-	/**
-	 * Definir la vitesse de deplacement.
-	 * @param _speed Vitesse de deplacement
-	 */
-	public void setSpeed(int _speed) { speed = _speed; }
-	
-	/**
-	 * Faire une translation sur l'axe des abscisses.
-	 * @param dx Portion d'abscisse supplementaire
-	 */
-	public void translateX(int dx) { pos.translateX(dx); }
-	
-	/**
-	 * Faire une translation sur l'axe des abscisses.
-	 * @param dx Portion d'abscisse supplementaire
-	 */
-	public void translateY(int dy) { pos.translateY(dy); }
-	
-	/**
-	 * Faire une translation sur les deux axes.
-	 * @param dx Portion d'abscisse supplementaire
-	 * @param dy Portion d'ordonnee supplmentaire
-	 */
+	public void translateY(int dy)
+	{ 
+		pos.translateY(dy);
+	}
+
 	public void translate(int dx, int dy)
 	{
 		pos.translateX(dx);
 		pos.translateY(dy);
 	}
+	/*----------------------------------------*/
+
+	public Point2D getPos() { return pos; }
+
+	public int getVelocity() { return velocity; }
+	
+	public int getState() { return state; }
+	
+	public int getDirection() { return direction; }
+	
+	public int getNbDirection() { return nbDirections; }
+	
+	public void setPos(int x, int y) { pos.setX(x); pos.setY(y); }
+	
+	public void setVelocity(int _velocity) { velocity = _velocity; }
+	
+	public void setState(int _state) { state = _state; }
+	
+	public void setDirection(int _direction) { direction = _direction; }
 }

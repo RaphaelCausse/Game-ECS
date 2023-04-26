@@ -11,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import utils.Settings.Movement;
+import utils.Settings.Sprites;
 import utils.Settings.Window;
 
 /**
@@ -26,9 +27,8 @@ public class GameScene extends AbstractScene
 	public GraphicsContext gctx;
 	// Key inputs buffer
 	public static Map<KeyCode, Boolean> keyInputs = new HashMap<KeyCode, Boolean>();
-	// Entity manager for ECS
+	// Managers for ECS
 	private EntityManager entityManager;
-	// System manager for ECS
 	private SystemManager systemManager;
 	
 	/*----------------------------------------*/
@@ -47,7 +47,7 @@ public class GameScene extends AbstractScene
 		gctx = canvas.getGraphicsContext2D();
 		_root.getChildren().add(canvas);
 		
-		// Init managers
+		// Init ECS managers
 		entityManager = EntityManager.getInstance();
 		systemManager = new SystemManager(this, gctx);
 		
@@ -60,7 +60,7 @@ public class GameScene extends AbstractScene
 	@SuppressWarnings("static-access")
 	public void createEntities()
 	{
-		AbstractEntity player = new Player(10, 10, Movement.PLAYER_SPEED);
+		AbstractEntity player = new Player(10, 10, Movement.PLAYER_SPEED, Sprites.PLAYER_ANIM_FRAMES);
 		entityManager.addEntity(player.getUID(), player);
 	}
 

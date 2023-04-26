@@ -6,8 +6,12 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import utils.CSVReader;
 import utils.Settings.ResFiles;
-import utils.Settings.SpriteSize;
+import utils.Settings.Sprites;
+import utils.Settings.Window;
 
+/**
+ *
+ */
 public class GameMap
 {
 	/*----------------------------------------*/
@@ -22,13 +26,17 @@ public class GameMap
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructeur de la classe GameMap.
+	 * @param _gctx
+	 */
 	public GameMap(GraphicsContext _gctx)
 	{
 		gctx = _gctx;
 		mapTexture = CSVReader.readCSV(ResFiles.MAP_TEXTURE);
 		mapObjects = CSVReader.readCSV(ResFiles.MAP_OBJECTS);
 		mapObjectsAbove = CSVReader.readCSV(ResFiles.MAP_OBJECTS_ABOVE);
-		loadTileSet(ResFiles.MAP_TILESET, SpriteSize.TILE_SIZE, SpriteSize.TILE_SIZE);
+		loadTileSet(ResFiles.MAP_TILESET, Sprites.TILE_SIZE, Sprites.TILE_SIZE);
 	}
 	
 	public void loadTileSet(String filename, int tileW, int tileH)
@@ -55,40 +63,21 @@ public class GameMap
         }
 	}
 	
-	public void renderMapTexture()
+	public void renderMapLayer(int[][] layer)
 	{
-		for (int r = 0; r < mapTexture.length; r++)
+		for (int r = 0; r < layer.length; r++)
 		{
-			for (int c = 0; c < mapTexture[r].length; c++)
+			for (int c = 0; c < layer[r].length; c++)
 			{
-				gctx.drawImage(getTile(mapTexture[r][c]), c*tileWidth, r*tileHeight);
-			}
-		}
-	}
-	
-	public void renderMapObjects()
-	{
-		for (int r = 0; r < mapObjects.length; r++)
-		{
-			for (int c = 0; c < mapObjects[r].length; c++)
-			{
-				if (mapObjects[r][c] != -1)
+				if (layer[r][c] != -1)
 				{
-					gctx.drawImage(getTile(mapObjects[r][c]), c*tileWidth, r*tileHeight);
-				}
-			}
-		}
-	}
-	
-	public void renderMapObjectsAbove()
-	{
-		for (int r = 0; r < mapObjectsAbove.length; r++)
-		{
-			for (int c = 0; c < mapObjectsAbove[r].length; c++)
-			{
-				if (mapObjectsAbove[r][c] != -1)
-				{
-					gctx.drawImage(getTile(mapObjectsAbove[r][c]), c*tileWidth, r*tileHeight);
+					gctx.drawImage(
+							getTile(layer[r][c]),
+							c*tileWidth*Window.CAMERA_SCALE, // dst X
+							r*tileHeight*Window.CAMERA_SCALE, // dst Y
+							tileWidth*Window.CAMERA_SCALE, // dst W
+							tileHeight*Window.CAMERA_SCALE // dst H
+					);
 				}
 			}
 		}
@@ -97,4 +86,10 @@ public class GameMap
 	/*----------------------------------------*/
 	
 	public Image getTile(int index) { return tileset[index]; }
+	
+	public int[][] getLayerTexture() { return mapTexture; }
+	
+	public int[][] getLayerObjects() { return mapObjects; }
+	
+	public int[][] getLayerObjectsAbove() { return mapObjectsAbove; }
 }

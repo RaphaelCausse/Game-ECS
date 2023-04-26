@@ -1,13 +1,12 @@
 package game.ecs.system;
 
 import game.ecs.EntityManager;
-import game.ecs.FlagECS;
+import game.ecs.component.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
-import game.ecs.component.SpritesComponent;
+import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import utils.Settings.Movement;
-import utils.Settings.SpriteState;
 
 /**
  * Classe responsable de la gestion des mouvements.
@@ -45,32 +44,42 @@ public class MovementSystem extends AbstractSystem
 			if (entity.hasComponent(KeyInputComponent.class)) 
 			{
 				KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
-				SpritesComponent sprites = entity.getComponent(SpritesComponent.class);
+				int keyPressed = 0;
+				// KEY PRESSED
 				if (inputs.getInput(Movement.UP) == true)
 				{
-					movement.translateY((-1)*movement.getSpeed());
-					sprites.setState(SpriteState.WALK);
-					sprites.setSpriteDirection(Movement.UP);
+					keyPressed++;
+					movement.translateY((-1)*movement.getVelocity());
+					movement.setDirection(Movement.UP);
+					movement.setState(Movement.WALK);
 				}
 				if (inputs.getInput(Movement.DOWN) == true)
 				{
-					movement.translateY(movement.getSpeed());
-					sprites.setState(SpriteState.WALK);
-					sprites.setSpriteDirection(Movement.DOWN);
+					keyPressed++;
+					movement.translateY(movement.getVelocity());
+					movement.setDirection(Movement.DOWN);
+					movement.setState(Movement.WALK);
 				}
 				if (inputs.getInput(Movement.RIGHT) == true)
 				{
-					movement.translateX(movement.getSpeed());
-					sprites.setState(SpriteState.WALK);
-					sprites.setSpriteDirection(Movement.RIGHT);
+					keyPressed++;
+					movement.translateX(movement.getVelocity());
+					movement.setDirection(Movement.RIGHT);
+					movement.setState(Movement.WALK);
 				}
 				if (inputs.getInput(Movement.LEFT) == true)
 				{
-					movement.translateX((-1)*movement.getSpeed());
-					sprites.setState(SpriteState.WALK);
-					sprites.setSpriteDirection(Movement.LEFT);
+					keyPressed++;
+					movement.translateX((-1)*movement.getVelocity());
+					movement.setDirection(Movement.LEFT);
+					movement.setState(Movement.WALK);
 				}
-				sprites.setFlag(FlagECS.TO_UPDATE);
+				// KEY RELEASED
+				if (keyPressed == 0)
+				{
+					movement.setState(Movement.IDLE);
+				}
+				entity.getComponent(SpriteComponent.class).setFlag(FlagECS.TO_UPDATE);
 			}
 			
 			// TODO Update for entities that movement is not based on inputs

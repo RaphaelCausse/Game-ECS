@@ -49,25 +49,11 @@ public class EntityManager
 	}
 	
 	/*----------------------------------------*/
-	
-	/**
-	 * Retourner l'instance de la classe.
-	 * @return entityManager
-	 */
+
 	public static EntityManager getInstance() { return entityManager; }
-		
-	/**
-	 * Retourner l'entite avec le uid correspondant.
-	 * @param uid Unique ID de l'entite a recuperer
-	 * @return entity
-	 */
+
 	public static AbstractEntity getEntity(int uid) { return entities.get(uid); }
-	
-	/**
-	 * Recuperer toutes les entites qui contiennent un composant donne.
-	 * @param componentClass Classe du composant à chercher
-	 * @return entities
-	 */
+
 	public static List<AbstractEntity> getEntitiesWithComponent(Class<? extends AbstractComponent> componentClass)
 	{
 	    List<AbstractEntity> entitiesWithComponent = new ArrayList<AbstractEntity>();

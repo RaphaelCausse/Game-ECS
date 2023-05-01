@@ -1,11 +1,13 @@
 package game.ecs.system;
 
 import game.ecs.EntityManager;
+import game.ecs.component.AnimationComponent;
 import game.ecs.component.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
-import game.ecs.component.SpriteComponent;
+import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
+import utils.Settings.Actions;
 import utils.Settings.Movement;
 
 /**
@@ -17,7 +19,7 @@ public class MovementSystem extends AbstractSystem
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe MovementSystem
+	 * Constructeur de la classe MovementSystem.
 	 */
 	public MovementSystem()
 	{
@@ -30,12 +32,9 @@ public class MovementSystem extends AbstractSystem
 		entities = EntityManager.getEntitiesWithComponent(MovementComponent.class);
 		for (AbstractEntity entity : entities)
 		{
-			// Update movement component and collision component
-			MovementComponent movement = entity.getComponent(MovementComponent.class);
-			// TODO CollisionComponent
-			
 			// Check if component needs to be update
-			if (movement.getFlag() == FlagECS.STABLE /* TODO Collision flag*/)
+			MovementComponent movement = entity.getComponent(MovementComponent.class);
+			if (movement.getFlag() == FlagECS.STABLE)
 			{
 				continue;
 			}
@@ -44,49 +43,60 @@ public class MovementSystem extends AbstractSystem
 			if (entity.hasComponent(KeyInputComponent.class)) 
 			{
 				KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
+				PositionComponent position = entity.getComponent(PositionComponent.class);
+				AnimationComponent animation = entity.getComponent(AnimationComponent.class);
+				
+				// Keys pressed
 				int keyPressed = 0;
-				// KEY PRESSED
 				if (inputs.getInput(Movement.UP) == true)
 				{
 					keyPressed++;
-					movement.translateY((-1)*movement.getVelocity());
-					movement.setDirection(Movement.UP);
-					movement.setState(Movement.WALK);
+					position.translateY((-1) * movement.getVelocity());
+					animation.setDirection(Movement.UP);
+					animation.setState(Movement.WALK);
 				}
 				if (inputs.getInput(Movement.DOWN) == true)
 				{
 					keyPressed++;
-					movement.translateY(movement.getVelocity());
-					movement.setDirection(Movement.DOWN);
-					movement.setState(Movement.WALK);
+					position.translateY(movement.getVelocity());
+					animation.setDirection(Movement.DOWN);
+					animation.setState(Movement.WALK);
 				}
 				if (inputs.getInput(Movement.RIGHT) == true)
 				{
 					keyPressed++;
-					movement.translateX(movement.getVelocity());
-					movement.setDirection(Movement.RIGHT);
-					movement.setState(Movement.WALK);
+					position.translateX(movement.getVelocity());
+					animation.setDirection(Movement.RIGHT);
+					animation.setState(Movement.WALK);
 				}
 				if (inputs.getInput(Movement.LEFT) == true)
 				{
 					keyPressed++;
-					movement.translateX((-1)*movement.getVelocity());
-					movement.setDirection(Movement.LEFT);
-					movement.setState(Movement.WALK);
+					position.translateX((-1) * movement.getVelocity());
+					animation.setDirection(Movement.LEFT);
+					animation.setState(Movement.WALK);
 				}
-				// KEY RELEASED
+				if (inputs.getInput(Actions.ATTACK) == true)
+				{
+					keyPressed++;
+					animation.setState(Movement.ATTACK);
+				}
+				
+				// Keys released
 				if (keyPressed == 0)
 				{
-					movement.setState(Movement.IDLE);
+					animation.setState(Movement.IDLE);
 				}
-				entity.getComponent(SpriteComponent.class).setFlag(FlagECS.TO_UPDATE);
+				
+				// Update components flag
+				movement.setFlag(FlagECS.STABLE);
 			}
 			
-			// TODO Update for entities that movement is not based on inputs
-			
-			
-			// Update components flag
-			movement.setFlag(FlagECS.STABLE);
+			// Update for entities that movement is not based on inputs
+			else
+			{
+				movement.moveRandom(entity);
+			}
 		}
 	}
 

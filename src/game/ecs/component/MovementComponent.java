@@ -1,73 +1,93 @@
 package game.ecs.component;
 
-import utils.Point2D;
+import java.util.Random;
+import game.ecs.entity.AbstractEntity;
+import utils.Settings.Movement;
+import utils.Settings.Sprites;
 
 /**
- * Classe qui represente un composant de movement, position et vitesse.
+ * Classe qui represente un composant de movement.
  * @see AbstractComponent
  */
 public class MovementComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
 	
-	private Point2D pos;
 	private int velocity;
-	private int state;
-	private int direction;
-	private int nbDirections;
+	private int previousRandomMove;
+	private int updateMoveCount;
 	
 	/*----------------------------------------*/
 
 	/**
 	 * Constructeur de la classe MovementComponent.
-	 * @param _x Origine en X
-	 * @param _y Origine en Y
 	 * @param _velocity Vitesse de deplacement
-	 * @param _direction Direction initiale
-	 * @param _state Etat initial
 	 */
-	public MovementComponent(int _x, int _y, int _velocity, int _state, int _direction, int _nbDirections)
+	public MovementComponent(int _velocity)
 	{
 		super();
-		pos = new Point2D(_x, _y);
 		velocity = _velocity;
-		state = _state;
-		direction = _direction;
-		nbDirections = _nbDirections;
+		updateMoveCount = 0;
 	}
 	
-	public void translateX(int dx)
+	/**
+	 * 
+	 * @param entity
+	 */
+	public void moveRandom(AbstractEntity entity)
 	{
-		pos.translateX(dx); 
+		updateMoveCount++;
+		if (updateMoveCount > Sprites.ANIM_FRAMES / 2)
+		{
+			updateMoveCount = 0;
+			// Get a randow direction
+			Random rand = new Random();
+	        int randomDirection = rand.nextInt(4);
+	        // Decide to follow the random direciton or the previous one
+	        int followPrevious = rand.nextInt(100);
+	        if (followPrevious > 10)
+	        {
+	        	randomDirection = previousRandomMove;
+	        }
+	        
+	        // Move entity
+	        PositionComponent position = entity.getComponent(PositionComponent.class);
+	    	if (randomDirection == Movement.UP)
+	    	{
+	    		previousRandomMove = Movement.UP;
+	    		position.translateY((-1) * velocity);
+	    	}
+	    	if (randomDirection == Movement.RIGHT)
+	    	{
+	    		previousRandomMove = Movement.RIGHT;
+	    		position.translateX(velocity);
+	    	}
+			if (randomDirection == Movement.DOWN)
+			{
+				previousRandomMove = Movement.DOWN;
+				position.translateY(velocity);
+			}
+			if (randomDirection == Movement.LEFT)
+			{
+				previousRandomMove = Movement.LEFT;
+				position.translateX((-1) * velocity);
+			}
+		}
 	}
 	
-	public void translateY(int dy)
-	{ 
-		pos.translateY(dy);
-	}
-
-	public void translate(int dx, int dy)
+	/**
+	 * 
+	 * @param entity
+	 */
+	public void moveToPlayer(AbstractEntity entity)
 	{
-		pos.translateX(dx);
-		pos.translateY(dy);
+		// TODO Move entity towards player position
 	}
+	
 	/*----------------------------------------*/
-
-	public Point2D getPos() { return pos; }
 
 	public int getVelocity() { return velocity; }
 	
-	public int getState() { return state; }
-	
-	public int getDirection() { return direction; }
-	
-	public int getNbDirection() { return nbDirections; }
-	
-	public void setPos(int x, int y) { pos.setX(x); pos.setY(y); }
-	
 	public void setVelocity(int _velocity) { velocity = _velocity; }
 	
-	public void setState(int _state) { state = _state; }
-	
-	public void setDirection(int _direction) { direction = _direction; }
 }

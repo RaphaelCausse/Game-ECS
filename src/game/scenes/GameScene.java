@@ -5,12 +5,16 @@ import java.util.Map;
 import game.ecs.EntityManager;
 import game.ecs.SystemManager;
 import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.Blacksmith;
 import game.ecs.entity.Player;
+import game.graphics.Camera;
+import game.graphics.GameMap;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import utils.Settings.Movement;
+import utils.Settings.Positions;
 import utils.Settings.Sprites;
 import utils.Settings.Window;
 
@@ -47,21 +51,39 @@ public class GameScene extends AbstractScene
 		gctx = canvas.getGraphicsContext2D();
 		_root.getChildren().add(canvas);
 		
-		// Init ECS managers
-		entityManager = EntityManager.getInstance();
-		systemManager = new SystemManager(this, gctx);
-		
-		createEntities();
+		initialize();
 	}
 	
 	/**
-	 * Creation des entites du jeu.
+	 * Initialisation du jeu.
 	 */
 	@SuppressWarnings("static-access")
-	public void createEntities()
+	public void initialize()
 	{
-		AbstractEntity player = new Player(10, 10, Movement.PLAYER_SPEED, Sprites.PLAYER_ANIM_FRAMES);
+		// Create entities
+		AbstractEntity player = new Player(
+			Positions.PLAYER_SPAWN_X,
+			Positions.PLAYER_SPAWN_Y,
+			Movement.PLAYER_SPEED,
+			Sprites.ANIM_FRAMES
+		);
+		AbstractEntity blacksmith = new Blacksmith(
+			Positions.BLACKSMITH_SPAWN_X,
+			Positions.BLACKSMITH_SPAWN_Y,
+			Sprites.ANIM_FRAMES
+		);
+		
+		// Game map and camera
+		GameMap map = new GameMap(gctx);
+		Camera camera = new Camera(map, (Player) player);
+		
+		// Init ECS managers
+		entityManager = EntityManager.getInstance();
+		systemManager = new SystemManager(this, camera);
+				
+		// Add entities
 		entityManager.addEntity(player.getUID(), player);
+		entityManager.addEntity(blacksmith.getUID(), blacksmith); 
 	}
 
 	@Override

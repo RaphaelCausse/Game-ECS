@@ -27,15 +27,18 @@ public class AnimationSystem extends AbstractSystem
 		entities = EntityManager.getEntitiesWithComponent(AnimationComponent.class);
 		for (AbstractEntity entity : entities)
 		{
-			// Update animation component
+			// Get required components
 			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
 			AnimationComponent animation = entity.getComponent(AnimationComponent.class);
 			
+			// Update animation component
 			animation.setFrameCount(animation.getFrameCount() + 1);
-			if (animation.getFrameCount() > animation.getFrameUpdateValue())
+			if (animation.getFrameCount() > animation.getFramesBeforeUpdate())
 			{
 				animation.setFrameCount(0);
-				animation.setFrameIndex((animation.getFrameIndex() + 1) % sprite.getCols());
+				// Update sprite indexes in the spritesheet
+				sprite.setSpriteColIndex((sprite.getSpriteColIndex() + 1) % sprite.getCols());
+				sprite.setSpriteRowIndex(animation.getNbDirection() * animation.getState() + animation.getDirection());
 			}
 		}
 	}

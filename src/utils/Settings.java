@@ -39,6 +39,7 @@ public class Settings
 	{
 		// Spritesheets
 		public static final String PLAYER_SPRITESHEET = DirPaths.PLAYER + "player_spritesheet.png";
+		public static final String BLACKSMITH_SPRITESHEET = DirPaths.NPC + "blacksmith_spritesheet.png";
 		// Maps csv
 		public static final String MAP_TEXTURE = DirPaths.MAPS_DIR + "map_texture.csv";
 		public static final String MAP_OBJECTS = DirPaths.MAPS_DIR + "map_objects.csv";
@@ -54,9 +55,10 @@ public class Settings
 	{
 		// Sizes
 		public static final int TILE_SIZE = 32;
+		public static final int SPRITE_SIZE = 32;
 		public static final int PLAYER_SIZE = 64;
 		// Animations
-		public static final int PLAYER_ANIM_FRAMES = 12;
+		public static final int ANIM_FRAMES = 12;
 	}
 	
 	/**
@@ -65,6 +67,7 @@ public class Settings
 	public static class Movement
 	{
 		// Directions
+		public static final int NB_DIRECTIONS = 4;
 		public static final int UP = 0;
 		public static final int RIGHT = 1;
 		public static final int DOWN = 2;
@@ -84,5 +87,17 @@ public class Settings
 	{
 		public static final int ACTIVATE = 64;
 		public static final int ATTACK = 65;
+	}
+	
+	/**
+	 * Positions de spawn des entites.
+	 */
+	public static class Positions
+	{
+		// Spawn positions
+		public static final int PLAYER_SPAWN_X = 10;
+		public static final int PLAYER_SPAWN_Y = 1216;
+		public static final int BLACKSMITH_SPAWN_X = 224;
+		public static final int BLACKSMITH_SPAWN_Y = 1024;
 	}
 }

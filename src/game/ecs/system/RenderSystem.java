@@ -1,15 +1,9 @@
 package game.ecs.system;
 
-import game.ecs.EntityManager;
-import game.ecs.component.AnimationComponent;
-import game.ecs.component.MovementComponent;
-import game.ecs.component.SpriteComponent;
-import game.ecs.entity.AbstractEntity;
+import game.graphics.Camera;
 import game.graphics.GameMap;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import utils.Point2D;
-import utils.Settings.Sprites;
+import javafx.scene.paint.Color;
 import utils.Settings.Window;
 
 /**
@@ -20,16 +14,18 @@ public class RenderSystem extends AbstractSystem
 {
 	/*----------------------------------------*/
 	
-	private GraphicsContext gctx;
+	private Camera camera;
 	private GameMap map;
+	private GraphicsContext gctx;
 	
 	/*----------------------------------------*/
 	
-	public RenderSystem(GraphicsContext _gctx)
+	public RenderSystem(Camera _camera)
 	{
 		super();
-		gctx = _gctx;
-		map = new GameMap(_gctx);
+		camera = _camera;
+		map = camera.getMap();
+		gctx = map.getGraphicsContext();
 	}
 
 	@Override
@@ -38,39 +34,36 @@ public class RenderSystem extends AbstractSystem
 		// Reset graphics context
 		gctx.clearRect(0, 0, gctx.getCanvas().getWidth(), gctx.getCanvas().getHeight());
 		
-		// Render map texture
-		map.renderMapLayer(map.getLayerTexture());
-		// Render map objects
-		map.renderMapLayer(map.getLayerObjects());
+		camera.render();
 		
-		// Render entities
-		entities = EntityManager.getEntitiesWithComponent(SpriteComponent.class);
-		for (AbstractEntity entity : entities)
-		{
-			MovementComponent movement = entity.getComponent(MovementComponent.class);
-			Point2D pos = movement.getPos();
-			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
-			AnimationComponent animation = entity.getComponent(AnimationComponent.class);
-			
-			Image spriteImage = sprite.getSpritesheet();
-			gctx.drawImage(
-					spriteImage, 
-					animation.getFrameIndex()*sprite.getSpriteWidth(), // src X
-					(movement.getNbDirection()*movement.getState() + movement.getDirection())*sprite.getSpriteHeight(), // src Y
-					Sprites.PLAYER_SIZE, // src W
-					Sprites.PLAYER_SIZE, // src H
-					pos.getX()*Window.CAMERA_SCALE, // dst X
-					pos.getY()*Window.CAMERA_SCALE, // dst Y
-					Sprites.PLAYER_SIZE*Window.CAMERA_SCALE, // dst H
-					Sprites.PLAYER_SIZE*Window.CAMERA_SCALE // dst W
-			);
+		gctx.setStroke(Color.BLACK);
+		gctx.strokeLine(Window.SCREEN_W/2, 0, Window.SCREEN_W/2, Window.SCREEN_H);
+		gctx.strokeLine(0, Window.SCREEN_H/2, Window.SCREEN_W, Window.SCREEN_H/2);
+		
+//		// Render entities
+//		entities = EntityManager.getEntitiesWithComponent(SpriteComponent.class);
+//		for (AbstractEntity entity : entities)
+//		{
+//			PositionComponent position = entity.getComponent(PositionComponent.class);
+//			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
 //			
-//
-//			// Reset component flag
-//			sprites.setFlag(FlagECS.STABLE);
-		}
+//			gctx.drawImage(
+//					sprite.getSpritesheet(), 
+//					sprite.getSpriteColIndex() * sprite.getSpriteWidth(), // src X
+//					sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), // src Y
+//					sprite.getSpriteWidth(), // src W
+//					sprite.getSpriteHeight(), // src H
+//					position.getX(), // dst X
+//					position.getY(), // dst Y
+//					sprite.getSpriteWidth(), // dst W
+//					sprite.getSpriteHeight() // dst H
+//			);
+//		}
 		
-		// Render map objects above
-		map.renderMapLayer(map.getLayerObjectsAbove());
+//		// Render map objects above
+//		map.renderMapLayer(map.getLayerObjectsAbove());
 	}
+	
+	/*----------------------------------------*/
+	
 }

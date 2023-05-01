@@ -1,5 +1,7 @@
 package game.graphics;
 
+import java.util.List;
+import game.ecs.entity.MapObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -7,7 +9,6 @@ import javafx.scene.image.WritableImage;
 import utils.CSVReader;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
-import utils.Settings.Window;
 
 /**
  *
@@ -23,6 +24,7 @@ public class GameMap
 	private Image[] tileset;
 	private int tileWidth;
 	private int tileHeight;
+	private List<MapObject> objects;
 	
 	/*----------------------------------------*/
 	
@@ -36,10 +38,10 @@ public class GameMap
 		mapTexture = CSVReader.readCSV(ResFiles.MAP_TEXTURE);
 		mapObjects = CSVReader.readCSV(ResFiles.MAP_OBJECTS);
 		mapObjectsAbove = CSVReader.readCSV(ResFiles.MAP_OBJECTS_ABOVE);
-		loadTileSet(ResFiles.MAP_TILESET, Sprites.TILE_SIZE, Sprites.TILE_SIZE);
+		loadTileset(ResFiles.MAP_TILESET, Sprites.TILE_SIZE, Sprites.TILE_SIZE);
 	}
 	
-	public void loadTileSet(String filename, int tileW, int tileH)
+	public void loadTileset(String filename, int tileW, int tileH)
 	{	
 		tileWidth = tileW;
 		tileHeight = tileH;
@@ -73,10 +75,10 @@ public class GameMap
 				{
 					gctx.drawImage(
 							getTile(layer[r][c]),
-							c*tileWidth*Window.CAMERA_SCALE, // dst X
-							r*tileHeight*Window.CAMERA_SCALE, // dst Y
-							tileWidth*Window.CAMERA_SCALE, // dst W
-							tileHeight*Window.CAMERA_SCALE // dst H
+							c*tileWidth, // dst X
+							r*tileHeight, // dst Y
+							tileWidth, // dst W
+							tileHeight // dst H
 					);
 				}
 			}
@@ -85,6 +87,8 @@ public class GameMap
 	
 	/*----------------------------------------*/
 	
+	public GraphicsContext getGraphicsContext() { return gctx; }
+	
 	public Image getTile(int index) { return tileset[index]; }
 	
 	public int[][] getLayerTexture() { return mapTexture; }
@@ -92,4 +96,13 @@ public class GameMap
 	public int[][] getLayerObjects() { return mapObjects; }
 	
 	public int[][] getLayerObjectsAbove() { return mapObjectsAbove; }
+	
+	public int getTileWidth() { return tileWidth; }
+
+	public int getTileHeight() { return tileHeight; }
+	
+	public int getRows() { return mapTexture.length; }
+	
+	public int getCols() { return mapTexture[0].length; }
+	
 }

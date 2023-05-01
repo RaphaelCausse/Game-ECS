@@ -7,6 +7,8 @@ import game.ecs.system.AnimationSystem;
 import game.ecs.system.KeyInputSystem;
 import game.ecs.system.MovementSystem;
 import game.ecs.system.RenderSystem;
+import game.graphics.Camera;
+import game.graphics.GameMap;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -25,7 +27,7 @@ public class SystemManager
      * Contructeur de la classe SystemManager.
      * @param scene
      */
-    public SystemManager(Scene scene, GraphicsContext gctx)
+    public SystemManager(Scene scene, Camera camera)
     {
     	systems = new ArrayList<AbstractSystem>();
     	
@@ -33,7 +35,7 @@ public class SystemManager
     	addSystem(new KeyInputSystem(scene));
     	addSystem(new MovementSystem());
     	addSystem(new AnimationSystem());
-    	addSystem(new RenderSystem(gctx));
+    	addSystem(new RenderSystem(camera));
     }
 
     /**

@@ -10,10 +10,12 @@ public class AnimationComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
 	
-	private int frameAnimCount;
-	private int frameUpdateValue;
+	private int animFrames;
+	private int framesBeforeUpdate;
 	private int frameCount;
-	private int frameIndex;
+	private int state;
+	private int direction;
+	private int nbDirections;
 	
 	/*----------------------------------------*/
 	
@@ -21,23 +23,32 @@ public class AnimationComponent extends AbstractComponent
 	 * Constructeur de la classe AnimationComponent.
 	 * @param _frameAnimPerSecond Nombre de frame de l'animation par seconde
 	 */
-	public AnimationComponent(int _frameAnimCount)
+	public AnimationComponent(int _animFrames, int _state, int _direction, int _nbDirections)
 	{
-		frameAnimCount = _frameAnimCount;
-		frameUpdateValue = Window.FPS / frameAnimCount; // Nombre de frame avant l'update de l'animation
+		animFrames = _animFrames;
+		framesBeforeUpdate = Window.FPS / animFrames;
 		frameCount = 0;
-		frameIndex = 0;
+		state = _state;
+		direction = _direction;
+		nbDirections = _nbDirections;
 	}
 	
 	/*----------------------------------------*/
 	
-	public int getFrameUpdateValue() { return frameUpdateValue; }
+	public int getFramesBeforeUpdate() { return framesBeforeUpdate; }
 	
 	public int getFrameCount() { return frameCount; }
 	
-	public int getFrameIndex() { return frameIndex; }
+	public int getState() { return state; }
+	
+	public int getDirection() { return direction; }
+	
+	public int getNbDirection() { return nbDirections; }
 	
 	public void setFrameCount(int _frameCount) { frameCount = _frameCount; }
 	
-	public void setFrameIndex(int _frameIndex) { frameIndex = _frameIndex; }
+	public void setState(int _state) { state = _state; }
+	
+	public void setDirection(int _direction) { direction = _direction; }
+	
 }

@@ -1,6 +1,7 @@
 package game.ecs.component;
 
 import javafx.scene.image.Image;
+import utils.Point2D;
 
 /**
  * Classe qui represente un composant de sprite.
@@ -15,6 +16,8 @@ public class SpriteComponent extends AbstractComponent
     public int cols;
     private int spriteWidth;
     private int spriteHeight;
+	private int spriteRowIndex;
+	private int spriteColIndex;
 	
 	/*----------------------------------------*/
 	
@@ -32,6 +35,8 @@ public class SpriteComponent extends AbstractComponent
     	spriteHeight = height;
     	rows = (int) spritesheet.getHeight() / spriteHeight;
         cols = (int) spritesheet.getWidth() / spriteWidth;
+		spriteRowIndex = 0;
+		spriteColIndex = 0;
 	}
 	
 	/*----------------------------------------*/
@@ -45,4 +50,14 @@ public class SpriteComponent extends AbstractComponent
     public int getSpriteWidth() { return spriteWidth; }
     
     public int getSpriteHeight() { return spriteHeight; }
+    
+	public int getSpriteRowIndex() { return spriteRowIndex; }
+	
+	public int getSpriteColIndex() { return spriteColIndex; }
+	
+	public Point2D getSpriteCenter() { return new Point2D(spriteWidth/2, spriteHeight/2); }
+	
+	public void setSpriteRowIndex(int _spriteRowIndex) { spriteRowIndex = _spriteRowIndex; }
+	
+	public void setSpriteColIndex(int _spriteColIndex) { spriteColIndex = _spriteColIndex; }
 }

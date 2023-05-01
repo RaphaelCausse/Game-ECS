@@ -72,17 +72,17 @@ public class KeyInputSystem extends AbstractSystem
 		for (AbstractEntity entity : entities)
 		{
 			// Update key input component
-			KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
-			Map<Integer, Boolean> inputMap = inputs.getInputMap();
+			KeyInputComponent input = entity.getComponent(KeyInputComponent.class);
+			Map<Integer, Boolean> inputMap = input.getInputMap();
 			
 			// Check if component needs to be update
-			MovementComponent movement = entity.getComponent(MovementComponent.class);
-			if (inputs.getFlag() == FlagECS.STABLE)
+			if (input.getFlag() == FlagECS.STABLE)
 			{
 				continue;
 			}
 			
-			// KEY PRESSED
+			MovementComponent movement = entity.getComponent(MovementComponent.class);
+			// Keys pressed
 			if (isPressed(KeyCode.Z))
 			{
 				inputMap.put(Movement.UP, true);
@@ -114,7 +114,7 @@ public class KeyInputSystem extends AbstractSystem
 				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 			
-			// KEY RELEASED
+			// Keys released
 			if (isReleased(KeyCode.Z))
 			{
 				inputMap.put(Movement.UP, false);
@@ -138,10 +138,12 @@ public class KeyInputSystem extends AbstractSystem
 			if (isReleased(KeyCode.E))
 			{
 				inputMap.put(Actions.ACTIVATE, false);
+				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 			if (isReleased(KeyCode.SPACE))
 			{
 				inputMap.put(Actions.ATTACK, false);
+				movement.setFlag(FlagECS.TO_UPDATE);
 			}
 		}
 	}

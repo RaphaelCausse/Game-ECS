@@ -77,7 +77,7 @@ public class Settings
 		public static final int WALK = 1;
 		public static final int ATTACK = 2;
 		// Speeds
-		public static final int PLAYER_SPEED = 2;
+		public static final int PLAYER_SPEED = 3;
 	}
 	
 	/**

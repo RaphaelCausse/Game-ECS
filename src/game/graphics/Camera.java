@@ -25,6 +25,11 @@ public class Camera
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructeur de la classe Camera.
+	 * @param _map
+	 * @param _followed
+	 */
 	public Camera(GameMap _map, Player _followed)
 	{
 		map = _map;
@@ -35,6 +40,9 @@ public class Camera
 		height = Window.SCREEN_H;
 	}
 	
+	/**
+	 * 
+	 */
 	public void updateOffset()
 	{
 		// X Offset 
@@ -65,27 +73,43 @@ public class Camera
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void render()
 	{		
 		updateOffset();
+		
 		// Render map
 		renderMapLayer(map.getLayerTexture());
 		renderMapLayer(map.getLayerObjects());
 		
-		// Render entities
+		// TODO Render map objects
+		
+		// Render entities and the followed entity
 		renderEntities();
-		// Render player
 		renderFollowed();
 		
+		// Render elements above all to create a depth illusion
 		renderMapLayer(map.getLayerObjectsAbove());
 	}
 	
+	/**
+	 * 
+	 * @param layer
+	 */
 	public void renderMapLayer(int[][] layer)
 	{
-		for (int row = 0; row < map.getRows(); row++)
-		{
-			for (int col = 0; col < map.getCols(); col++)
-			{
+		// Render tiles visible by the camera view
+		int startX = (int) Math.max(0, (followedPosition.getX() - width/2 - offset.getX()) / map.getTileWidth());
+	    int startY = (int) Math.max(0, (followedPosition.getY() - height/2 - offset.getY()) / map.getTileHeight());
+	    int endX = (int) Math.min(map.getCols(), (followedPosition.getX() + width/2 - offset.getX()) / map.getTileWidth() + 2);
+	    int endY = (int) Math.min(map.getRows(), (followedPosition.getY() + height/2 - offset.getY()) / map.getTileHeight() + 2);
+
+	    for (int row = startY; row < endY; row++)
+	    {
+	        for (int col = startX; col < endX; col++)
+	        {
 				if (layer[row][col] != -1)
 				{
 					int x = col * map.getTileWidth();
@@ -103,6 +127,9 @@ public class Camera
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void renderEntities()
 	{
 		List<AbstractEntity> entities = EntityManager.getEntitiesWithComponent(SpriteComponent.class);
@@ -145,6 +172,9 @@ public class Camera
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void renderFollowed()
 	{
 		SpriteComponent sprite = followed.getComponent(SpriteComponent.class);

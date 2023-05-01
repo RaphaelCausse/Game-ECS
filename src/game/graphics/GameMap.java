@@ -41,6 +41,12 @@ public class GameMap
 		loadTileset(ResFiles.MAP_TILESET, Sprites.TILE_SIZE, Sprites.TILE_SIZE);
 	}
 	
+	/**
+	 * 
+	 * @param filename
+	 * @param tileW
+	 * @param tileH
+	 */
 	public void loadTileset(String filename, int tileW, int tileH)
 	{	
 		tileWidth = tileW;
@@ -63,26 +69,6 @@ public class GameMap
                 tileset[row * cols + col] = tile;
             }
         }
-	}
-	
-	public void renderMapLayer(int[][] layer)
-	{
-		for (int r = 0; r < layer.length; r++)
-		{
-			for (int c = 0; c < layer[r].length; c++)
-			{
-				if (layer[r][c] != -1)
-				{
-					gctx.drawImage(
-							getTile(layer[r][c]),
-							c*tileWidth, // dst X
-							r*tileHeight, // dst Y
-							tileWidth, // dst W
-							tileHeight // dst H
-					);
-				}
-			}
-		}
 	}
 	
 	/*----------------------------------------*/

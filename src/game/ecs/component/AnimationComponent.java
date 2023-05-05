@@ -31,6 +31,7 @@ public class AnimationComponent extends AbstractComponent
 		state = _state;
 		direction = _direction;
 		nbDirections = _nbDirections;
+		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/*----------------------------------------*/

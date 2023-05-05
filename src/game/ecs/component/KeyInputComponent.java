@@ -30,6 +30,7 @@ public class KeyInputComponent extends AbstractComponent
 		inputMap.put(Movement.LEFT, false);
 		inputMap.put(Actions.ACTIVATE, false);
 		inputMap.put(Actions.ATTACK, false);
+		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/*----------------------------------------*/

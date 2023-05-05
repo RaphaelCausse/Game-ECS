@@ -37,6 +37,7 @@ public class SpriteComponent extends AbstractComponent
         cols = (int) spritesheet.getWidth() / spriteWidth;
 		spriteRowIndex = 0;
 		spriteColIndex = 0;
+		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/*----------------------------------------*/

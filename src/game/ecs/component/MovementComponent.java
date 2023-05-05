@@ -28,6 +28,7 @@ public class MovementComponent extends AbstractComponent
 		super();
 		velocity = _velocity;
 		updateMoveCount = 0;
+		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/**

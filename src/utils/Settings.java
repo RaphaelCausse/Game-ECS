@@ -77,7 +77,7 @@ public class Settings
 		public static final int WALK = 1;
 		public static final int ATTACK = 2;
 		// Speeds
-		public static final int PLAYER_SPEED = 3;
+		public static final int PLAYER_SPEED = 2;
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class Settings
 	{
 		// Spawn positions
 		public static final int PLAYER_SPAWN_X = 10;
-		public static final int PLAYER_SPAWN_Y = 1216;
+		public static final int PLAYER_SPAWN_Y = 1200;
 		public static final int BLACKSMITH_SPAWN_X = 224;
 		public static final int BLACKSMITH_SPAWN_Y = 1024;
 	}

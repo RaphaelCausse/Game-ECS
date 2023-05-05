@@ -22,6 +22,7 @@ public class PositionComponent extends AbstractComponent
 	public PositionComponent(int x, int y)
 	{
 		pos = new Point2D(x, y);
+		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	public void translateX(int dx)
@@ -52,4 +53,8 @@ public class PositionComponent extends AbstractComponent
 		pos.setX(x);
 		pos.setY(y);
 	}
+	
+	public void setX(int x) { pos.setX(x); }
+	
+	public void setY(int y) { pos.setY(y); }
 }

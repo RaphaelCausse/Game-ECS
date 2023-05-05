@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import game.ecs.system.AbstractSystem;
 import game.ecs.system.AnimationSystem;
+import game.ecs.system.CollisionSystem;
 import game.ecs.system.KeyInputSystem;
 import game.ecs.system.MovementSystem;
 import game.ecs.system.RenderSystem;
 import game.graphics.Camera;
-import game.graphics.GameMap;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Classe responsable de la gestion des sytemes.
@@ -34,6 +33,7 @@ public class SystemManager
     	// Order systems for execution
     	addSystem(new KeyInputSystem(scene));
     	addSystem(new MovementSystem());
+    	addSystem(new CollisionSystem(camera.getMap()));
     	addSystem(new AnimationSystem());
     	addSystem(new RenderSystem(camera));
     }

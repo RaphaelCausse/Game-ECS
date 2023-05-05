@@ -1,6 +1,7 @@
 package game.ecs.entity;
 
 import game.ecs.component.AnimationComponent;
+import game.ecs.component.ColliderComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
@@ -53,6 +54,14 @@ public class Player extends AbstractEntity
 		MovementComponent movement = new MovementComponent(velocity);
 		SpriteComponent sprite = new SpriteComponent(ResFiles.PLAYER_SPRITESHEET, Sprites.PLAYER_SIZE, Sprites.PLAYER_SIZE);
 		AnimationComponent animation = new AnimationComponent(animFrames, Movement.IDLE, Movement.DOWN, Movement.NB_DIRECTIONS);
+		ColliderComponent collider = new ColliderComponent(
+			x + Sprites.PLAYER_SIZE/4,
+			y + Sprites.PLAYER_SIZE/4,
+			Sprites.PLAYER_SIZE/2,
+			Sprites.PLAYER_SIZE/2,
+			Sprites.PLAYER_SIZE/4,
+			Sprites.PLAYER_SIZE/4
+		);
 		
 		// Add components to entity
 		addComponent(inputs);
@@ -60,6 +69,7 @@ public class Player extends AbstractEntity
 		addComponent(movement);
 		addComponent(sprite);
 		addComponent(animation);
+		addComponent(collider);
 	}
 	
 	/*----------------------------------------*/

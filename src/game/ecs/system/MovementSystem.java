@@ -2,6 +2,7 @@ package game.ecs.system;
 
 import game.ecs.EntityManager;
 import game.ecs.component.AnimationComponent;
+import game.ecs.component.ColliderComponent;
 import game.ecs.component.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
@@ -39,11 +40,14 @@ public class MovementSystem extends AbstractSystem
 				continue;
 			}
 			
+			// Get required components
+			PositionComponent position = entity.getComponent(PositionComponent.class);
+			ColliderComponent collider = entity.getComponent(ColliderComponent.class);
+			
 			// Update for entities with movements based on inputs
-			if (entity.hasComponent(KeyInputComponent.class)) 
+			if (entity.hasComponent(KeyInputComponent.class))
 			{
 				KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
-				PositionComponent position = entity.getComponent(PositionComponent.class);
 				AnimationComponent animation = entity.getComponent(AnimationComponent.class);
 				
 				// Keys pressed
@@ -51,9 +55,10 @@ public class MovementSystem extends AbstractSystem
 				if (inputs.getInput(Movement.UP) == true)
 				{
 					keyPressed++;
-					position.translateY((-1) * movement.getVelocity());
+					position.translateY(-movement.getVelocity());
 					animation.setDirection(Movement.UP);
 					animation.setState(Movement.WALK);
+					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				if (inputs.getInput(Movement.DOWN) == true)
 				{
@@ -61,6 +66,7 @@ public class MovementSystem extends AbstractSystem
 					position.translateY(movement.getVelocity());
 					animation.setDirection(Movement.DOWN);
 					animation.setState(Movement.WALK);
+					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				if (inputs.getInput(Movement.RIGHT) == true)
 				{
@@ -68,18 +74,21 @@ public class MovementSystem extends AbstractSystem
 					position.translateX(movement.getVelocity());
 					animation.setDirection(Movement.RIGHT);
 					animation.setState(Movement.WALK);
+					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				if (inputs.getInput(Movement.LEFT) == true)
 				{
 					keyPressed++;
-					position.translateX((-1) * movement.getVelocity());
+					position.translateX(-movement.getVelocity());
 					animation.setDirection(Movement.LEFT);
 					animation.setState(Movement.WALK);
+					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				if (inputs.getInput(Actions.ATTACK) == true)
 				{
 					keyPressed++;
 					animation.setState(Movement.ATTACK);
+					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				
 				// Keys released
@@ -88,7 +97,7 @@ public class MovementSystem extends AbstractSystem
 					animation.setState(Movement.IDLE);
 				}
 				
-				// Update components flag
+				// Restore stable flag
 				movement.setFlag(FlagECS.STABLE);
 			}
 			
@@ -96,6 +105,7 @@ public class MovementSystem extends AbstractSystem
 			else
 			{
 				movement.moveRandom(entity);
+				collider.setFlag(FlagECS.TO_UPDATE);
 			}
 		}
 	}

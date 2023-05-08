@@ -19,23 +19,23 @@ public class PositionComponent extends AbstractComponent
 	 * @param x
 	 * @param y
 	 */
-	public PositionComponent(int x, int y)
+	public PositionComponent(double x, double y)
 	{
 		pos = new Point2D(x, y);
 		setFlag(FlagECS.TO_UPDATE);
 	}
 	
-	public void translateX(int dx)
+	public void translateX(double dx)
 	{
 		pos.translateX(dx); 
 	}
 	
-	public void translateY(int dy)
+	public void translateY(double dy)
 	{ 
 		pos.translateY(dy);
 	}
 
-	public void translate(int dx, int dy)
+	public void translate(double dx, double dy)
 	{
 		pos.translateX(dx);
 		pos.translateY(dy);
@@ -44,17 +44,17 @@ public class PositionComponent extends AbstractComponent
 	/*----------------------------------------*/
 	public Point2D getPos() { return pos; }
 	
-	public int getX() { return pos.getX(); }
+	public double getX() { return pos.getX(); }
 
-	public int getY() { return pos.getY(); }
+	public double getY() { return pos.getY(); }
 	
-	public void setPos(int x, int y)
+	public void setPos(double x, double y)
 	{ 
 		pos.setX(x);
 		pos.setY(y);
 	}
 	
-	public void setX(int x) { pos.setX(x); }
+	public void setX(double x) { pos.setX(x); }
 	
-	public void setY(int y) { pos.setY(y); }
+	public void setY(double y) { pos.setY(y); }
 }

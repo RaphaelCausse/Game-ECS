@@ -1,12 +1,11 @@
 package game.ecs.system;
 
-import game.ecs.EntityManager;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.FlagECS;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
-import game.graphics.Camera;
+import game.ecs.entity.EntityManager;
 import game.graphics.GameMap;
 
 /**
@@ -47,7 +46,7 @@ public class CollisionSystem extends AbstractSystem
 			PositionComponent position = entity.getComponent(PositionComponent.class);
 			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
 			
-			// Handle map borders
+			// Check map borders collisions
 			if (position.getX() <= -collider.getOffset().getX())
 			{
 				position.setX(-collider.getOffset().getX());
@@ -56,20 +55,20 @@ public class CollisionSystem extends AbstractSystem
 			{
 				position.setY(-collider.getOffset().getY());
 			}
-			// TODO
-//			if (position.getX() + collider.getBounds().getWidth() >= map.getCols() * map.getTileWidth())
-//			{
-//				position.setX((map.getCols() * map.getTileWidth()) - (int)collider.getBounds().getWidth() + collider.getOffset().getX());
-//			}
-//			if (position.getY() + collider.getBounds().getHeight() >= map.getRows() * map.getTileHeight())
-//			{
-//				position.setY((map.getRows() * map.getTileHeight()) - (int)collider.getBounds().getHeight() + collider.getOffset().getY());
-//			}
-				
-			// Update collider component
-			collider.updateCollider(position);
+			if (position.getX() + sprite.getSpriteWidth() - collider.getOffset().getX() >= map.getCols() * map.getTileWidth())
+			{
+				position.setX((map.getCols() * map.getTileWidth()) - ((int)collider.getBounds().getWidth() + collider.getOffset().getX()));
+			}
+			if (position.getY() + sprite.getSpriteHeight() - collider.getOffset().getY() >= map.getRows() * map.getTileHeight())
+			{
+				position.setY((map.getRows() * map.getTileHeight()) - ((int)collider.getBounds().getHeight() + collider.getOffset().getY()));
+			}
+
+			// Check collisions with other entity nearby and map objects
 			
-			// TODO check collision with other entity nearby
+			
+			// Update collider bounds to follow new position
+			collider.updateBounds(position);
 			
 			// Restore stable flag
 			collider.setFlag(FlagECS.STABLE);

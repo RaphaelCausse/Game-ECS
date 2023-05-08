@@ -1,6 +1,5 @@
 package game.ecs.system;
 
-import game.ecs.EntityManager;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.FlagECS;
@@ -8,6 +7,7 @@ import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.EntityManager;
 import utils.Settings.Actions;
 import utils.Settings.Movement;
 

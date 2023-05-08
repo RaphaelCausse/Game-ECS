@@ -4,20 +4,15 @@ public class Point2D
 {
 	/*----------------------------------------*/
 	
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	
 	/*----------------------------------------*/
 	
-	public Point2D(int _x, int _y)
+	public Point2D(double _x, double _y)
 	{
 		x = _x;
 		y = _y;
-	}
-	
-	public Point2D()
-	{
-		this(0, 0);
 	}
 
 	@Override
@@ -36,15 +31,15 @@ public class Point2D
 	
 	/*----------------------------------------*/
 	
-	public int getX() { return x; }
+	public double getX() { return x; }
 
-    public int getY() { return y; }
+    public double getY() { return y; }
     
-    public void setX(int _x) { x = _x; }
+    public void setX(double _x) { x = _x; }
     
-    public void setY(int _y) { y = _y; }
+    public void setY(double _y) { y = _y; }
     
-    public void translateX(int dx) { x += dx; }
+    public void translateX(double dx) { x += dx; }
     
-    public void translateY(int dy) { y += dy; }
+    public void translateY(double dy) { y += dy; }
 }

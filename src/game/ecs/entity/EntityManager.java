@@ -1,4 +1,4 @@
-package game.ecs;
+package game.ecs.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import game.ecs.component.AbstractComponent;
-import game.ecs.entity.AbstractEntity;
 
 /**
  * Classe responsable de la gestion des entites.

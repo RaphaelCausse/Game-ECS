@@ -13,7 +13,7 @@ public class MovementComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
 	
-	private int velocity;
+	private double velocity;
 	private int previousRandomMove;
 	private int updateMoveCount;
 	
@@ -23,7 +23,7 @@ public class MovementComponent extends AbstractComponent
 	 * Constructeur de la classe MovementComponent.
 	 * @param _velocity Vitesse de deplacement
 	 */
-	public MovementComponent(int _velocity)
+	public MovementComponent(double _velocity)
 	{
 		super();
 		velocity = _velocity;
@@ -87,8 +87,8 @@ public class MovementComponent extends AbstractComponent
 	
 	/*----------------------------------------*/
 
-	public int getVelocity() { return velocity; }
+	public double getVelocity() { return velocity; }
 	
-	public void setVelocity(int _velocity) { velocity = _velocity; }
+	public void setVelocity(double _velocity) { velocity = _velocity; }
 	
 }

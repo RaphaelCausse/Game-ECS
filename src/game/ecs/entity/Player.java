@@ -31,7 +31,7 @@ public class Player extends AbstractEntity
 	 * @param velocity Vitesse de deplacement
 	 * @param animFrames Nombres de frames de l'animation
 	 */
-	public Player(int x, int y, int velocity, int animFrames)
+	public Player(int x, int y, double velocity, int animFrames)
 	{
 		super();
 		initialize(x, y, velocity, animFrames);
@@ -46,7 +46,7 @@ public class Player extends AbstractEntity
 	 * @param velocity Vitesse de deplacement
 	 * @param animFrames Nombres de frames de l'animation
 	 */
-	public void initialize(int x, int y, int velocity, int animFrames)
+	public void initialize(int x, int y, double velocity, int animFrames)
 	{
 		// Create components
 		KeyInputComponent inputs = new KeyInputComponent();

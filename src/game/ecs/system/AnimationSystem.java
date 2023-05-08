@@ -1,9 +1,9 @@
 package game.ecs.system;
 
-import game.ecs.EntityManager;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.EntityManager;
 
 /**
  * Classe responsable de la gestion des animations de sprite.

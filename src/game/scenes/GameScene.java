@@ -2,11 +2,12 @@ package game.scenes;
 
 import java.util.HashMap;
 import java.util.Map;
-import game.ecs.EntityManager;
-import game.ecs.SystemManager;
+
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.Blacksmith;
+import game.ecs.entity.EntityManager;
 import game.ecs.entity.Player;
+import game.ecs.system.SystemManager;
 import game.graphics.Camera;
 import game.graphics.GameMap;
 import javafx.scene.Group;

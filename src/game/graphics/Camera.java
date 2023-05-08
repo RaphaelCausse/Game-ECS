@@ -2,17 +2,20 @@ package game.graphics;
 
 import java.util.List;
 
-import game.ecs.EntityManager;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.EntityManager;
 import game.ecs.entity.Player;
 import javafx.scene.paint.Color;
 import utils.Point2D;
 import utils.Settings.Sprites;
 import utils.Settings.Window;
 
+/**
+ * Classe qui represente une camera permettant l'affichage du jeu a travers sa vue.
+ */
 public class Camera
 {
 	/*----------------------------------------*/
@@ -42,7 +45,7 @@ public class Camera
 	}
 	
 	/**
-	 * 
+	 * Mettre a jour l'offset de la camera.
 	 */
 	public void updateOffset()
 	{
@@ -75,7 +78,7 @@ public class Camera
 	}
 	
 	/**
-	 * 
+	 * Afficher les elements graphiques visible par la camera.
 	 */
 	public void render()
 	{		
@@ -96,8 +99,8 @@ public class Camera
 	}
 	
 	/**
-	 * 
-	 * @param layer
+	 * Afficher une couche de la map visible par la camera.
+	 * @param layer Couche de la map
 	 */
 	public void renderMapLayer(int[][] layer)
 	{
@@ -123,13 +126,21 @@ public class Camera
 						map.getTileWidth(), // dst W
 						map.getTileWidth() // dst H
 					);
+					// TMP draw borders
+					map.getGraphicsContext().setStroke(Color.GREEN);
+					map.getGraphicsContext().strokeRect(
+						x - followedPosition.getX() + followed.cameraX + offset.getX(),
+						y - followedPosition.getY() + followed.cameraY + offset.getY(),
+						map.getTileWidth(),
+						map.getTileWidth()
+					);
 				}
 			}
 		}
 	}
 	
 	/**
-	 * 
+	 * Afficher les entites visibles par la camera.
 	 */
 	public void renderEntities()
 	{
@@ -156,7 +167,7 @@ public class Camera
 				sprite.getSpriteHeight() // dst H
 			);
 			
-			// TMP draw borders and top left corner, collider bounds
+			// TMP draw borders and collider bounds
 //			map.getGraphicsContext().setStroke(Color.RED);
 //			map.getGraphicsContext().strokeRect(
 //				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
@@ -175,7 +186,7 @@ public class Camera
 	}
 	
 	/**
-	 * 
+	 * Afficher l'entite que la camera suit.
 	 */
 	public void renderFollowed()
 	{
@@ -194,7 +205,7 @@ public class Camera
 			sprite.getSpriteHeight() // dst H
 		);
 		
-		// TMP draw borders and top left corner, collider bounds
+		// TMP draw borders and collider bounds
 //		map.getGraphicsContext().setStroke(Color.RED);
 //		map.getGraphicsContext().strokeRect(
 //			followed.cameraX + offset.getX(),

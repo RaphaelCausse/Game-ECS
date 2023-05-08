@@ -1,5 +1,9 @@
 package game.ecs.component;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import game.ecs.entity.AbstractEntity;
 import javafx.geometry.BoundingBox;
 import utils.Point2D;
 
@@ -13,6 +17,7 @@ public class ColliderComponent extends AbstractComponent
 	
 	private BoundingBox bounds;
 	private Point2D offset;
+	private List<AbstractEntity> nearbyEntities;
 	
 	/*----------------------------------------*/
 	
@@ -28,21 +33,22 @@ public class ColliderComponent extends AbstractComponent
 		bounds = new BoundingBox(x + ox, y + ox, width, height);
 		offset = new Point2D(ox, oy);
 		setFlag(FlagECS.TO_UPDATE);
+		nearbyEntities = new ArrayList<AbstractEntity>();
 	}
 	
-	public BoundingBox getUpdatedBounds(PositionComponent position)
+	public void updateNearbyEntities()
 	{
-		return new BoundingBox(
+		
+	}
+	
+	public void updateBounds(PositionComponent position)
+	{
+		bounds = new BoundingBox(
 			position.getX() + offset.getX(),
 			position.getY() + offset.getY(),
 			bounds.getWidth(),
 			bounds.getHeight()
 		);
-	}
-	
-	public void updateCollider(PositionComponent position)
-	{
-		bounds = getUpdatedBounds(position);
 	}
 	
 	/*----------------------------------------*/

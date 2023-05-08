@@ -1,13 +1,8 @@
-package game.ecs;
+package game.ecs.system;
 
 import java.util.ArrayList;
 import java.util.List;
-import game.ecs.system.AbstractSystem;
-import game.ecs.system.AnimationSystem;
-import game.ecs.system.CollisionSystem;
-import game.ecs.system.KeyInputSystem;
-import game.ecs.system.MovementSystem;
-import game.ecs.system.RenderSystem;
+
 import game.graphics.Camera;
 import javafx.scene.Scene;
 

@@ -1,11 +1,12 @@
 package game.ecs.system;
 
 import java.util.Map;
-import game.ecs.EntityManager;
+
 import game.ecs.component.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.EntityManager;
 import game.scenes.GameScene;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

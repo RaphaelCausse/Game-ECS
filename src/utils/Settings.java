@@ -16,8 +16,6 @@ public class Settings
 		// Framerate settings
 		public static final int FPS = 60;
 		public static final Duration FRAME_TIME = Duration.millis(1000/FPS);
-		// Camera
-		public static final int CAMERA_SCALE = 2;
 	}
 	
 	/**
@@ -96,7 +94,7 @@ public class Settings
 	{
 		// Spawn positions
 		public static final int PLAYER_SPAWN_X = 10;
-		public static final int PLAYER_SPAWN_Y = 1200;
+		public static final int PLAYER_SPAWN_Y = 1184;
 		public static final int BLACKSMITH_SPAWN_X = 224;
 		public static final int BLACKSMITH_SPAWN_Y = 1024;
 	}

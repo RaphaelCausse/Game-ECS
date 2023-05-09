@@ -36,9 +36,9 @@ public class ColliderComponent extends AbstractComponent
 	 */
 	public ColliderComponent(int x, int y, int width, int height, int ox, int oy)
 	{
-		bounds = new BoundingBox(x + ox, y + ox, width, height);
+		bounds = new BoundingBox(x + ox, y + oy, width, height);
 		offset = new Point2D(ox, oy);
-		detection = new BoundingBox(x - width, y - height, 4 * width, 4 * height);
+		detection = new BoundingBox(x + ox - (2 * width), y + oy - (2 * height), 5 * width, 5 * height);
 		nearbyEntities = new ArrayList<AbstractEntity>();
 		setFlag(FlagECS.TO_UPDATE);
 	}
@@ -64,8 +64,8 @@ public class ColliderComponent extends AbstractComponent
 	public void updateDetectionBounds(PositionComponent position)
 	{
 		detection = new BoundingBox(
-			position.getX() - bounds.getWidth(),
-			position.getY() - bounds.getHeight(),
+			position.getX() + offset.getX() - (2 * bounds.getWidth()),
+			position.getY() + offset.getY() - (2 * bounds.getHeight()),
 			detection.getWidth(),
 			detection.getHeight()
 		);
@@ -108,6 +108,7 @@ public class ColliderComponent extends AbstractComponent
 				nearbyEntities.add(otherEntity);
 			}
 		}
+		System.out.println("Nearby entities : " + nearbyEntities.size());
 	}
 	
 	/*----------------------------------------*/

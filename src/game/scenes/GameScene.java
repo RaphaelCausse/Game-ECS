@@ -74,7 +74,7 @@ public class GameScene extends AbstractScene
 			Sprites.ANIM_FRAMES
 		);
 		
-		// Game map and camera
+		// Create Game map and Camera
 		GameMap map = new GameMap(gctx);
 		Camera camera = new Camera(map, (Player) player);
 		

@@ -19,7 +19,7 @@ public class Player extends AbstractEntity
 {
 	/*----------------------------------------*/
 	
-	public int cameraX ;
+	public int cameraX;
 	public int cameraY;
 	
 	/*----------------------------------------*/
@@ -31,7 +31,7 @@ public class Player extends AbstractEntity
 	 * @param velocity Vitesse de deplacement
 	 * @param animFrames Nombres de frames de l'animation
 	 */
-	public Player(int x, int y, double velocity, int animFrames)
+	public Player(int x, int y, int velocity, int animFrames)
 	{
 		super();
 		initialize(x, y, velocity, animFrames);
@@ -51,9 +51,9 @@ public class Player extends AbstractEntity
 		// Create components
 		KeyInputComponent inputs = new KeyInputComponent();
 		PositionComponent position = new PositionComponent(x, y);
-		MovementComponent movement = new MovementComponent(velocity);
+		MovementComponent movement = new MovementComponent(velocity, Movement.DOWN);
 		SpriteComponent sprite = new SpriteComponent(ResFiles.PLAYER_SPRITESHEET, Sprites.PLAYER_SIZE, Sprites.PLAYER_SIZE);
-		AnimationComponent animation = new AnimationComponent(animFrames, Movement.IDLE, Movement.DOWN, Movement.NB_DIRECTIONS);
+		AnimationComponent animation = new AnimationComponent(animFrames, Movement.IDLE, Movement.NB_DIRECTIONS);
 		ColliderComponent collider = new ColliderComponent(
 			x + Sprites.PLAYER_SIZE/4,
 			y + Sprites.PLAYER_SIZE/4,

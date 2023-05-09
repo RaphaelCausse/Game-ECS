@@ -28,7 +28,7 @@ public abstract class AbstractScene extends Scene
 	}
 	
 	/**
-	 * Mettre a jour la scene et tout ses elements.
+	 * Mettre a jour la scene et tous ses elements.
 	 */
 	public abstract void update();
 	

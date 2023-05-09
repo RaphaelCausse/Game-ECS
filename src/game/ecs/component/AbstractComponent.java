@@ -1,5 +1,7 @@
 package game.ecs.component;
 
+import game.ecs.FlagECS;
+
 /**
  * Classe abstraire qui represente un composant des entites.
  */

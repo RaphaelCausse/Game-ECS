@@ -1,8 +1,8 @@
 package game.ecs.system;
 
+import game.ecs.FlagECS;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
-import game.ecs.component.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
@@ -52,35 +52,37 @@ public class MovementSystem extends AbstractSystem
 				
 				// Keys pressed
 				int keyPressed = 0;
+				double dx = 0;
+				double dy = 0;
 				if (inputs.getInput(Movement.UP) == true)
 				{
 					keyPressed++;
-					position.translateY(-movement.getVelocity());
-					animation.setDirection(Movement.UP);
+					dy = -1;
+					movement.setDirection(Movement.UP);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				if (inputs.getInput(Movement.DOWN) == true)
 				{
 					keyPressed++;
-					position.translateY(movement.getVelocity());
-					animation.setDirection(Movement.DOWN);
+					dy = 1;
+					movement.setDirection(Movement.DOWN);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				if (inputs.getInput(Movement.RIGHT) == true)
 				{
 					keyPressed++;
-					position.translateX(movement.getVelocity());
-					animation.setDirection(Movement.RIGHT);
+					dx = 1;
+					movement.setDirection(Movement.RIGHT);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);
 				}
 				if (inputs.getInput(Movement.LEFT) == true)
 				{
 					keyPressed++;
-					position.translateX(-movement.getVelocity());
-					animation.setDirection(Movement.LEFT);
+					dx = -1;
+					movement.setDirection(Movement.LEFT);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);
 				}
@@ -90,6 +92,14 @@ public class MovementSystem extends AbstractSystem
 					animation.setState(Movement.ATTACK);
 					collider.setFlag(FlagECS.TO_UPDATE);
 				}
+				// Normalize diagonal vector
+				if (dx != 0 && dy != 0)
+				{
+					dx /= 1.41;
+					dy /= 1.41;
+				}
+				// New position by adding normalized velocity
+				position.translate(dx * movement.getVelocity(), dy * movement.getVelocity());
 				
 				// Keys released
 				if (keyPressed == 0)
@@ -102,11 +112,11 @@ public class MovementSystem extends AbstractSystem
 			}
 			
 			// Update for entities that movement is not based on inputs
-			else
-			{
-				movement.moveRandom(entity);
-				collider.setFlag(FlagECS.TO_UPDATE);
-			}
+//			else
+//			{
+//				movement.moveRandom(entity);
+//				collider.setFlag(FlagECS.TO_UPDATE);
+//			}
 		}
 	}
 

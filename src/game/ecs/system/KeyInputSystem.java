@@ -2,7 +2,7 @@ package game.ecs.system;
 
 import java.util.Map;
 
-import game.ecs.component.FlagECS;
+import game.ecs.FlagECS;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.entity.AbstractEntity;

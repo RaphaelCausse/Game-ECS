@@ -1,5 +1,6 @@
 package game.ecs.component;
 
+import game.ecs.FlagECS;
 import utils.Settings.Window;
 
 /**
@@ -14,22 +15,22 @@ public class AnimationComponent extends AbstractComponent
 	private int framesBeforeUpdate;
 	private int frameCount;
 	private int state;
-	private int direction;
 	private int nbDirections;
 	
 	/*----------------------------------------*/
 	
 	/**
 	 * Constructeur de la classe AnimationComponent.
-	 * @param _frameAnimPerSecond Nombre de frame de l'animation par seconde
+	 * @param _animFrames
+	 * @param _state
+	 * @param _nbDirections
 	 */
-	public AnimationComponent(int _animFrames, int _state, int _direction, int _nbDirections)
+	public AnimationComponent(int _animFrames, int _state, int _nbDirections)
 	{
 		animFrames = _animFrames;
 		framesBeforeUpdate = Window.FPS / animFrames;
 		frameCount = 0;
 		state = _state;
-		direction = _direction;
 		nbDirections = _nbDirections;
 		setFlag(FlagECS.TO_UPDATE);
 	}
@@ -42,14 +43,10 @@ public class AnimationComponent extends AbstractComponent
 	
 	public int getState() { return state; }
 	
-	public int getDirection() { return direction; }
-	
 	public int getNbDirection() { return nbDirections; }
 	
 	public void setFrameCount(int _frameCount) { frameCount = _frameCount; }
 	
 	public void setState(int _state) { state = _state; }
-	
-	public void setDirection(int _direction) { direction = _direction; }
 	
 }

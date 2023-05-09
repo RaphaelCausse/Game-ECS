@@ -1,6 +1,8 @@
 package game.graphics;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import game.ecs.entity.MapObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,41 +13,42 @@ import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- *
+ * Classe qui represente la map de jeu.
  */
 public class GameMap
 {
 	/*----------------------------------------*/
 	
 	private GraphicsContext gctx;
-	private int[][] mapTexture;
-	private int[][] mapObjects;
-	private int[][] mapObjectsAbove;
 	private Image[] tileset;
+	private int[][] layerTexture;
+	private int[][] layerObjects;
+	private int[][] layerObjectsAbove;
 	private int tileWidth;
 	private int tileHeight;
-	private List<MapObject> objects;
+	private List<MapObject> mapObjects;
 	
 	/*----------------------------------------*/
 	
 	/**
 	 * Constructeur de la classe GameMap.
-	 * @param _gctx
+	 * @param _gctx Contexte graphique
 	 */
 	public GameMap(GraphicsContext _gctx)
 	{
 		gctx = _gctx;
-		mapTexture = CSVReader.readCSV(ResFiles.MAP_TEXTURE);
-		mapObjects = CSVReader.readCSV(ResFiles.MAP_OBJECTS);
-		mapObjectsAbove = CSVReader.readCSV(ResFiles.MAP_OBJECTS_ABOVE);
 		loadTileset(ResFiles.MAP_TILESET, Sprites.TILE_SIZE, Sprites.TILE_SIZE);
+		layerTexture = CSVReader.readCSV(ResFiles.MAP_TEXTURE);
+		layerObjects = CSVReader.readCSV(ResFiles.MAP_OBJECTS);
+		layerObjectsAbove = CSVReader.readCSV(ResFiles.MAP_OBJECTS_ABOVE);
+		createMapObjects();
 	}
 	
 	/**
-	 * 
-	 * @param filename
-	 * @param tileW
-	 * @param tileH
+	 * Chargement du tileset de la map.
+	 * @param filename Fichier image
+	 * @param tileW Largeur d'une tuile
+	 * @param tileH Hauteur d'une tuile
 	 */
 	public void loadTileset(String filename, int tileW, int tileH)
 	{	
@@ -71,24 +74,45 @@ public class GameMap
         }
 	}
 	
+	/**
+	 * Creation des objets de la map.
+	 */
+	public void createMapObjects()
+	{
+		mapObjects = new ArrayList<MapObject>();
+		for (int row = 0; row < getRows(); row++)
+		{
+			for (int col = 0; col < getCols(); col++)
+			{
+				if (layerObjects[row][col] == -1)
+				{
+					continue;
+				}
+				MapObject newMapObject = new MapObject(col * getTileWidth(), row * getTileHeight(), layerObjects[row][col]);
+				mapObjects.add(newMapObject);
+			}
+		}
+	}
+	
 	/*----------------------------------------*/
 	
 	public GraphicsContext getGraphicsContext() { return gctx; }
 	
 	public Image getTile(int index) { return tileset[index]; }
 	
-	public int[][] getLayerTexture() { return mapTexture; }
+	public int[][] getLayerTexture() { return layerTexture; }
 	
-	public int[][] getLayerObjects() { return mapObjects; }
+	public int getRows() { return layerTexture.length; }
 	
-	public int[][] getLayerObjectsAbove() { return mapObjectsAbove; }
+	public int getCols() { return layerTexture[0].length; }
+	
+	public int[][] getLayerObjects() { return layerObjects; }
+	
+	public int[][] getLayerObjectsAbove() { return layerObjectsAbove; }
 	
 	public int getTileWidth() { return tileWidth; }
 
 	public int getTileHeight() { return tileHeight; }
 	
-	public int getRows() { return mapTexture.length; }
-	
-	public int getCols() { return mapTexture[0].length; }
-	
+	public List<MapObject> getMapObjects() { return mapObjects; }
 }

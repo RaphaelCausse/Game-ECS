@@ -1,5 +1,6 @@
 package game.ecs.component;
 
+import game.ecs.FlagECS;
 import utils.Point2D;
 
 /**

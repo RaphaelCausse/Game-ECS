@@ -2,6 +2,8 @@ package game.ecs.component;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import game.ecs.FlagECS;
 import utils.Settings.Actions;
 import utils.Settings.Movement;
 

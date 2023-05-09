@@ -1,5 +1,6 @@
 package game.ecs.component;
 
+import game.ecs.FlagECS;
 import javafx.scene.image.Image;
 import utils.Point2D;
 

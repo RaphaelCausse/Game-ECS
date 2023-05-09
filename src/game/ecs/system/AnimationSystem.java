@@ -1,6 +1,7 @@
 package game.ecs.system;
 
 import game.ecs.component.AnimationComponent;
+import game.ecs.component.MovementComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
@@ -28,6 +29,7 @@ public class AnimationSystem extends AbstractSystem
 		for (AbstractEntity entity : entities)
 		{
 			// Get required components
+			MovementComponent movement = entity.getComponent(MovementComponent.class);
 			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
 			AnimationComponent animation = entity.getComponent(AnimationComponent.class);
 			
@@ -37,8 +39,9 @@ public class AnimationSystem extends AbstractSystem
 			{
 				animation.setFrameCount(0);
 				// Update sprite indexes in the spritesheet
+				int direction = (movement == null) ? 0 : movement.getDirection();
 				sprite.setSpriteColIndex((sprite.getSpriteColIndex() + 1) % sprite.getCols());
-				sprite.setSpriteRowIndex(animation.getNbDirection() * animation.getState() + animation.getDirection());
+				sprite.setSpriteRowIndex(animation.getNbDirection() * animation.getState() + direction);
 			}
 		}
 	}

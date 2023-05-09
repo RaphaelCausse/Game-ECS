@@ -1,4 +1,4 @@
-package game.ecs.component;
+package game.ecs;
 
 /**
  * Flag pour signaler si le composant doit etre mise a jour.

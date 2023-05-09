@@ -1,7 +1,7 @@
 package game.ecs.system;
 
+import game.ecs.FlagECS;
 import game.ecs.component.ColliderComponent;
-import game.ecs.component.FlagECS;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
@@ -64,8 +64,18 @@ public class CollisionSystem extends AbstractSystem
 				position.setY((map.getRows() * map.getTileHeight()) - ((int)collider.getBounds().getHeight() + collider.getOffset().getY()));
 			}
 
-			// Check collisions with other entity nearby and map objects
+			// Get nearby entities and map object within entity detection bounds
+			collider.updateNearbyEntities(map, entity);
 			
+			// Check collisions with other nearby entities and map objects
+			for (AbstractEntity nearbyEntity : collider.getNearbyEntities())
+			{
+				ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
+				if (collider.getBounds().intersects(nearbyCollider.getBounds()))
+				{
+					System.out.println("Collision detected : " + entity.getUID() + " and " + nearbyEntity.getUID());
+				}
+			}
 			
 			// Update collider bounds to follow new position
 			collider.updateBounds(position);

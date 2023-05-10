@@ -20,16 +20,17 @@ public class Blacksmith extends AbstractEntity
 	
 	public void initialize(int x, int y, int animFrames)
 	{
-		// Init components
+		// Create and add components
 		PositionComponent position = new PositionComponent(x, y);
-		SpriteComponent sprite = new SpriteComponent(ResFiles.BLACKSMITH_SPRITESHEET, Sprites.SPRITE_SIZE, Sprites.SPRITE_SIZE);
-		AnimationComponent animation = new AnimationComponent(Sprites.ANIM_FRAMES/2, Movement.IDLE, 1);
-		ColliderComponent collider = new ColliderComponent(x, y, Sprites.SPRITE_SIZE, Sprites.SPRITE_SIZE, 0, 0);
-		
-		// Add components
 		addComponent(position);
+
+		SpriteComponent sprite = new SpriteComponent(ResFiles.BLACKSMITH_SPRITESHEET, Sprites.SPRITE_SIZE, Sprites.SPRITE_SIZE);
 		addComponent(sprite);
+
+		AnimationComponent animation = new AnimationComponent(Sprites.ANIM_FRAMES/2, Movement.IDLE, 1);
 		addComponent(animation);
+		
+		ColliderComponent collider = new ColliderComponent(x, y, Sprites.SPRITE_SIZE, Sprites.SPRITE_SIZE, 0, 0);
 		addComponent(collider);
 	}
 	

@@ -48,27 +48,30 @@ public class Player extends AbstractEntity
 	 */
 	public void initialize(int x, int y, double velocity, int animFrames)
 	{
-		// Create components
+		// Create and add components
 		KeyInputComponent inputs = new KeyInputComponent();
-		PositionComponent position = new PositionComponent(x, y);
-		MovementComponent movement = new MovementComponent(velocity, Movement.DOWN);
-		SpriteComponent sprite = new SpriteComponent(ResFiles.PLAYER_SPRITESHEET, Sprites.PLAYER_SIZE, Sprites.PLAYER_SIZE);
-		AnimationComponent animation = new AnimationComponent(animFrames, Movement.IDLE, Movement.NB_DIRECTIONS);
-		ColliderComponent collider = new ColliderComponent(
-			x + Sprites.PLAYER_SIZE/4,
-			y + Sprites.PLAYER_SIZE/4,
-			Sprites.PLAYER_SIZE/2,
-			Sprites.PLAYER_SIZE/2,
-			Sprites.PLAYER_SIZE/4,
-			Sprites.PLAYER_SIZE/4
-		);
-		
-		// Add components to entity
 		addComponent(inputs);
+
+		PositionComponent position = new PositionComponent(x, y);
 		addComponent(position);
+
+		MovementComponent movement = new MovementComponent(velocity, Movement.DOWN);
 		addComponent(movement);
+
+		SpriteComponent sprite = new SpriteComponent(ResFiles.PLAYER_SPRITESHEET, Sprites.PLAYER_SIZE, Sprites.PLAYER_SIZE);
 		addComponent(sprite);
+
+		AnimationComponent animation = new AnimationComponent(animFrames, Movement.IDLE, Movement.NB_DIRECTIONS);
 		addComponent(animation);
+
+		ColliderComponent collider = new ColliderComponent(
+			x + Sprites.PLAYER_SIZE/2,	// x
+			y + Sprites.PLAYER_SIZE/2,	// y
+			Sprites.PLAYER_SIZE/3,		// w
+			Sprites.PLAYER_SIZE/4,		// h
+			Sprites.PLAYER_SIZE/3,		// ox
+			Sprites.PLAYER_SIZE/2		// oy
+		);
 		addComponent(collider);
 	}
 	

@@ -59,7 +59,7 @@ public class CollisionSystem extends AbstractSystem
 			{
 				position.setX((map.getCols() * map.getTileWidth()) - ((int)collider.getBounds().getWidth() + collider.getOffset().getX()));
 			}
-			if (position.getY() + sprite.getSpriteHeight() - collider.getOffset().getY() >= map.getRows() * map.getTileHeight())
+			if (position.getY() + sprite.getSpriteHeight() - collider.getOffset().getY() + collider.getBounds().getHeight() >= map.getRows() * map.getTileHeight())
 			{
 				position.setY((map.getRows() * map.getTileHeight()) - ((int)collider.getBounds().getHeight() + collider.getOffset().getY()));
 			}
@@ -73,7 +73,13 @@ public class CollisionSystem extends AbstractSystem
 				ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
 				if (collider.getBounds().intersects(nearbyCollider.getBounds()))
 				{
+					// TMP 
 					System.out.println("Collision detected : " + entity.getUID() + " and " + nearbyEntity.getUID());
+					
+					// Compute the collision resolver vector
+					
+		            // Correct position
+					
 				}
 			}
 			

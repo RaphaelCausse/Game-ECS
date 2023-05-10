@@ -131,11 +131,11 @@ public class Camera
 					int y = row * map.getTileHeight();
 
 					map.getGraphicsContext().drawImage(
-						map.getTile(layer[row][col]),
+						map.getTile(layer[row][col]), 	// image
 						x - followedPosition.getX() + followed.cameraX + offset.getX(), // dst X
 						y - followedPosition.getY() + followed.cameraY + offset.getY(), // dst Y
-						map.getTileWidth(), // dst W
-						map.getTileWidth() // dst H
+						map.getTileWidth(), 	// dst W
+						map.getTileWidth() 		// dst H
 					);
 					// TMP draw borders
 //					map.getGraphicsContext().setStroke(Color.GREEN);
@@ -173,20 +173,23 @@ public class Camera
 			
 			// Render object
 			map.getGraphicsContext().drawImage(
-				map.getTile(object.getImageIndex()), // image
+				map.getTile(object.getImageIndex()), 	// image
 				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(), // dst X
 				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(), // dst Y
-				map.getTileWidth(), // dst W
-				map.getTileWidth() // dst H
+				map.getTileWidth(), 	// dst W
+				map.getTileWidth() 		// dst H
 			);
 			// TMP draw collider bounds
-			map.getGraphicsContext().setStroke(Color.BLUE);
-			map.getGraphicsContext().strokeRect(
-				collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-				collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-				collider.getBounds().getWidth(),
-				collider.getBounds().getHeight()
-			);
+			if (collider != null)
+			{
+				map.getGraphicsContext().setStroke(Color.BLUE);
+				map.getGraphicsContext().strokeRect(
+					collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+					collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+					collider.getBounds().getWidth(),
+					collider.getBounds().getHeight()
+				);
+			}
 		}
 	}
 	
@@ -222,17 +225,17 @@ public class Camera
 			if (sprite != null)
 			{
 				map.getGraphicsContext().drawImage(
-					sprite.getSpritesheet(), // image
-					sprite.getSpriteColIndex() * sprite.getSpriteWidth(), // src X
-					sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), // src Y
-					sprite.getSpriteWidth(), // src W
-					sprite.getSpriteHeight(), // src H
+					sprite.getSpritesheet(), 	// image
+					sprite.getSpriteColIndex() * sprite.getSpriteWidth(), 	// src X
+					sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), 	// src Y
+					sprite.getSpriteWidth(), 	// src W
+					sprite.getSpriteHeight(),	// src H
 					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(), // dst X
 					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(), // dst Y
-					sprite.getSpriteWidth(), // dst W
-					sprite.getSpriteHeight() // dst H
+					sprite.getSpriteWidth(), 	// dst W
+					sprite.getSpriteHeight() 	// dst H
 				);
-				// TMP draw borders and collider bounds
+				// TMP draw borders
 //				map.getGraphicsContext().setStroke(Color.RED);
 //				map.getGraphicsContext().strokeRect(
 //					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
@@ -240,6 +243,7 @@ public class Camera
 //					sprite.getSpriteWidth(),
 //					sprite.getSpriteHeight()
 //				);
+				// TMP draw collider bounds
 				map.getGraphicsContext().setStroke(Color.BLUE);
 				map.getGraphicsContext().strokeRect(
 					collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
@@ -271,7 +275,7 @@ public class Camera
 			sprite.getSpriteHeight() // dst H
 		);
 		
-		// TMP draw borders and collider bounds
+		// TMP draw borders
 //		map.getGraphicsContext().setStroke(Color.RED);
 //		map.getGraphicsContext().strokeRect(
 //			followed.cameraX + offset.getX(),
@@ -279,6 +283,7 @@ public class Camera
 //			sprite.getSpriteWidth(),
 //			sprite.getSpriteHeight()
 //		);
+		// TMP draw collider bounds
 		map.getGraphicsContext().setStroke(Color.BLUE);
 		map.getGraphicsContext().strokeRect(
 			collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),

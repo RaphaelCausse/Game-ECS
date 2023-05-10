@@ -89,7 +89,7 @@ public class ColliderComponent extends AbstractComponent
 		{
 			ColliderComponent objectCollider = mapObject.getComponent(ColliderComponent.class);
 			
-			if (detection.intersects(objectCollider.getBounds()))
+			if (objectCollider != null && detection.intersects(objectCollider.getBounds()))
 			{
 				nearbyEntities.add(mapObject);
 			}
@@ -108,6 +108,8 @@ public class ColliderComponent extends AbstractComponent
 				nearbyEntities.add(otherEntity);
 			}
 		}
+		
+		// TMP 
 		System.out.println("Nearby entities : " + nearbyEntities.size());
 	}
 	
@@ -121,5 +123,5 @@ public class ColliderComponent extends AbstractComponent
 	
 	public List<AbstractEntity> getNearbyEntities() { return nearbyEntities; }
 	
-	public void setBounds(int x, int y, int w, int h) { bounds = new BoundingBox(x, y, w, h); }
+	public void setBounds(double x, double y, double w, double h) { bounds = new BoundingBox(x, y, w, h); }
 }

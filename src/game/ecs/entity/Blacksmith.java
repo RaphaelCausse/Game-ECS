@@ -30,7 +30,7 @@ public class Blacksmith extends AbstractEntity
 		AnimationComponent animation = new AnimationComponent(Sprites.ANIM_FRAMES/2, Movement.IDLE, 1);
 		addComponent(animation);
 		
-		ColliderComponent collider = new ColliderComponent(x, y, Sprites.SPRITE_SIZE, Sprites.SPRITE_SIZE, 0, 0);
+		ColliderComponent collider = new ColliderComponent(x, y, Sprites.SPRITE_SIZE, Sprites.SPRITE_SIZE, 0, 0, false);
 		addComponent(collider);
 	}
 	

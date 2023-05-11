@@ -61,37 +61,37 @@ public class MapObject extends AbstractEntity
 
 		if (patternLeft.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE, 0, 0);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE, 0, 0, false);
 			addComponent(collider);
 		}
 		else if (patternRight.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE, Sprites.TILE_SIZE/2, 0);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE, Sprites.TILE_SIZE/2, 0, false);
 			addComponent(collider);
 		}
 		else if (patternTop.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE/2, 0, 0);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE/2, 0, 0, false);
 			addComponent(collider);
 		}
 		else if (patternBottom.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE/2, 0, Sprites.TILE_SIZE/2);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE/2, 0, Sprites.TILE_SIZE/2, false);
 			addComponent(collider);
 		}
 		else if (patternTopLeft.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE/2, 0, 0);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE/2, 0, 0, false);
 			addComponent(collider);
 		}
 		else if (patternTopRight.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE/2, 0);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE/2, 0, false);
 			addComponent(collider);
 		}
 		else if (patternFull.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE, 0, 0);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE, 0, 0, false);
 			addComponent(collider);
 		}
 	}

@@ -2,12 +2,11 @@ package game.ecs.component;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import game.ecs.FlagECS;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.graphics.GameMap;
-import javafx.geometry.BoundingBox;
+import utils.CollisionBounds;
 import utils.Point2D;
 
 /**
@@ -18,10 +17,12 @@ public class ColliderComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
 	
-	private BoundingBox bounds;
-	private Point2D offset;
-	private BoundingBox detection;
+	private CollisionBounds bounds;
+	private CollisionBounds detection;
 	private List<AbstractEntity> nearbyEntities;
+	private Point2D offset;
+	private boolean isMoveable;
+	private boolean collides;
 	
 	/*----------------------------------------*/
 	
@@ -34,27 +35,26 @@ public class ColliderComponent extends AbstractComponent
 	 * @param ox Offset X 
 	 * @param oy Offset Y
 	 */
-	public ColliderComponent(int x, int y, int width, int height, int ox, int oy)
+	public ColliderComponent(int x, int y, int width, int height, int ox, int oy, boolean _isMoveable)
 	{
-		bounds = new BoundingBox(x + ox, y + oy, width, height);
-		offset = new Point2D(ox, oy);
-		detection = new BoundingBox(x + ox - (2 * width), y + oy - (2 * height), 5 * width, 5 * height);
+		bounds = new CollisionBounds(x + ox, y + oy, width, height);
+		detection = new CollisionBounds(x + ox - (2 * width), y + oy - (2 * height), 5 * width, 5 * height);
 		nearbyEntities = new ArrayList<AbstractEntity>();
+		offset = new Point2D(ox, oy);
+		isMoveable = _isMoveable;
+		collides = false;
 		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/**
-	 * Mettre a jour les bordures de collision.
+	 * Mettre a jour les bordures de collision par rapport a la position.
 	 * @param position Position a suivre
 	 */
 	public void updateBounds(PositionComponent position)
 	{
-		bounds = new BoundingBox(
-			position.getX() + offset.getX(),
-			position.getY() + offset.getY(),
-			bounds.getWidth(),
-			bounds.getHeight()
-		);
+		double x = position.getX() - bounds.getMinX() + offset.getX();
+		double y = position.getY() - bounds.getMinY() + offset.getY();
+		bounds.shift(x, y);
 	}
 	
 	/**
@@ -63,12 +63,9 @@ public class ColliderComponent extends AbstractComponent
 	 */
 	public void updateDetectionBounds(PositionComponent position)
 	{
-		detection = new BoundingBox(
-			position.getX() + offset.getX() - (2 * bounds.getWidth()),
-			position.getY() + offset.getY() - (2 * bounds.getHeight()),
-			detection.getWidth(),
-			detection.getHeight()
-		);
+		double x = position.getX() - detection.getMinX() + offset.getX() - (2 * bounds.getWidth());
+		double y = position.getY() - detection.getMinY() + offset.getY() - (2 * bounds.getHeight());
+		detection.shift(x, y);
 	}
 	
 	/**
@@ -82,9 +79,8 @@ public class ColliderComponent extends AbstractComponent
 		// Update detection bounds 
 		updateDetectionBounds(position);
 		
+		// Get nearby map object within detection bounds
 		nearbyEntities.clear();
-		
-		// Get nearby map object entities within detection bounds
 		for (AbstractEntity mapObject : map.getMapObjects())
 		{
 			ColliderComponent objectCollider = mapObject.getComponent(ColliderComponent.class);
@@ -108,20 +104,23 @@ public class ColliderComponent extends AbstractComponent
 				nearbyEntities.add(otherEntity);
 			}
 		}
-		
-		// TMP 
-		System.out.println("Nearby entities : " + nearbyEntities.size());
 	}
 	
 	/*----------------------------------------*/
 	
-	public BoundingBox getBounds() { return bounds; }
+	public CollisionBounds getBounds() { return bounds; }
 	
 	public Point2D getOffset() { return offset; }
 	
-	public BoundingBox getDetectionBounds() { return detection; }
+	public CollisionBounds getDetectionBounds() { return detection; }
 	
 	public List<AbstractEntity> getNearbyEntities() { return nearbyEntities; }
 	
-	public void setBounds(double x, double y, double w, double h) { bounds = new BoundingBox(x, y, w, h); }
+	public boolean isMoveable() { return isMoveable; }
+	
+	public boolean collides() { return collides; }
+	
+	public void setBounds(double x, double y, double w, double h) { bounds = new CollisionBounds(x, y, w, h); }
+	
+	public void setCollides(boolean _collides) { collides = _collides; }
 }

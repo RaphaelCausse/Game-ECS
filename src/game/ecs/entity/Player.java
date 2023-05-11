@@ -70,7 +70,8 @@ public class Player extends AbstractEntity
 			Sprites.PLAYER_SIZE/3,		// w
 			Sprites.PLAYER_SIZE/4,		// h
 			Sprites.PLAYER_SIZE/3,		// ox
-			Sprites.PLAYER_SIZE/2		// oy
+			Sprites.PLAYER_SIZE/2,		// oy
+			true						// isMoveable
 		);
 		addComponent(collider);
 	}

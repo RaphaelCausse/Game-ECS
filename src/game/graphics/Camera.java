@@ -222,6 +222,7 @@ public class Camera
 				continue;
 			}
 			
+			// Render
 			if (sprite != null)
 			{
 				map.getGraphicsContext().drawImage(
@@ -263,18 +264,19 @@ public class Camera
 		SpriteComponent sprite = followed.getComponent(SpriteComponent.class);
 		ColliderComponent collider = followed.getComponent(ColliderComponent.class);
 		
-		map.getGraphicsContext().drawImage(
-			sprite.getSpritesheet(), 
-			sprite.getSpriteColIndex() * sprite.getSpriteWidth(), // src X
-			sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), // src Y
-			sprite.getSpriteWidth(), // src W
-			sprite.getSpriteHeight(), // src H
-			followed.cameraX + offset.getX(), // dst X
-			followed.cameraY + offset.getY(), // dst Y
-			sprite.getSpriteWidth(), // dst W
-			sprite.getSpriteHeight() // dst H
-		);
 		
+		map.getGraphicsContext().drawImage(
+			sprite.getSpritesheet(), 	// image
+			sprite.getSpriteColIndex() * sprite.getSpriteWidth(), 	// src X
+			sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), 	// src Y
+			sprite.getSpriteWidth(), 	// src W
+			sprite.getSpriteHeight(), 	// src H
+			followed.cameraX + offset.getX(), 	// dst X
+			followed.cameraY + offset.getY(), 	// dst Y
+			sprite.getSpriteWidth(), 	// dst W
+			sprite.getSpriteHeight() 	// dst H
+		);
+			
 		// TMP draw borders
 //		map.getGraphicsContext().setStroke(Color.RED);
 //		map.getGraphicsContext().strokeRect(
@@ -284,7 +286,7 @@ public class Camera
 //			sprite.getSpriteHeight()
 //		);
 		// TMP draw collider bounds
-		map.getGraphicsContext().setStroke(Color.BLUE);
+		map.getGraphicsContext().setStroke(Color.RED);
 		map.getGraphicsContext().strokeRect(
 			collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
 			collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),

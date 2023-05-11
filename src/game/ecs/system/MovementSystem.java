@@ -57,7 +57,7 @@ public class MovementSystem extends AbstractSystem
 				if (inputs.getInput(Movement.UP) == true)
 				{
 					keyPressed++;
-					dy = -1;
+					dy -= 1;
 					movement.setDirection(Movement.UP);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);
@@ -65,7 +65,7 @@ public class MovementSystem extends AbstractSystem
 				if (inputs.getInput(Movement.DOWN) == true)
 				{
 					keyPressed++;
-					dy = 1;
+					dy += 1;
 					movement.setDirection(Movement.DOWN);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);
@@ -73,7 +73,7 @@ public class MovementSystem extends AbstractSystem
 				if (inputs.getInput(Movement.RIGHT) == true)
 				{
 					keyPressed++;
-					dx = 1;
+					dx += 1;
 					movement.setDirection(Movement.RIGHT);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);
@@ -81,7 +81,7 @@ public class MovementSystem extends AbstractSystem
 				if (inputs.getInput(Movement.LEFT) == true)
 				{
 					keyPressed++;
-					dx = -1;
+					dx -= 1;
 					movement.setDirection(Movement.LEFT);
 					animation.setState(Movement.WALK);
 					collider.setFlag(FlagECS.TO_UPDATE);

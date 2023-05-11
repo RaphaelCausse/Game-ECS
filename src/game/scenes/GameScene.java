@@ -2,7 +2,6 @@ package game.scenes;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.Blacksmith;
 import game.ecs.entity.EntityManager;
@@ -10,6 +9,10 @@ import game.ecs.entity.Player;
 import game.ecs.system.SystemManager;
 import game.graphics.Camera;
 import game.graphics.GameMap;
+import game.graphics.HUD;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,6 +30,7 @@ public class GameScene extends AbstractScene
 {
 	/*----------------------------------------*/
 	
+	private Timeline gameloop;
 	// Graphics elements
 	public Canvas canvas;
 	public GraphicsContext gctx;
@@ -52,7 +56,26 @@ public class GameScene extends AbstractScene
 		gctx = canvas.getGraphicsContext2D();
 		_root.getChildren().add(canvas);
 		
+		// Init gameloop
+		gameloop = new Timeline(new KeyFrame(Window.FRAME_TIME, event -> {
+			update();
+		}));
+		gameloop.setCycleCount(Animation.INDEFINITE);
+		
+		// Create game world
 		initialize();
+	}
+	
+	@Override
+	public void start()
+	{
+		gameloop.play();
+	}
+	
+	@Override
+	public void update()
+	{
+		systemManager.update();
 	}
 	
 	/**
@@ -74,23 +97,19 @@ public class GameScene extends AbstractScene
 			Sprites.ANIM_FRAMES
 		);
 		
-		// Create Game map and Camera
+		// Create Game map, Camera and HUD
 		GameMap map = new GameMap(gctx);
-		Camera camera = new Camera(map, (Player) player);
+		Camera camera = new Camera(map, (Player)player);
+		HUD hud = new HUD(gctx, (Player)player);
 		
 		// Init ECS managers
 		entityManager = EntityManager.getInstance();
-		systemManager = new SystemManager(this, camera);
+		systemManager = new SystemManager(this, camera, hud);
 				
 		// Add entities
 		entityManager.addEntity(player.getUID(), player);
-		entityManager.addEntity(blacksmith.getUID(), blacksmith); 
-	}
-
-	@Override
-	public void update()
-	{
-		systemManager.update();
+		entityManager.addEntity(blacksmith.getUID(), blacksmith);
+		
 	}
 	
 	/*----------------------------------------*/

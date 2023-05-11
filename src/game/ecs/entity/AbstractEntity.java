@@ -11,7 +11,7 @@ public abstract class AbstractEntity
 {
 	/*----------------------------------------*/
 	
-	// Count track of number of entities
+	// Track count of number of entities
 	public static int entityCount = 0;
 	// Unique ID of entity
 	private int uid;

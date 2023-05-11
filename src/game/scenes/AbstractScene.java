@@ -28,6 +28,11 @@ public abstract class AbstractScene extends Scene
 	}
 	
 	/**
+	 * Lancer l'execution de la scene courante.
+	 */
+	public abstract void start();
+	
+	/**
 	 * Mettre a jour la scene et tous ses elements.
 	 */
 	public abstract void update();

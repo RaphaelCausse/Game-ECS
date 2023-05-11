@@ -86,33 +86,59 @@ public class KeyInputSystem extends AbstractSystem
 			// Keys pressed
 			if (isPressed(KeyCode.Z))
 			{
-				inputMap.put(Movement.UP, true);
-				movement.setFlag(FlagECS.TO_UPDATE);
+				if (inputMap.containsKey(Movement.UP))
+				{
+					inputMap.put(Movement.UP, true);
+					movement.setFlag(FlagECS.TO_UPDATE);
+				}
 			}
 			if (isPressed(KeyCode.D))
 			{
-				inputMap.put(Movement.RIGHT, true);
-				movement.setFlag(FlagECS.TO_UPDATE);
+				if (inputMap.containsKey(Movement.RIGHT))
+				{
+					inputMap.put(Movement.RIGHT, true);
+					movement.setFlag(FlagECS.TO_UPDATE);
+				}
 			}
 			if (isPressed(KeyCode.S))
 			{
-				inputMap.put(Movement.DOWN, true);
-				movement.setFlag(FlagECS.TO_UPDATE);
+				if (inputMap.containsKey(Movement.DOWN))
+				{
+					inputMap.put(Movement.DOWN, true);
+					movement.setFlag(FlagECS.TO_UPDATE);
+				}
 			}
 			if (isPressed(KeyCode.Q))
 			{
-				inputMap.put(Movement.LEFT, true);
-				movement.setFlag(FlagECS.TO_UPDATE);
+				if (inputMap.containsKey(Movement.LEFT))
+				{
+					inputMap.put(Movement.LEFT, true);
+					movement.setFlag(FlagECS.TO_UPDATE);
+				}
 			}
 			if (isPressed(KeyCode.E))
 			{
-				inputMap.put(Actions.ACTIVATE, true);
-				movement.setFlag(FlagECS.TO_UPDATE);
+				if (inputMap.containsKey(Actions.ACTIVATE))
+				{
+					inputMap.put(Actions.ACTIVATE, true);
+					movement.setFlag(FlagECS.TO_UPDATE);
+				}
 			}
 			if (isPressed(KeyCode.SPACE))
 			{
-				inputMap.put(Actions.ATTACK, true);
-				movement.setFlag(FlagECS.TO_UPDATE);
+				if (inputMap.containsKey(Actions.ATTACK))
+				{
+					inputMap.put(Actions.ATTACK, true);
+					movement.setFlag(FlagECS.TO_UPDATE);
+				}
+			}
+			if (isPressed(KeyCode.SPACE))
+			{
+				if (inputMap.containsKey(Actions.ATTACK))
+				{
+					inputMap.put(Actions.ATTACK, true);
+					movement.setFlag(FlagECS.TO_UPDATE);
+				}
 			}
 			
 			// Keys released

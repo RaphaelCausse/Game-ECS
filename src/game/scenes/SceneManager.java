@@ -66,6 +66,14 @@ public class SceneManager
 	}
 	
 	/**
+	 * Appeler la methode start() de la scene active.
+	 */
+	public void start()
+	{
+		activeScene.start();
+	}
+	
+	/**
 	 * Appeler la methode update() de la scene active.
 	 */
 	public void update()

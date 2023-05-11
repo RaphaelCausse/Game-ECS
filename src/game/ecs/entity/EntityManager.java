@@ -47,12 +47,11 @@ public class EntityManager
 		entities.remove(uid);
 	}
 	
-	/*----------------------------------------*/
-
-	public static EntityManager getInstance() { return entityManager; }
-
-	public static AbstractEntity getEntity(int uid) { return entities.get(uid); }
-
+	/**
+	 * 
+	 * @param componentClass
+	 * @return List<AbstractEntity>
+	 */
 	public static List<AbstractEntity> getEntitiesWithComponent(Class<? extends AbstractComponent> componentClass)
 	{
 	    List<AbstractEntity> entitiesWithComponent = new ArrayList<AbstractEntity>();
@@ -65,4 +64,11 @@ public class EntityManager
 	    }
 	    return entitiesWithComponent;
 	}
+	
+	/*----------------------------------------*/
+
+	public static EntityManager getInstance() { return entityManager; }
+
+	public static AbstractEntity getEntity(int uid) { return entities.get(uid); }
+	
 }

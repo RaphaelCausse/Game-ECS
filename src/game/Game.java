@@ -2,9 +2,6 @@ package game;
 
 import game.scenes.GameScene;
 import game.scenes.SceneManager;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import utils.Settings.Window;;
@@ -17,7 +14,6 @@ public class Game
 	/*----------------------------------------*/
 	
 	private SceneManager sceneManager;
-	private Timeline gameloop;
 	
 	/*----------------------------------------*/
 	
@@ -33,23 +29,19 @@ public class Game
 		
 		// Init SceneManager and Scenes
 		sceneManager = new SceneManager(stage);
-		GameScene gameScene = new GameScene(sceneManager, new Group());
-		sceneManager.pushScene(gameScene);
 		
-		// Init gameloop
-		gameloop = new Timeline(new KeyFrame(Window.FRAME_TIME, event -> {
-			update();
-		}));
-		gameloop.setCycleCount(Animation.INDEFINITE);
+		GameScene gameScene = new GameScene(sceneManager, new Group());
+		
+		sceneManager.pushScene(gameScene);
 	}
 	
 	/**
-	 * Afficher la scene courante et lance la boucle de jeu.
+	 * Afficher et lance l'execution de la scene courant.
 	 */
 	public void run()
 	{
 		sceneManager.getStage().show();
-		gameloop.play();
+		sceneManager.start();
 	}
 	
 	/**
@@ -60,13 +52,13 @@ public class Game
 		sceneManager.update();
 	}
 	
-	/**
-	 * Stopper l'application.
-	 */
-	public void stop()
-	{
-		gameloop.stop();
-	}
+//	/**
+//	 * Stopper l'application.
+//	 */
+//	public void stop()
+//	{
+//		gameloop.stop();
+//	}
 	
 	/*----------------------------------------*/
 }

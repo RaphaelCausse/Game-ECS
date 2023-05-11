@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.graphics.Camera;
+import game.graphics.HUD;
 import javafx.scene.Scene;
 
 /**
@@ -21,7 +22,7 @@ public class SystemManager
      * Contructeur de la classe SystemManager.
      * @param scene
      */
-    public SystemManager(Scene scene, Camera camera)
+    public SystemManager(Scene scene, Camera camera, HUD hud)
     {
     	systems = new ArrayList<AbstractSystem>();
     	
@@ -30,7 +31,8 @@ public class SystemManager
     	addSystem(new MovementSystem());
     	addSystem(new CollisionSystem(camera.getMap()));
     	addSystem(new AnimationSystem());
-    	addSystem(new RenderSystem(camera));
+    	addSystem(new InventorySystem());
+    	addSystem(new RenderSystem(camera, hud));
     }
 
     /**

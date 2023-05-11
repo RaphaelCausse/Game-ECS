@@ -111,12 +111,7 @@ public class MovementSystem extends AbstractSystem
 				movement.setFlag(FlagECS.STABLE);
 			}
 			
-			// Update for entities that movement is not based on inputs
-//			else
-//			{
-//				movement.moveRandom(entity);
-//				collider.setFlag(FlagECS.TO_UPDATE);
-//			}
+			// TODO Update for entities that movement is not based on inputs
 		}
 	}
 

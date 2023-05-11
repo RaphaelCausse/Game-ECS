@@ -2,10 +2,12 @@ package game.ecs.entity;
 
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.InventoryComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
+import game.ecs.entity.items.Key;
 import utils.Settings.Movement;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
@@ -74,6 +76,13 @@ public class Player extends AbstractEntity
 			true						// isMoveable
 		);
 		addComponent(collider);
+		
+		// TODO
+		InventoryComponent inventory = new InventoryComponent(6);
+		Key key = new Key(x, y, false);
+		inventory.addItem(key);
+		EntityManager.addEntity(key.getUID(), key);
+		addComponent(inventory);
 	}
 	
 	/*----------------------------------------*/

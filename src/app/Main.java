@@ -24,11 +24,11 @@ public class Main extends Application
 		game.run();
 	}
 	
-	@Override
-	public void stop()
-	{
-		game.stop();
-	}
+//	@Override
+//	public void stop()
+//	{
+//		game.stop();
+//	}
 	
 	/*----------------------------------------*/
 }

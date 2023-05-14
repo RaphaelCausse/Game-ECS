@@ -138,13 +138,13 @@ public class Camera
 						map.getTileWidth() 		// dst H
 					);
 					// TMP draw borders
-					map.getGraphicsContext().setStroke(Color.GREEN);
-					map.getGraphicsContext().strokeRect(
-						x - followedPosition.getX() + followed.cameraX + offset.getX(),
-						y - followedPosition.getY() + followed.cameraY + offset.getY(),
-						map.getTileWidth(),
-						map.getTileWidth()
-					);
+//					map.getGraphicsContext().setStroke(Color.GREEN);
+//					map.getGraphicsContext().strokeRect(
+//						x - followedPosition.getX() + followed.cameraX + offset.getX(),
+//						y - followedPosition.getY() + followed.cameraY + offset.getY(),
+//						map.getTileWidth(),
+//						map.getTileWidth()
+//					);
 				}
 			}
 		}
@@ -237,13 +237,13 @@ public class Camera
 					sprite.getSpriteHeight() 	// dst H
 				);
 				// TMP draw borders
-				map.getGraphicsContext().setStroke(Color.RED);
-				map.getGraphicsContext().strokeRect(
-					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-					sprite.getSpriteWidth(),
-					sprite.getSpriteHeight()
-				);
+//				map.getGraphicsContext().setStroke(Color.RED);
+//				map.getGraphicsContext().strokeRect(
+//					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+//					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+//					sprite.getSpriteWidth(),
+//					sprite.getSpriteHeight()
+//				);
 				// TMP draw collider bounds
 				if (collider != null)
 				{
@@ -280,13 +280,13 @@ public class Camera
 		);
 			
 		// TMP draw borders
-		map.getGraphicsContext().setStroke(Color.RED);
-		map.getGraphicsContext().strokeRect(
-			followed.cameraX + offset.getX(),
-			followed.cameraY + offset.getY(),
-			sprite.getSpriteWidth(),
-			sprite.getSpriteHeight()
-		);
+//		map.getGraphicsContext().setStroke(Color.RED);
+//		map.getGraphicsContext().strokeRect(
+//			followed.cameraX + offset.getX(),
+//			followed.cameraY + offset.getY(),
+//			sprite.getSpriteWidth(),
+//			sprite.getSpriteHeight()
+//		);
 		// TMP draw collider bounds
 		map.getGraphicsContext().setStroke(Color.BLUE);
 		map.getGraphicsContext().strokeRect(

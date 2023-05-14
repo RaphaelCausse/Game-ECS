@@ -32,19 +32,14 @@ public class KeyInputComponent extends AbstractComponent
 		inputMap.put(Movement.LEFT, false);
 		inputMap.put(Actions.ACTIVATE, false);
 		inputMap.put(Actions.ATTACK, false);
+		inputMap.put(Actions.INVENTORY_LEFT, false);
+		inputMap.put(Actions.INVENTORY_RIGHT, false);
 		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/*----------------------------------------*/
 	
-	public Boolean getInput(int key)
-	{
-		if (inputMap.containsKey(key))
-		{
-			return inputMap.get(key);
-		}
-		return false;
-	}
+	public Boolean getInput(int key) { return inputMap.getOrDefault(key, false); }
 	
 	public Map<Integer, Boolean> getInputMap() { return inputMap; }
 }

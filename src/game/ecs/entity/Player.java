@@ -78,11 +78,13 @@ public class Player extends AbstractEntity
 		addComponent(collider);
 		
 		// TODO
-		InventoryComponent inventory = new InventoryComponent(6);
-		Key key = new Key(x, y, false);
-		inventory.addItem(key);
-		EntityManager.addEntity(key.getUID(), key);
+		InventoryComponent inventory = new InventoryComponent(7);
 		addComponent(inventory);
+		Key key = new Key(x, y, true);
+		Key key2 = new Key(x, y, true);
+		inventory.addItem(key);
+		inventory.addItem(key2);
+//		EntityManager.addEntity(key.getUID(), key);
 	}
 	
 	/*----------------------------------------*/

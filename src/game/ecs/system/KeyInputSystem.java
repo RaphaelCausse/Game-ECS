@@ -3,6 +3,7 @@ package game.ecs.system;
 import java.util.Map;
 
 import game.ecs.FlagECS;
+import game.ecs.component.InventoryComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.entity.AbstractEntity;
@@ -132,12 +133,24 @@ public class KeyInputSystem extends AbstractSystem
 					movement.setFlag(FlagECS.TO_UPDATE);
 				}
 			}
-			if (isPressed(KeyCode.SPACE))
+			InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
+			if (inventory != null)
 			{
-				if (inputMap.containsKey(Actions.ATTACK))
+				if (isPressed(KeyCode.LEFT))
 				{
-					inputMap.put(Actions.ATTACK, true);
-					movement.setFlag(FlagECS.TO_UPDATE);
+					if (inputMap.containsKey(Actions.INVENTORY_LEFT))
+					{
+						inputMap.put(Actions.INVENTORY_LEFT, true);
+						inventory.setFlag(FlagECS.TO_UPDATE);
+					}
+				}
+				if (isPressed(KeyCode.RIGHT))
+				{
+					if (inputMap.containsKey(Actions.INVENTORY_RIGHT))
+					{
+						inputMap.put(Actions.INVENTORY_RIGHT, true);
+						inventory.setFlag(FlagECS.TO_UPDATE);
+					}
 				}
 			}
 			
@@ -171,6 +184,16 @@ public class KeyInputSystem extends AbstractSystem
 			{
 				inputMap.put(Actions.ATTACK, false);
 				movement.setFlag(FlagECS.TO_UPDATE);
+			}
+			if (isReleased(KeyCode.LEFT))
+			{
+				inputMap.put(Actions.INVENTORY_LEFT, false);
+				inventory.setFlag(FlagECS.TO_UPDATE);
+			}
+			if (isReleased(KeyCode.RIGHT))
+			{
+				inputMap.put(Actions.INVENTORY_RIGHT, false);
+				inventory.setFlag(FlagECS.TO_UPDATE);
 			}
 		}
 	}

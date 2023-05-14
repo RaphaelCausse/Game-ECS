@@ -46,6 +46,7 @@ public class Settings
 		public static final String BLACKSMITH_SPRITESHEET = DirPaths.ENTITIES + "blacksmith_spritesheet.png";
 		// Inventory and Items
 		public static final String INVENTORY = DirPaths.ITEMS + "inventory.png";
+		public static final String CURRENT_ITEM_BORDER = DirPaths.ITEMS + "current.png";
 		public static final String ITEM_KEY = DirPaths.ITEMS + "key.png";
 	}
 	
@@ -63,8 +64,11 @@ public class Settings
 		// HUD
 		public static final int INVENTORY_W = 160;
 		public static final int INVENTORY_H = 32;
-		public static final int FIRST_ITEM_X = 8;
-		public static final int FIRST_ITEM_Y = 10;
+		public static final int FIRST_BORDER_X = 7;
+		public static final int FIRST_BORDER_Y = 6;
+		public static final int BORDER_SIZE = 20;
+		public static final int FIRST_ITEM_X = 9;
+		public static final int FIRST_ITEM_Y = 8;
 		public static final int ITEM_SPACING = 5;
 		public static final int ITEM_SIZE = 16;
 	}

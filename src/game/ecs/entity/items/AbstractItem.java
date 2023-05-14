@@ -18,6 +18,7 @@ public abstract class AbstractItem extends AbstractEntity
 	{
 		super();
 		name = _name;
+		inInventory = false;
 	}
 
 	/*----------------------------------------*/

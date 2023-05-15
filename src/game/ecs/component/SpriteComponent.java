@@ -1,6 +1,5 @@
 package game.ecs.component;
 
-import game.ecs.FlagECS;
 import javafx.scene.image.Image;
 import utils.Point2D;
 
@@ -38,7 +37,6 @@ public class SpriteComponent extends AbstractComponent
         cols = (int) spritesheet.getWidth() / spriteWidth;
 		spriteRowIndex = 0;
 		spriteColIndex = 0;
-		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/*----------------------------------------*/

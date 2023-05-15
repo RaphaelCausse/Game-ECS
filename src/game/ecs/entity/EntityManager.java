@@ -48,8 +48,8 @@ public class EntityManager
 	}
 	
 	/**
-	 * 
-	 * @param componentClass
+	 * Recuperer une liste des entites qui possedent un certain composant.
+	 * @param componentClass Composant a chercher
 	 * @return List<AbstractEntity>
 	 */
 	public static List<AbstractEntity> getEntitiesWithComponent(Class<? extends AbstractComponent> componentClass)
@@ -70,5 +70,4 @@ public class EntityManager
 	public static EntityManager getInstance() { return entityManager; }
 
 	public static AbstractEntity getEntity(int uid) { return entities.get(uid); }
-	
 }

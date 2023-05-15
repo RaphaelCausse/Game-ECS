@@ -84,12 +84,18 @@ public class Settings
 		public static final int RIGHT = 1;
 		public static final int DOWN = 2;
 		public static final int LEFT = 3;
-		// States
+		// Speeds
+		public static final int PLAYER_SPEED = 2;
+	}
+	
+	/**
+	 * Etats d'animation.
+	 */
+	public static class AnimationState
+	{
 		public static final int IDLE = 0;
 		public static final int WALK = 1;
 		public static final int ATTACK = 2;
-		// Speeds
-		public static final int PLAYER_SPEED = 2;
 	}
 	
 	/**
@@ -97,14 +103,15 @@ public class Settings
 	 */
 	public static class Actions
 	{
-		public static final int ACTIVATE = 64;
-		public static final int ATTACK = 65;
+		public static final int ATTACK = 64;
+		public static final int INTERACT = 65;
 		public static final int INVENTORY_LEFT = 66;
 		public static final int INVENTORY_RIGHT = 67;
+		public static final int USE_OBJECT = 68;
 	}
 	
 	/**
-	 * Positions de spawn des entites.
+	 * Positions par defaut des entites.
 	 */
 	public static class Positions
 	{
@@ -116,5 +123,13 @@ public class Settings
 		// HUD positions
 		public static final int INVENTORY_BAR_X = Window.SCREEN_W/2 - Sprites.INVENTORY_W/2;
 		public static final int INVENTORY_BAR_Y = Window.SCREEN_H - Sprites.INVENTORY_H;
+	}
+	
+	/**
+	 * Statistiques des entites.
+	 */
+	public static class Stats
+	{
+		public static final int PLAYER_MAX_HEALTH = 100;
 	}
 }

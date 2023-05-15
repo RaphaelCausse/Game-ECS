@@ -5,6 +5,7 @@ import game.ecs.component.MovementComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
+import utils.Settings.AnimationState;
 
 /**
  * Classe responsable de la gestion des animations de sprite.
@@ -12,6 +13,8 @@ import game.ecs.entity.EntityManager;
  */
 public class AnimationSystem extends AbstractSystem
 {
+	/*----------------------------------------*/
+	
 	/*----------------------------------------*/
 	
 	/**
@@ -33,15 +36,40 @@ public class AnimationSystem extends AbstractSystem
 			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
 			AnimationComponent animation = entity.getComponent(AnimationComponent.class);
 			
-			// Update animation component
+			// Update animations frame count
 			animation.setFrameCount(animation.getFrameCount() + 1);
-			if (animation.getFrameCount() > animation.getFramesBeforeUpdate())
+			
+			// Force animation to persist each frame until it is completed
+			if (animation.isInAnimation() && animation.getState() == AnimationState.ATTACK)
 			{
-				animation.setFrameCount(0);
-				// Update sprite indexes in the spritesheet
-				int direction = (movement == null) ? 0 : movement.getDirection();
-				sprite.setSpriteColIndex((sprite.getSpriteColIndex() + 1) % sprite.getCols());
-				sprite.setSpriteRowIndex(animation.getNbDirection() * animation.getState() + direction);
+				if (animation.getFrameCount() > animation.getFramesBeforeUpdate())
+				{
+					animation.setFrameCount(0);
+					// Count animation frame to stop when animation has been completed
+					animation.setAnimationFrameCount(animation.getAnimationFrameCount() + 1);
+					if (animation.getAnimationFrameCount() > animation.getAnimationFrames())
+					{
+						animation.setAnimationFrameCount(0);
+						animation.setInAnimation(false);
+						continue;
+					}
+					// Update sprite indexes in the spritesheet
+					int direction = (movement == null) ? 0 : movement.getDirection();
+					sprite.setSpriteColIndex((sprite.getSpriteColIndex() + 1) % sprite.getCols());
+					sprite.setSpriteRowIndex(animation.getNbDirection() * animation.getState() + direction);
+				}
+			}
+			// Update other animation
+			else
+			{
+				if (animation.getFrameCount() > animation.getFramesBeforeUpdate())
+				{
+					animation.setFrameCount(0);
+					// Update sprite indexes in the spritesheet
+					int direction = (movement == null) ? 0 : movement.getDirection();
+					sprite.setSpriteColIndex((sprite.getSpriteColIndex() + 1) % sprite.getCols());
+					sprite.setSpriteRowIndex(animation.getNbDirection() * animation.getState() + direction);
+				}
 			}
 		}
 	}

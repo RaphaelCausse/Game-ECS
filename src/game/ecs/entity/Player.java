@@ -2,15 +2,17 @@ package game.ecs.entity;
 
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
-import game.ecs.entity.items.Key;
+import utils.Settings.AnimationState;
 import utils.Settings.Movement;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
+import utils.Settings.Stats;
 import utils.Settings.Window;
 
 /**
@@ -42,7 +44,7 @@ public class Player extends AbstractEntity
 	}
 	
 	/**
-	 * Initialisation des composants de l'entity.
+	 * Initialisation des composants de l'entite.
 	 * @param x Position en X
 	 * @param y position en Y
 	 * @param velocity Vitesse de deplacement
@@ -63,7 +65,7 @@ public class Player extends AbstractEntity
 		SpriteComponent sprite = new SpriteComponent(ResFiles.PLAYER_SPRITESHEET, Sprites.PLAYER_SIZE, Sprites.PLAYER_SIZE);
 		addComponent(sprite);
 
-		AnimationComponent animation = new AnimationComponent(animFrames, Movement.IDLE, Movement.NB_DIRECTIONS);
+		AnimationComponent animation = new AnimationComponent(animFrames, AnimationState.IDLE, Movement.NB_DIRECTIONS);
 		addComponent(animation);
 
 		ColliderComponent collider = new ColliderComponent(
@@ -77,14 +79,11 @@ public class Player extends AbstractEntity
 		);
 		addComponent(collider);
 		
-		// TODO
 		InventoryComponent inventory = new InventoryComponent(7);
 		addComponent(inventory);
-		Key key = new Key(x, y, true);
-		Key key2 = new Key(x, y, true);
-		inventory.addItem(key);
-		inventory.addItem(key2);
-//		EntityManager.addEntity(key.getUID(), key);
+		
+		HealthComponent health = new HealthComponent(Stats.PLAYER_MAX_HEALTH);
+		addComponent(health);
 	}
 	
 	/*----------------------------------------*/

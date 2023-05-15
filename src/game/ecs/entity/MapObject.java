@@ -58,7 +58,8 @@ public class MapObject extends AbstractEntity
 		// Create and add components
 		PositionComponent position = new PositionComponent(x, y);
 		addComponent(position);
-
+		
+		// Set collider according to corresponding pattern
 		if (patternLeft.contains(imageIndex))
 		{
 			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE/2, Sprites.TILE_SIZE, 0, 0, false);
@@ -99,5 +100,4 @@ public class MapObject extends AbstractEntity
 	/*----------------------------------------*/
 	
 	public int getImageIndex() { return imageIndex; }
-	
 }

@@ -9,6 +9,7 @@ import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import utils.Settings.Actions;
+import utils.Settings.AnimationState;
 import utils.Settings.Movement;
 
 /**
@@ -59,38 +60,50 @@ public class MovementSystem extends AbstractSystem
 					keyPressed++;
 					dy -= 1;
 					movement.setDirection(Movement.UP);
-					animation.setState(Movement.WALK);
-					collider.setFlag(FlagECS.TO_UPDATE);
+					if (!animation.isInAnimation())
+					{
+						animation.setState(AnimationState.WALK);
+					}
 				}
 				if (inputs.getInput(Movement.DOWN) == true)
 				{
 					keyPressed++;
 					dy += 1;
 					movement.setDirection(Movement.DOWN);
-					animation.setState(Movement.WALK);
-					collider.setFlag(FlagECS.TO_UPDATE);
+					if (!animation.isInAnimation())
+					{
+						animation.setState(AnimationState.WALK);
+					}
 				}
 				if (inputs.getInput(Movement.RIGHT) == true)
 				{
 					keyPressed++;
 					dx += 1;
 					movement.setDirection(Movement.RIGHT);
-					animation.setState(Movement.WALK);
-					collider.setFlag(FlagECS.TO_UPDATE);
+					if (!animation.isInAnimation())
+					{
+						animation.setState(AnimationState.WALK);
+					}
 				}
 				if (inputs.getInput(Movement.LEFT) == true)
 				{
 					keyPressed++;
 					dx -= 1;
 					movement.setDirection(Movement.LEFT);
-					animation.setState(Movement.WALK);
-					collider.setFlag(FlagECS.TO_UPDATE);
+					if (!animation.isInAnimation())
+					{
+						animation.setState(AnimationState.WALK);
+					}
 				}
 				if (inputs.getInput(Actions.ATTACK) == true)
 				{
 					keyPressed++;
-					animation.setState(Movement.ATTACK);
-					collider.setFlag(FlagECS.TO_UPDATE);
+					animation.setState(AnimationState.ATTACK);
+					if (!animation.isInAnimation())
+					{
+						animation.setAnimationFrameCount(0);
+						animation.setInAnimation(true);
+					}
 				}
 				// Normalize diagonal vector
 				if (dx != 0 && dy != 0)
@@ -100,11 +113,15 @@ public class MovementSystem extends AbstractSystem
 				}
 				// New position by adding normalized velocity
 				position.translate(dx * movement.getVelocity(), dy * movement.getVelocity());
+				collider.setFlag(FlagECS.TO_UPDATE);
 				
 				// Keys released
 				if (keyPressed == 0)
 				{
-					animation.setState(Movement.IDLE);
+					if (!animation.isInAnimation())
+					{
+						animation.setState(AnimationState.IDLE);
+					}
 				}
 				
 				// Restore stable flag

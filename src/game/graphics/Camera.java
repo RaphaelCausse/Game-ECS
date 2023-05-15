@@ -34,8 +34,8 @@ public class Camera
 	
 	/**
 	 * Constructeur de la classe Camera.
-	 * @param _map
-	 * @param _followed
+	 * @param _map Map du jeu
+	 * @param _followed Entite suivie par la camera
 	 */
 	public Camera(GameMap _map, Player _followed)
 	{
@@ -308,5 +308,4 @@ public class Camera
 	/*----------------------------------------*/
 	
 	public GameMap getMap() { return map; }
-	
 }

@@ -79,7 +79,7 @@ public class GameScene extends AbstractScene
 	}
 	
 	/**
-	 * Initialisation du jeu.
+	 * Initialisation de la scene de jeu.
 	 */
 	@SuppressWarnings("static-access")
 	public void initialize()
@@ -109,7 +109,6 @@ public class GameScene extends AbstractScene
 		// Add entities
 		entityManager.addEntity(player.getUID(), player);
 		entityManager.addEntity(blacksmith.getUID(), blacksmith);
-		
 	}
 	
 	/*----------------------------------------*/

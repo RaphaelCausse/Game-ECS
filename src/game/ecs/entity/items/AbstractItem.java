@@ -3,7 +3,8 @@ package game.ecs.entity.items;
 import game.ecs.entity.AbstractEntity;
 
 /**
- *
+ * Classe abstraite qui represente un item.
+ * @see AbstractEntity
  */
 public abstract class AbstractItem extends AbstractEntity
 {
@@ -14,6 +15,10 @@ public abstract class AbstractItem extends AbstractEntity
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructeur de la classe abstraite AbstractItem.
+	 * @param _name
+	 */
 	public AbstractItem(String _name)
 	{
 		super();
@@ -27,6 +32,5 @@ public abstract class AbstractItem extends AbstractEntity
 	
 	public boolean isInInventory() { return inInventory; }
 	
-	public void setInInventory(boolean b) { inInventory = b; }
-	
+	public void setInInventory(boolean _inInventory) { inInventory = _inInventory; }
 }

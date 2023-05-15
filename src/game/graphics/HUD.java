@@ -12,7 +12,7 @@ import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- *
+ * Classe qui represente l'HUD.
  */
 public class HUD
 {
@@ -25,6 +25,11 @@ public class HUD
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructeur de la classe HUD.
+	 * @param _gctx Contexte graphique
+	 * @param _linked Entite liee a l'HUD pour l'affichage de ses donnees
+	 */
 	public HUD(GraphicsContext _gctx, Player _linked)
 	{
 		gctx = _gctx;
@@ -33,21 +38,29 @@ public class HUD
 		currentItemBorder = new Image(ResFiles.CURRENT_ITEM_BORDER);
 	}
 	
+	/**
+	 * Afficher l'HUD.
+	 */
 	public void render()
 	{
+		renderInventory();
+		renderHealth();
+	}
+
+	/**
+	 * Afficher l'inventaire et les items qu'il contient.
+	 */
+	public void renderInventory()
+	{
+		// Render inventory bar
 		gctx.drawImage(
 			inventoryBar,				// image
 			Positions.INVENTORY_BAR_X,	// dst X
 			Positions.INVENTORY_BAR_Y	// dst Y
 		);
-		renderInventoryItems();
-	}
-
-	public void renderInventoryItems()
-	{
-		InventoryComponent inventory = linked.getComponent(InventoryComponent.class);
 		
-		// Render border for current item
+		InventoryComponent inventory = linked.getComponent(InventoryComponent.class);
+		// Render border of current item
 		int idx = inventory.getCurrentIndex();
 		gctx.drawImage(
 			currentItemBorder,	// image
@@ -68,6 +81,15 @@ public class HUD
 				Sprites.ITEM_SIZE			// dst H
 			);
 		}
+	}
+	
+	/**
+	 * Afficher la barre de points de vie.
+	 */
+	public void renderHealth()
+	{
+		// TODO
+		// HealthComponent health = linked.getComponent(HealthComponent.class);
 	}
 	
 	/*----------------------------------------*/

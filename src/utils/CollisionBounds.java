@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * Classe qui represente les les bordures d'une boite de collisions.
+ */
 public class CollisionBounds
 {
 	/*----------------------------------------*/
@@ -13,6 +16,13 @@ public class CollisionBounds
 	
 	/*----------------------------------------*/
 
+	/**
+	 * Constructeur de la classe CollisionBounds
+	 * @param _minX Position en X, coin superieur gauche
+	 * @param _minY Position en Y, coin superieur gauche
+	 * @param _width Largeur de la boite
+	 * @param _height Hauteur de la boite
+	 */
 	public CollisionBounds(double _minX, double _minY, double _width, double _height)
 	{
 		minX = _minX;
@@ -23,6 +33,11 @@ public class CollisionBounds
 		height = _height;
 	}
 	
+	/**
+	 * Decaler la boite.
+	 * @param dx Decalage en X
+	 * @param dy Decalage en Y
+	 */
 	public void shift(double dx, double dy)
 	{
 		minX += dx;
@@ -31,6 +46,11 @@ public class CollisionBounds
 		maxY += dy;
 	}
 	
+	/**
+	 * Verifier si deux boites se superposent.
+	 * @param b Boite de collision
+	 * @return true, false
+	 */
 	public boolean intersects(CollisionBounds b)
 	{
 		if (maxX < b.minX || minX > b.maxX)

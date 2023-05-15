@@ -6,7 +6,7 @@ import game.graphics.HUD;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
- * Classe responsable du system de rendu de la map, des entites.
+ * Classe responsable du systeme d'affichage du jeu.
  * @see AbstractSystem
  */
 public class RenderSystem extends AbstractSystem
@@ -20,6 +20,11 @@ public class RenderSystem extends AbstractSystem
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constucteur de la classe RenderSystem.
+	 * @param _camera Camera du jeu
+	 * @param _hud HUD du jeu
+	 */
 	public RenderSystem(Camera _camera, HUD _hud)
 	{
 		super();
@@ -41,5 +46,4 @@ public class RenderSystem extends AbstractSystem
 	}
 	
 	/*----------------------------------------*/
-	
 }

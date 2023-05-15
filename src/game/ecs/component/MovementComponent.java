@@ -1,6 +1,5 @@
 package game.ecs.component;
 
-import game.ecs.FlagECS;
 import game.ecs.entity.AbstractEntity;
 
 /**
@@ -26,7 +25,6 @@ public class MovementComponent extends AbstractComponent
 		super();
 		velocity = _velocity;
 		direction = _direction;
-		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/**
@@ -92,5 +90,4 @@ public class MovementComponent extends AbstractComponent
 	public void setVelocity(double _velocity) { velocity = _velocity; }
 	
 	public void setDirection(int _direction) { direction = _direction; }
-	
 }

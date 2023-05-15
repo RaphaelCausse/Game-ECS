@@ -2,7 +2,6 @@ package game.ecs.component;
 
 import java.util.ArrayList;
 import java.util.List;
-import game.ecs.FlagECS;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.graphics.GameMap;
@@ -42,8 +41,7 @@ public class ColliderComponent extends AbstractComponent
 		nearbyEntities = new ArrayList<AbstractEntity>();
 		offset = new Point2D(ox, oy);
 		isMoveable = _isMoveable;
-		collides = false;
-		setFlag(FlagECS.TO_UPDATE);
+		collides = true;
 	}
 	
 	/**
@@ -59,7 +57,7 @@ public class ColliderComponent extends AbstractComponent
 	
 	/**
 	 * Mettre a jour la bordures de detection des entites proches.
-	 * @param position
+	 * @param position Position a suivre
 	 */
 	public void updateDetectionBounds(PositionComponent position)
 	{
@@ -70,7 +68,8 @@ public class ColliderComponent extends AbstractComponent
 	
 	/**
 	 * Mettre a jour la liste des entites proches dans la map.
-	 * @param entity
+	 * @param map Map de jeu
+	 * @param entity Entite au centre de la zone de detection
 	 */
 	public void updateNearbyEntities(GameMap map, AbstractEntity entity)
 	{
@@ -118,7 +117,7 @@ public class ColliderComponent extends AbstractComponent
 	
 	public boolean isMoveable() { return isMoveable; }
 	
-	public boolean collides() { return collides; }
+	public boolean doCollides() { return collides; }
 	
 	public void setBounds(double x, double y, double w, double h) { bounds = new CollisionBounds(x, y, w, h); }
 	

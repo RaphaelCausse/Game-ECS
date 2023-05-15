@@ -1,6 +1,5 @@
 package game.ecs.component;
 
-import game.ecs.FlagECS;
 import utils.Settings.Window;
 
 /**
@@ -11,9 +10,11 @@ public class AnimationComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
 	
-	private int animFrames;
-	private int framesBeforeUpdate;
+	private int animationFrames;
+	private int animationFrameCount;
+	private boolean inAnimation;
 	private int frameCount;
+	private int framesBeforeUpdate;
 	private int state;
 	private int nbDirections;
 	
@@ -21,22 +22,29 @@ public class AnimationComponent extends AbstractComponent
 	
 	/**
 	 * Constructeur de la classe AnimationComponent.
-	 * @param _animFrames
-	 * @param _state
-	 * @param _nbDirections
+	 * @param _animation Frames Nombre de frames de l'animation
+	 * @param _state Etat initial de l'animations
+	 * @param _nbDirections Nombre de directions de l'animation
 	 */
-	public AnimationComponent(int _animFrames, int _state, int _nbDirections)
+	public AnimationComponent(int _animationFrames, int _state, int _nbDirections)
 	{
-		animFrames = _animFrames;
-		framesBeforeUpdate = Window.FPS / animFrames;
+		animationFrames = _animationFrames;
+		animationFrameCount = 0;
+		inAnimation = false;
 		frameCount = 0;
+		framesBeforeUpdate = Window.FPS / animationFrames;
 		state = _state;
 		nbDirections = _nbDirections;
-		setFlag(FlagECS.TO_UPDATE);
 	}
 	
 	/*----------------------------------------*/
 	
+	public int getAnimationFrames() { return animationFrames; }
+	
+	public int getAnimationFrameCount() { return animationFrameCount; }
+	
+	public boolean isInAnimation() { return inAnimation; }
+		
 	public int getFramesBeforeUpdate() { return framesBeforeUpdate; }
 	
 	public int getFrameCount() { return frameCount; }
@@ -45,8 +53,11 @@ public class AnimationComponent extends AbstractComponent
 	
 	public int getNbDirection() { return nbDirections; }
 	
+	public void setAnimationFrameCount(int _animationFrameCount) { animationFrameCount = _animationFrameCount; }
+	
 	public void setFrameCount(int _frameCount) { frameCount = _frameCount; }
 	
 	public void setState(int _state) { state = _state; }
 	
+	public void setInAnimation(boolean _inAnimation) { inAnimation = _inAnimation; }
 }

@@ -2,13 +2,11 @@ package game.ecs.component;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import game.ecs.FlagECS;
 import utils.Settings.Actions;
 import utils.Settings.Movement;
 
 /**
- * Classe qui indique au KeyInput system que l'entity recoit des inputs.
+ * Classe qui represente les inputs possibles de l'entite.
  * @see AbstractComponent
  */
 public class KeyInputComponent extends AbstractComponent
@@ -30,11 +28,11 @@ public class KeyInputComponent extends AbstractComponent
 		inputMap.put(Movement.RIGHT, false);
 		inputMap.put(Movement.DOWN, false);
 		inputMap.put(Movement.LEFT, false);
-		inputMap.put(Actions.ACTIVATE, false);
 		inputMap.put(Actions.ATTACK, false);
+		inputMap.put(Actions.INTERACT, false);
 		inputMap.put(Actions.INVENTORY_LEFT, false);
 		inputMap.put(Actions.INVENTORY_RIGHT, false);
-		setFlag(FlagECS.TO_UPDATE);
+		inputMap.put(Actions.USE_OBJECT, false);
 	}
 	
 	/*----------------------------------------*/

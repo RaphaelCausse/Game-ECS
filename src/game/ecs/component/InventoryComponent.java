@@ -5,7 +5,8 @@ import java.util.List;
 import game.ecs.entity.items.AbstractItem;
 
 /**
- *
+ * Classe qui represente l'inventaire d'item de l'entite.
+ * @see AbstractComponent
  */
 public class InventoryComponent extends AbstractComponent
 {
@@ -17,6 +18,10 @@ public class InventoryComponent extends AbstractComponent
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructeur de la classe InventoryComponent.
+	 * @param _maxLength Taille max de l'inventaire
+	 */
 	public InventoryComponent(int _maxLength)
 	{
 		super();
@@ -25,6 +30,10 @@ public class InventoryComponent extends AbstractComponent
 		currentIndex = 0;
 	}
 	
+	/**
+	 * Ajouter un item a l'inventaire.
+	 * @param item Item a ajouter
+	 */
 	public void addItem(AbstractItem item)
 	{
 		if (!isFull())
@@ -34,6 +43,10 @@ public class InventoryComponent extends AbstractComponent
 		}
 	}
 	
+	/**
+	 * Retirer un item de l'inventaire.
+	 * @param item Item a retirer
+	 */
 	public void removeItem(AbstractItem item)
 	{
 		if (inventory.contains(item))
@@ -43,24 +56,32 @@ public class InventoryComponent extends AbstractComponent
 		}
 	}
 	
+	/**
+	 * Verifier si l'inventaire est plein.
+	 * @return true, false
+	 */
 	public boolean isFull()
 	{
 		return inventory.size() == maxLength;
 	}
 	
-	public void moveCurrentIndex(int d)
+	/**
+	 * Mise a jour de l'index de l'item courant dans l'inventaire.
+	 * @param incr Increment
+	 */
+	public void moveCurrentIndex(int incr)
 	{
-		if (currentIndex + d < 0)
+		if (currentIndex + incr < 0)
 		{
 			currentIndex = maxLength - 1;
 		}
-		else if (currentIndex + d > maxLength - 1)
+		else if (currentIndex + incr > maxLength - 1)
 		{
 			currentIndex = 0;
 		}
 		else
 		{
-			currentIndex += d;
+			currentIndex += incr;
 		}
 	}
 
@@ -77,5 +98,4 @@ public class InventoryComponent extends AbstractComponent
 			currentIndex = idx;
 		}
 	}
-	
 }

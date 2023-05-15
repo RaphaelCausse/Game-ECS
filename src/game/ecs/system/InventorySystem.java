@@ -8,7 +8,8 @@ import game.ecs.entity.EntityManager;
 import utils.Settings.Actions;
 
 /**
- *
+ * Classe responsable de la gestion de l'inventaire.
+ * @see AbstractSystem
  */
 public class InventorySystem extends AbstractSystem
 {
@@ -18,6 +19,9 @@ public class InventorySystem extends AbstractSystem
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructeur de la classe InventorySystem.
+	 */
 	public InventorySystem()
 	{
 		super();
@@ -36,40 +40,36 @@ public class InventorySystem extends AbstractSystem
 			{
 				continue;
 			}
-
-			// TODO FIX THIS SHIT
 			
-			
-			// Update component
+			// Update component to move current inventory item index
 			KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
 			
-			// Key pressed
-			if (inputs.getInput(Actions.INVENTORY_LEFT) == true && pressed == false)
-			{
-				System.out.println("pressed");
-				inventory.moveCurrentIndex(-1);
-				pressed = true;
-				break;
-			}
-			if (inputs.getInput(Actions.INVENTORY_RIGHT) == true && pressed == false)
-			{
-				System.out.println("pressed");
-				inventory.moveCurrentIndex(1);
-				pressed = true;
-				break;
-			}
-			
-			// Key released
-			if (inputs.getInput(Actions.INVENTORY_LEFT) == false && pressed == true)
-			{
-				System.out.println("released");
-				pressed = false;
-			}
-			if (inputs.getInput(Actions.INVENTORY_RIGHT) == false && pressed == true)
-			{
-				System.out.println("released");
-				pressed = false;
-			}
+			// Key pressed or repeated
+	        if (inputs.getInput(Actions.INVENTORY_LEFT) == true)
+	        {
+	            if (!pressed)
+	            {
+	                inventory.moveCurrentIndex(-1);
+	                pressed = true;
+	            }
+	            continue;
+	        }
+	        if (inputs.getInput(Actions.INVENTORY_RIGHT) == true)
+	        {
+	            if (!pressed)
+	            {
+	                inventory.moveCurrentIndex(1);
+	                pressed = true;
+	            }
+	            continue;
+	        }
+	            
+	        // Key released
+	        if (inputs.getInput(Actions.INVENTORY_LEFT) == false || inputs.getInput(Actions.INVENTORY_RIGHT) == false)
+	        {
+	            pressed = false;
+	        }
+	        
 			
 			// Restore stable flag
 			inventory.setFlag(FlagECS.STABLE);

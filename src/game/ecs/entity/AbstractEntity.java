@@ -5,7 +5,7 @@ import java.util.Map;
 import game.ecs.component.AbstractComponent;
 
 /**
- * Classe abstraite qui represente une entity de base.
+ * Classe abstraite qui represente une entite de base.
  */
 public abstract class AbstractEntity
 {
@@ -55,7 +55,7 @@ public abstract class AbstractEntity
 	
 	/**
 	 * Verifier si la collection de composant de l'entity comprend un composant.
-	 * @param componentClass Classe du composant, cle de la collection
+	 * @param componentClass Classe du composant qui sert de cle dans la collection
 	 * @return true, false
 	 */
 	public boolean hasComponent(Class<? extends AbstractComponent> componentClass)

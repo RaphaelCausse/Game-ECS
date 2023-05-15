@@ -15,7 +15,7 @@ public abstract class AbstractSystem
 	/*----------------------------------------*/
 
 	/**
-	 * Executer le systeme.
+	 * Executer le systeme pour mettre a jour les composants associes.
 	 */
 	public abstract void run();
 	

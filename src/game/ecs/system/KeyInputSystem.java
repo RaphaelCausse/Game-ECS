@@ -16,7 +16,7 @@ import utils.Settings.Actions;
 import utils.Settings.Movement;
 
 /**
- * Classe responsable de la gestion des inputs attache a un node.
+ * Classe responsable de la gestion des inputs attaches a un node.
  * @see AbstractSystem
  */
 public class KeyInputSystem extends AbstractSystem
@@ -30,7 +30,7 @@ public class KeyInputSystem extends AbstractSystem
 	
 	/**
 	 * Constructeur de la classe KeyInputSystem.
-	 * @param _scene Scene auquelle est attachee le system d'inputs.
+	 * @param _scene Scene auquelle est attachee le systeme d'inputs.
 	 */
 	public KeyInputSystem(Scene _scene)
 	{
@@ -84,6 +84,7 @@ public class KeyInputSystem extends AbstractSystem
 			}
 			
 			MovementComponent movement = entity.getComponent(MovementComponent.class);
+			
 			// Keys pressed
 			if (isPressed(KeyCode.Z))
 			{
@@ -117,20 +118,20 @@ public class KeyInputSystem extends AbstractSystem
 					movement.setFlag(FlagECS.TO_UPDATE);
 				}
 			}
-			if (isPressed(KeyCode.E))
-			{
-				if (inputMap.containsKey(Actions.ACTIVATE))
-				{
-					inputMap.put(Actions.ACTIVATE, true);
-					movement.setFlag(FlagECS.TO_UPDATE);
-				}
-			}
 			if (isPressed(KeyCode.SPACE))
 			{
 				if (inputMap.containsKey(Actions.ATTACK))
 				{
 					inputMap.put(Actions.ATTACK, true);
 					movement.setFlag(FlagECS.TO_UPDATE);
+				}
+			}
+			if (isPressed(KeyCode.E))
+			{
+				if (inputMap.containsKey(Actions.INTERACT))
+				{
+					inputMap.put(Actions.INTERACT, true);
+					// TODO
 				}
 			}
 			InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
@@ -151,6 +152,14 @@ public class KeyInputSystem extends AbstractSystem
 						inputMap.put(Actions.INVENTORY_RIGHT, true);
 						inventory.setFlag(FlagECS.TO_UPDATE);
 					}
+				}
+			}
+			if (isPressed(KeyCode.A))
+			{
+				if (inputMap.containsKey(Actions.USE_OBJECT))
+				{
+					inputMap.put(Actions.USE_OBJECT, true);
+					// TODO
 				}
 			}
 			
@@ -175,15 +184,15 @@ public class KeyInputSystem extends AbstractSystem
 				inputMap.put(Movement.LEFT, false);
 				movement.setFlag(FlagECS.TO_UPDATE);
 			}
-			if (isReleased(KeyCode.E))
-			{
-				inputMap.put(Actions.ACTIVATE, false);
-				movement.setFlag(FlagECS.TO_UPDATE);
-			}
 			if (isReleased(KeyCode.SPACE))
 			{
 				inputMap.put(Actions.ATTACK, false);
 				movement.setFlag(FlagECS.TO_UPDATE);
+			}
+			if (isReleased(KeyCode.E))
+			{
+				inputMap.put(Actions.INTERACT, false);
+				// TODO
 			}
 			if (isReleased(KeyCode.LEFT))
 			{
@@ -194,6 +203,11 @@ public class KeyInputSystem extends AbstractSystem
 			{
 				inputMap.put(Actions.INVENTORY_RIGHT, false);
 				inventory.setFlag(FlagECS.TO_UPDATE);
+			}
+			if (isReleased(KeyCode.A))
+			{
+				inputMap.put(Actions.USE_OBJECT, false);
+				// TODO
 			}
 		}
 	}

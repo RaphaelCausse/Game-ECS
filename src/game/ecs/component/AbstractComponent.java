@@ -9,7 +9,6 @@ public abstract class AbstractComponent
 {
 	/*----------------------------------------*/
 	
-	// Update component flag
 	protected FlagECS flag;
 	
 	/*----------------------------------------*/

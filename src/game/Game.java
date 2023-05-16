@@ -52,13 +52,13 @@ public class Game
 		sceneManager.update();
 	}
 	
-//	/**
-//	 * Stopper l'application.
-//	 */
-//	public void stop()
-//	{
-//		gameloop.stop();
-//	}
+	/**
+	 * Stopper le jeu.
+	 */
+	public void stop()
+	{
+		sceneManager.stop();
+	}
 	
 	/*----------------------------------------*/
 }

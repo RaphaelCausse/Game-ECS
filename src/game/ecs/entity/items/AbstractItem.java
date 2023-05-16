@@ -26,6 +26,13 @@ public abstract class AbstractItem extends AbstractEntity
 		inInventory = false;
 	}
 
+	/**
+	 * Utiliser l'item sur l'entite cible.
+	 * @param sender Entite qui effectue l'action de l'item
+	 * @param receiver Entite cible par l'action de l'item
+	 */
+	public abstract void useItem(AbstractEntity sender, AbstractEntity receiver);
+	
 	/*----------------------------------------*/
 	
 	public String getName() { return name; }

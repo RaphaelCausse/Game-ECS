@@ -44,7 +44,11 @@ public class Settings
 		// Spritesheets
 		public static final String PLAYER_SPRITESHEET = DirPaths.ENTITIES + "player_spritesheet.png";
 		public static final String BLACKSMITH_SPRITESHEET = DirPaths.ENTITIES + "blacksmith_spritesheet.png";
+		public static final String MONSTER_SPRITESHEET = DirPaths.ENTITIES + "monster_spritesheet.png";
+		public static final String MONSTER_BOSS_SPRITESHEET = DirPaths.ENTITIES + "monster_boss_spritesheet.png";
 		// Inventory and Items
+		public static final String HEALTH_BAR_1 = DirPaths.ITEMS + "healthbar_1.png";
+		public static final String HEALTH_BAR_2 = DirPaths.ITEMS + "healthbar_2.png";
 		public static final String INVENTORY = DirPaths.ITEMS + "inventory.png";
 		public static final String CURRENT_ITEM_BORDER = DirPaths.ITEMS + "current.png";
 		public static final String ITEM_KEY = DirPaths.ITEMS + "key.png";
@@ -59,18 +63,20 @@ public class Settings
 		public static final int TILE_SIZE = 32;
 		public static final int SPRITE_SIZE = 32;
 		public static final int PLAYER_SIZE = 64;
+		public static final int MONSTER_SIZE = 32;
+		public static final int MONSTER_BOSS_SIZE = 32;
 		// Animations
 		public static final int ANIM_FRAMES = 12;
 		// HUD
 		public static final int INVENTORY_W = 160;
 		public static final int INVENTORY_H = 32;
+		public static final int CURRENT_ITEM_BORDER_SIZE = 20;
 		public static final int FIRST_BORDER_X = 7;
 		public static final int FIRST_BORDER_Y = 6;
-		public static final int BORDER_SIZE = 20;
+		public static final int ITEM_SIZE = 16;
 		public static final int FIRST_ITEM_X = 9;
 		public static final int FIRST_ITEM_Y = 8;
 		public static final int ITEM_SPACING = 5;
-		public static final int ITEM_SIZE = 16;
 	}
 	
 	/**
@@ -86,6 +92,8 @@ public class Settings
 		public static final int LEFT = 3;
 		// Speeds
 		public static final int PLAYER_SPEED = 2;
+		public static final int MONSTER_SPEED = 2;
+		public static final int MONSTER_BOSS_SPEED = 1;
 	}
 	
 	/**
@@ -121,6 +129,8 @@ public class Settings
 		public static final int BLACKSMITH_SPAWN_X = 224;
 		public static final int BLACKSMITH_SPAWN_Y = 1024;
 		// HUD positions
+		public static final int HEALTH_BAR_X = 2;
+		public static final int HEALTH_BAR_Y = 2;
 		public static final int INVENTORY_BAR_X = Window.SCREEN_W/2 - Sprites.INVENTORY_W/2;
 		public static final int INVENTORY_BAR_Y = Window.SCREEN_H - Sprites.INVENTORY_H;
 	}
@@ -130,6 +140,23 @@ public class Settings
 	 */
 	public static class Stats
 	{
+		// Player
 		public static final int PLAYER_MAX_HEALTH = 100;
+		public static final int PLAYER_BASE_DAMAGE = 20;
+		// Monster
+		public static final int MONSTER_BOSS_MAX_HEALTH = 400;
+		public static final int MONSTER_BOSS_BASE_DAMAGE = 30;
+		public static final int MONSTER_MAX_HEALTH = 150;
+		public static final int MONSTER_BASE_DAMAGE = 10;
+	}
+	
+	/**
+	 * Identifiants des objets de la map.
+	 */
+	public static class MapObjectsID
+	{
+		public static final int CHEST = 42;
+		public static final int CHEST_OPEN_B = 43;
+		public static final int CHEST_OPEN_T = 29;
 	}
 }

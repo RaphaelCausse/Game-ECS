@@ -5,6 +5,9 @@ import game.ecs.component.InventoryComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
+import game.ecs.entity.items.AbstractItem;
+import game.ecs.entity.items.HealthPotion;
+import game.ecs.entity.items.Key;
 import utils.Settings.Actions;
 
 /**
@@ -63,13 +66,28 @@ public class InventorySystem extends AbstractSystem
 	            }
 	            continue;
 	        }
+	        if (inputs.getInput(Actions.USE_OBJECT) == true)
+	        {
+	        	if (inventory.getCurrentIndex() < inventory.getInventory().size())
+	        	{
+	        		AbstractItem item = inventory.getInventory().get(inventory.getCurrentIndex());
+		        	if (item instanceof Key)
+		        	{
+		        		item.useItem(entity, entity);
+		        	}
+		        	else if (item instanceof HealthPotion)
+		        	{
+		        		
+		        	}
+	        	}
+	        	
+	        }
 	            
 	        // Key released
 	        if (inputs.getInput(Actions.INVENTORY_LEFT) == false || inputs.getInput(Actions.INVENTORY_RIGHT) == false)
 	        {
 	            pressed = false;
 	        }
-	        
 			
 			// Restore stable flag
 			inventory.setFlag(FlagECS.STABLE);

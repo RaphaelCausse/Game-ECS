@@ -47,7 +47,7 @@ public class AnimationSystem extends AbstractSystem
 					animation.setFrameCount(0);
 					// Count animation frame to stop when animation has been completed
 					animation.setAnimationFrameCount(animation.getAnimationFrameCount() + 1);
-					if (animation.getAnimationFrameCount() > animation.getAnimationFrames())
+					if (animation.getAnimationFrameCount() > animation.getAnimationFrames()/2)
 					{
 						animation.setAnimationFrameCount(0);
 						animation.setInAnimation(false);

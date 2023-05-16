@@ -3,12 +3,16 @@ package game.graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
+import game.ecs.entity.items.AbstractItem;
+import game.ecs.entity.items.Key;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import utils.CSVReader;
+import utils.Settings.Positions;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
@@ -42,6 +46,7 @@ public class GameMap
 		layerObjects = CSVReader.readCSV(ResFiles.MAP_OBJECTS);
 		layerObjectsAbove = CSVReader.readCSV(ResFiles.MAP_OBJECTS_ABOVE);
 		createMapObjects();
+		spawnItemsOnMap();
 	}
 	
 	/**
@@ -92,6 +97,16 @@ public class GameMap
 				mapObjects.add(newMapObject);
 			}
 		}
+	}
+	
+	public void spawnItemsOnMap()
+	{
+		AbstractItem i1 = new Key(
+			Positions.PLAYER_SPAWN_X,
+			Positions.PLAYER_SPAWN_Y/2,
+			false
+		);
+		EntityManager.addEntity(i1.getUID(), i1);
 	}
 	
 	/*----------------------------------------*/

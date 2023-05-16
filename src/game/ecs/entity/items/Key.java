@@ -1,7 +1,9 @@
 package game.ecs.entity.items;
 
+import game.ecs.component.ColliderComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
+import game.ecs.entity.AbstractEntity;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
@@ -40,7 +42,28 @@ public class Key extends AbstractItem
 		
 		SpriteComponent sprite = new SpriteComponent(ResFiles.ITEM_KEY, Sprites.ITEM_SIZE, Sprites.ITEM_SIZE);
 		addComponent(sprite);
+		
+		ColliderComponent collider = new ColliderComponent(
+			x,					// x
+			y,					// y
+			Sprites.ITEM_SIZE,	// w
+			Sprites.ITEM_SIZE,	// h
+			0,					// ox
+			0,					// oy
+			false				// isMoveable
+		);
+		collider.setCollides(false);
+		addComponent(collider);
 	}
 
+	@Override
+	public void useItem(AbstractEntity sender, AbstractEntity receiver)
+	{
+		System.out.println("Using item " + getUID());
+		
+//		ColliderComponent receiverCollider = receiver.getComponent(ColliderComponent.class);
+		
+	}
+	
 	/*----------------------------------------*/
 }

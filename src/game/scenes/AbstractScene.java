@@ -37,6 +37,11 @@ public abstract class AbstractScene extends Scene
 	 */
 	public abstract void update();
 	
+	/**
+	 * Stopper l'execution de la scene.
+	 */
+	public abstract void stop();
+	
 	/*----------------------------------------*/
 
 	public SceneManager getSceneManager() { return sceneManager; }

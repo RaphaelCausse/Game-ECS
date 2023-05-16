@@ -81,6 +81,14 @@ public class SceneManager
 		activeScene.update();
 	}
 	
+	/**
+	 * Appeler la method stop() de la scene active.
+	 */
+	public void stop()
+	{
+		activeScene.stop();
+	}
+	
 	/*----------------------------------------*/
 	
 	public Stage getStage() { return stage; }

@@ -159,7 +159,7 @@ public class KeyInputSystem extends AbstractSystem
 				if (inputMap.containsKey(Actions.USE_OBJECT))
 				{
 					inputMap.put(Actions.USE_OBJECT, true);
-					// TODO
+					inventory.setFlag(FlagECS.TO_UPDATE);
 				}
 			}
 			

@@ -1,15 +1,20 @@
 package game.graphics;
 
 import java.util.List;
+import game.ecs.component.ColliderComponent;
+import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.Player;
 import game.ecs.entity.items.AbstractItem;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import utils.Settings.Positions;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
+import utils.Settings.Window;
 
 /**
  * Classe qui represente l'HUD.
@@ -43,8 +48,18 @@ public class HUD
 	 */
 	public void render()
 	{
+		renderRelativePosition();
 		renderInventory();
 		renderHealth();
+	}
+	
+	public void renderRelativePosition()
+	{
+		ColliderComponent relativePos = linked.getComponent(ColliderComponent.class);
+		gctx.setFont(new Font("Arial", 14));
+        gctx.setFill(Color.WHITE);
+        String posText = "Pos (x: " + (int)relativePos.getBounds().getMinX() + ", y: " + (int)relativePos.getBounds().getMinY() + ")";
+        gctx.fillText(posText, 0, Window.SCREEN_H-2);
 	}
 
 	/**
@@ -64,8 +79,8 @@ public class HUD
 		int idx = inventory.getCurrentIndex();
 		gctx.drawImage(
 			currentItemBorder,	// image
-			Positions.INVENTORY_BAR_X + Sprites.FIRST_BORDER_X + idx*Sprites.BORDER_SIZE + idx*1, 	// dst X
-			Positions.INVENTORY_BAR_Y + Sprites.FIRST_BORDER_Y										// dst Y
+			Positions.INVENTORY_BAR_X + Sprites.FIRST_BORDER_X + idx*Sprites.CURRENT_ITEM_BORDER_SIZE + idx*1, 	// dst X
+			Positions.INVENTORY_BAR_Y + Sprites.FIRST_BORDER_Y													// dst Y
 		);
 	
 		// Render items
@@ -88,8 +103,13 @@ public class HUD
 	 */
 	public void renderHealth()
 	{
-		// TODO
-		// HealthComponent health = linked.getComponent(HealthComponent.class);
+		HealthComponent health = linked.getComponent(HealthComponent.class);
+		gctx.setFont(new Font("Arial", 16));
+		gctx.setFill(Color.WHITE);
+		gctx.setStroke(Color.WHITE);
+		String healthText = "HP: " + health.getCurrentHealth() + "/" + health.getMaxHealth();
+		gctx.strokeText(healthText, 2, 14);
+		gctx.fillText(healthText, 2, 14);
 	}
 	
 	/*----------------------------------------*/

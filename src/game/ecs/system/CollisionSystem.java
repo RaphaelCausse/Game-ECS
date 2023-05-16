@@ -2,10 +2,12 @@ package game.ecs.system;
 
 import game.ecs.FlagECS;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
+import game.ecs.entity.items.AbstractItem;
 import game.graphics.GameMap;
 import utils.CollisionBounds;
 
@@ -73,16 +75,29 @@ public class CollisionSystem extends AbstractSystem
 				// Get nearby entities and map object within entity detection bounds
 				collider.updateNearbyEntities(map, entity);
 				
-				// Check collisions with other nearby entities and map objects if entity does collides
-				if (collider.doCollides())
+				// Check collisions with other nearby entities, map objects and items
+				for (AbstractEntity nearbyEntity : collider.getNearbyEntities())
 				{
-					for (AbstractEntity nearbyEntity : collider.getNearbyEntities())
-					{
-					    ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
-					    CollisionBounds nearbyBounds = nearbyCollider.getBounds();
-					    
-					    if (entityBounds.intersects(nearbyBounds))
-					    {
+				    ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
+				    CollisionBounds nearbyBounds = nearbyCollider.getBounds();
+				    
+				    if (entityBounds.intersects(nearbyBounds))
+				    {
+				    	// Get item on ground when colliding, add it to the inventory
+				    	if (nearbyEntity instanceof AbstractItem)
+				    	{
+				    		InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
+				    		if (!inventory.isFull())
+				    		{
+				    			inventory.addItem((AbstractItem)nearbyEntity);
+				    			EntityManager.removeEntity(nearbyEntity.getUID());
+				    		}
+				    		continue;
+				    	}
+				    	
+				    	// Collisions with rigid entities
+				    	if (collider.doCollides() && nearbyCollider.doCollides())
+						{
 						    // Determine collision direction
 						    double xOverlap = entityBounds.getMaxX() - nearbyBounds.getMinX();
 						    double xReverseOverlap = nearbyBounds.getMaxX() - entityBounds.getMinX();
@@ -117,6 +132,7 @@ public class CollisionSystem extends AbstractSystem
 						    // Move entity in opposite direction of collision
 						    position.translate((int)xDisplacement, (int)yDisplacement);
 						    collider.updateBounds(position);
+						    continue;
 						}
 					}
 				}

@@ -17,9 +17,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-import utils.Settings.Movement;
 import utils.Settings.Positions;
-import utils.Settings.Sprites;
 import utils.Settings.Window;
 
 /**
@@ -78,23 +76,26 @@ public class GameScene extends AbstractScene
 		systemManager.update();
 	}
 	
+	@Override
+	public void stop()
+	{
+		
+	}
+	
 	/**
 	 * Initialisation de la scene de jeu.
 	 */
 	@SuppressWarnings("static-access")
 	public void initialize()
 	{
-		// Create entities
+		// Create entites
 		AbstractEntity player = new Player(
 			Positions.PLAYER_SPAWN_X,
-			Positions.PLAYER_SPAWN_Y,
-			Movement.PLAYER_SPEED,
-			Sprites.ANIM_FRAMES
+			Positions.PLAYER_SPAWN_Y
 		);
 		AbstractEntity blacksmith = new Blacksmith(
 			Positions.BLACKSMITH_SPAWN_X,
-			Positions.BLACKSMITH_SPAWN_Y,
-			Sprites.ANIM_FRAMES
+			Positions.BLACKSMITH_SPAWN_Y
 		);
 		
 		// Create Game map, Camera and HUD

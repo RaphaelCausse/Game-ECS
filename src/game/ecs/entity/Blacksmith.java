@@ -2,6 +2,7 @@ package game.ecs.entity;
 
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.InteractComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import utils.Settings.AnimationState;
@@ -24,10 +25,10 @@ public class Blacksmith extends AbstractEntity
 	 * @param y Position en Y
 	 * @param animFrames Nombre de frames de l'animation
 	 */
-	public Blacksmith(int x, int y, int animFrames)
+	public Blacksmith(int x, int y)
 	{
 		super();
-		initialize(x, y, animFrames);
+		initialize(x, y);
 	}
 	
 	/**
@@ -36,7 +37,7 @@ public class Blacksmith extends AbstractEntity
 	 * @param y Position en Y
 	 * @param animFrames Nombre de frames de l'animation
 	 */
-	public void initialize(int x, int y, int animFrames)
+	public void initialize(int x, int y)
 	{
 		// Create and add components
 		PositionComponent position = new PositionComponent(x, y);
@@ -48,8 +49,11 @@ public class Blacksmith extends AbstractEntity
 		AnimationComponent animation = new AnimationComponent(Sprites.ANIM_FRAMES/2, AnimationState.IDLE, 1);
 		addComponent(animation);
 		
-		ColliderComponent collider = new ColliderComponent(x, y, Sprites.SPRITE_SIZE, Sprites.SPRITE_SIZE, 0, 0, false);
+		ColliderComponent collider = new ColliderComponent(x, y, sprite.getSpriteWidth(), sprite.getSpriteHeight(), 0, 0, false);
 		addComponent(collider);
+		
+		InteractComponent interact = new InteractComponent();
+		addComponent(interact);
 	}
 	
 	/*----------------------------------------*/

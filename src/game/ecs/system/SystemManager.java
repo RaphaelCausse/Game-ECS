@@ -20,7 +20,7 @@ public class SystemManager
     
     /**
      * Contructeur de la classe SystemManager.
-     * @param scene
+     * @param scene Scene liee au gestionnaire de systeme
      */
     public SystemManager(Scene scene, Camera camera, HUD hud)
     {
@@ -30,8 +30,9 @@ public class SystemManager
     	addSystem(new KeyInputSystem(scene));
     	addSystem(new MovementSystem());
     	addSystem(new CollisionSystem(camera.getMap()));
-    	addSystem(new AnimationSystem());
+    	addSystem(new InteractSystem());
     	addSystem(new InventorySystem());
+    	addSystem(new AnimationSystem());
     	addSystem(new RenderSystem(camera, hud));
     }
 

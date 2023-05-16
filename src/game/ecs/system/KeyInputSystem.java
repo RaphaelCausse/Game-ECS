@@ -156,9 +156,17 @@ public class KeyInputSystem extends AbstractSystem
 			}
 			if (isPressed(KeyCode.A))
 			{
-				if (inputMap.containsKey(Actions.USE_OBJECT))
+				if (inputMap.containsKey(Actions.USE_ITEM))
 				{
-					inputMap.put(Actions.USE_OBJECT, true);
+					inputMap.put(Actions.USE_ITEM, true);
+					inventory.setFlag(FlagECS.TO_UPDATE);
+				}
+			}
+			if (isPressed(KeyCode.G))
+			{
+				if (inputMap.containsKey(Actions.DROP_ITEM))
+				{
+					inputMap.put(Actions.DROP_ITEM, true);
 					inventory.setFlag(FlagECS.TO_UPDATE);
 				}
 			}
@@ -206,8 +214,13 @@ public class KeyInputSystem extends AbstractSystem
 			}
 			if (isReleased(KeyCode.A))
 			{
-				inputMap.put(Actions.USE_OBJECT, false);
-				// TODO
+				inputMap.put(Actions.USE_ITEM, false);
+				inventory.setFlag(FlagECS.TO_UPDATE);
+			}
+			if (isReleased(KeyCode.G))
+			{
+				inputMap.put(Actions.DROP_ITEM, false);
+				inventory.setFlag(FlagECS.TO_UPDATE);
 			}
 		}
 	}

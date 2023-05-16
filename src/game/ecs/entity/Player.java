@@ -86,6 +86,7 @@ public class Player extends AbstractEntity
 		addComponent(inventory);
 		
 		HealthComponent health = new HealthComponent(Stats.PLAYER_MAX_HEALTH);
+		health.setCurrentHeath(health.getMaxHealth()/2);
 		addComponent(health);
 		
 		DamageComponent damage = new DamageComponent(Stats.PLAYER_BASE_DAMAGE);

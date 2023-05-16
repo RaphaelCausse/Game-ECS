@@ -1,7 +1,5 @@
 package game.ecs.component;
 
-import game.ecs.entity.AbstractEntity;
-
 /**
  * Classe qui represente un composant de movement.
  * @see AbstractComponent
@@ -27,12 +25,12 @@ public class MovementComponent extends AbstractComponent
 		direction = _direction;
 	}
 	
-	/**
-	 * 
-	 * @param entity
-	 */
-	public void moveRandom(AbstractEntity entity)
-	{
+//	/**
+//	 * 
+//	 * @param entity
+//	 */
+//	public void moveRandom(AbstractEntity entity)
+//	{
 //		updateMoveCount++;
 //		if (updateMoveCount > Sprites.ANIM_FRAMES / 2)
 //		{
@@ -70,7 +68,7 @@ public class MovementComponent extends AbstractComponent
 //				position.translateX((-1) * velocity);
 //			}
 //		}
-	}
+//	}
 	
 //	/**
 //	 * 

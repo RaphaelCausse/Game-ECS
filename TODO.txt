@@ -1,0 +1,6 @@
+- Monsters healthbar above them
+- Monsters attacks
+- Monsters moves
+- NPC interactions (dialog)
+- WIN/LOSE conditions => scenes
+- Help keys bottom right corner of HUD

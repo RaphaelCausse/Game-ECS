@@ -1,27 +1,35 @@
 package game.ecs.component;
 
+import game.ecs.entity.AbstractEntity;
+
 /**
  *
  */
-public class InteractComponent extends AbstractComponent
+public class InteractComponent extends AbstractComponent implements Interactable
 {
 	/*----------------------------------------*/
 	
-	private int targetUID;
+	private boolean activated;
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * 
+	 * Constructeur de la classe InteractComponent.
 	 */
 	public InteractComponent()
 	{
 		super();
+		activated = false;
+	}
+	
+	@Override
+	public void interact(AbstractEntity sender, AbstractEntity receiver)
+	{
 	}
 
 	/*----------------------------------------*/
 	
-	public int getTargetUID() { return targetUID; }
+	public boolean isActivated() { return activated; }
 	
-	public void setTargetUID(int _targetUID) { targetUID = _targetUID; } 
+	public void setActivated(boolean _activated) { activated = _activated; }
 }

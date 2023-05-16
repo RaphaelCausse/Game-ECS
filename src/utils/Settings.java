@@ -27,7 +27,8 @@ public class Settings
 		public static final String ASSETS_DIR = "res/assets/";
 		public static final String TILES = ASSETS_DIR + "tiles/";
 		public static final String ENTITIES = ASSETS_DIR + "entities/";
-		public static final String ITEMS = ASSETS_DIR + "items/";		
+		public static final String HUD = ASSETS_DIR + "hud/";	
+		public static final String ITEMS = ASSETS_DIR + "items/";	
 	}
 	
 	/**
@@ -46,12 +47,18 @@ public class Settings
 		public static final String BLACKSMITH_SPRITESHEET = DirPaths.ENTITIES + "blacksmith_spritesheet.png";
 		public static final String MONSTER_SPRITESHEET = DirPaths.ENTITIES + "monster_spritesheet.png";
 		public static final String MONSTER_BOSS_SPRITESHEET = DirPaths.ENTITIES + "monster_boss_spritesheet.png";
-		// Inventory and Items
-		public static final String HEALTH_BAR_1 = DirPaths.ITEMS + "healthbar_1.png";
-		public static final String HEALTH_BAR_2 = DirPaths.ITEMS + "healthbar_2.png";
-		public static final String INVENTORY = DirPaths.ITEMS + "inventory.png";
-		public static final String CURRENT_ITEM_BORDER = DirPaths.ITEMS + "current.png";
+		// HUD
+		public static final String HEALTH_BAR_EMPTY = DirPaths.HUD + "healthbar_empty.png";
+		public static final String HEALTH_FILL = DirPaths.HUD + "health_fill.png";
+		public static final String INVENTORY = DirPaths.HUD + "inventory.png";
+		public static final String CURRENT_ITEM_BORDER = DirPaths.HUD + "current.png";
+		public static final String SPACE_KEY = DirPaths.HUD + ".png";
+		public static final String LEFT_ARROW_KEY = DirPaths.HUD + ".png";
+		public static final String LEFT_RIGHT_KEY = DirPaths.HUD + ".png";
+		// Items
 		public static final String ITEM_KEY = DirPaths.ITEMS + "key.png";
+		public static final String ITEM_HEALTH_POTION = DirPaths.ITEMS + "health_potion.png";
+		public static final String ITEM_FLYING_RING = DirPaths.ITEMS + "flying_ring.png";
 	}
 	
 	/**
@@ -64,10 +71,14 @@ public class Settings
 		public static final int SPRITE_SIZE = 32;
 		public static final int PLAYER_SIZE = 64;
 		public static final int MONSTER_SIZE = 32;
-		public static final int MONSTER_BOSS_SIZE = 32;
 		// Animations
 		public static final int ANIM_FRAMES = 12;
+		public static final int MONSTER_BOSS_ANIM_FRAMES = 8;
 		// HUD
+		public static final int HEALTH_BAR_W = 108;
+		public static final int HEALTH_BAR_H = 10;
+		public static final int HEALTH_FILL_W = 100;
+		public static final int HEALTH_FILL_H = 8;
 		public static final int INVENTORY_W = 160;
 		public static final int INVENTORY_H = 32;
 		public static final int CURRENT_ITEM_BORDER_SIZE = 20;
@@ -115,7 +126,8 @@ public class Settings
 		public static final int INTERACT = 65;
 		public static final int INVENTORY_LEFT = 66;
 		public static final int INVENTORY_RIGHT = 67;
-		public static final int USE_OBJECT = 68;
+		public static final int USE_ITEM = 68;
+		public static final int DROP_ITEM = 69;
 	}
 	
 	/**
@@ -128,9 +140,13 @@ public class Settings
 		public static final int PLAYER_SPAWN_Y = 1184;
 		public static final int BLACKSMITH_SPAWN_X = 224;
 		public static final int BLACKSMITH_SPAWN_Y = 1024;
+		public static final int MONSTER_BOSS_SPAWN_X = 140;
+		public static final int MONSTER_BOSS_SPAWN_Y = 240;
 		// HUD positions
-		public static final int HEALTH_BAR_X = 2;
-		public static final int HEALTH_BAR_Y = 2;
+		public static final int HEALTH_BAR_X = 4;
+		public static final int HEALTH_BAR_Y = 5;
+		public static final int HEALTH_FILL_X = HEALTH_BAR_X + (Sprites.HEALTH_BAR_W - Sprites.HEALTH_FILL_W);
+		public static final int HEALTH_FILL_Y = HEALTH_BAR_Y;
 		public static final int INVENTORY_BAR_X = Window.SCREEN_W/2 - Sprites.INVENTORY_W/2;
 		public static final int INVENTORY_BAR_Y = Window.SCREEN_H - Sprites.INVENTORY_H;
 	}

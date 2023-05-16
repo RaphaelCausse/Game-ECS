@@ -5,6 +5,7 @@ import java.util.Map;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.Blacksmith;
 import game.ecs.entity.EntityManager;
+import game.ecs.entity.Monster;
 import game.ecs.entity.Player;
 import game.ecs.system.SystemManager;
 import game.graphics.Camera;
@@ -97,6 +98,18 @@ public class GameScene extends AbstractScene
 			Positions.BLACKSMITH_SPAWN_X,
 			Positions.BLACKSMITH_SPAWN_Y
 		);
+		AbstractEntity boss = new Monster(
+			"Great Golden Wyrm",
+			Positions.MONSTER_BOSS_SPAWN_X,
+			Positions.MONSTER_BOSS_SPAWN_Y, 
+			true
+		);
+		AbstractEntity flameGleok = new Monster(
+			"Flame Gleok",
+			1410,
+			125, 
+			false
+		);
 		
 		// Create Game map, Camera and HUD
 		GameMap map = new GameMap(gctx);
@@ -110,6 +123,8 @@ public class GameScene extends AbstractScene
 		// Add entities
 		entityManager.addEntity(player.getUID(), player);
 		entityManager.addEntity(blacksmith.getUID(), blacksmith);
+		entityManager.addEntity(boss.getUID(), boss);
+		entityManager.addEntity(flameGleok.getUID(), flameGleok);
 	}
 	
 	/*----------------------------------------*/

@@ -79,6 +79,10 @@ public class CollisionBounds
 	public double getMaxX() { return maxX; }
 
 	public double getMaxY() { return maxY; }
+	
+	public double getCenterX() { return minX + width/2; }
+	
+	public double getCenterY() { return minY + height/2; }
 
 	public double getWidth() {return width; }
 	

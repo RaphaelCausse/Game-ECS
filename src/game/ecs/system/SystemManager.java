@@ -31,7 +31,7 @@ public class SystemManager
     	addSystem(new MovementSystem());
     	addSystem(new CollisionSystem(camera.getMap()));
     	addSystem(new InteractSystem());
-    	addSystem(new InventorySystem());
+    	addSystem(new InventorySystem(camera.getMap()));
     	addSystem(new AnimationSystem());
     	addSystem(new RenderSystem(camera, hud));
     }

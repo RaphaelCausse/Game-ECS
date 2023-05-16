@@ -25,6 +25,8 @@ public class HUD
 	
 	private GraphicsContext gctx;
 	private Player linked;
+	private Image healthbarEmpty;
+	private Image healthFill;
 	private Image inventoryBar;
 	private Image currentItemBorder;
 	
@@ -39,6 +41,8 @@ public class HUD
 	{
 		gctx = _gctx;
 		linked = _linked;
+		healthbarEmpty = new Image(ResFiles.HEALTH_BAR_EMPTY);
+		healthFill = new Image(ResFiles.HEALTH_FILL);
 		inventoryBar = new Image(ResFiles.INVENTORY);
 		currentItemBorder = new Image(ResFiles.CURRENT_ITEM_BORDER);
 	}
@@ -96,6 +100,15 @@ public class HUD
 				Sprites.ITEM_SIZE			// dst H
 			);
 		}
+		
+		// Render current item text
+		if (inventory.getCurrentIndex() < inventory.getInventory().size())
+		{
+			gctx.setFont(new Font("Arial", 14));
+	        gctx.setFill(Color.WHITE);
+	        String itemText = inventory.getCurrentItem().getName();
+	        gctx.fillText(itemText, Window.SCREEN_W/2 - itemText.length()*3 - itemText.length()%10, Positions.INVENTORY_BAR_Y - 4);
+		}
 	}
 	
 	/**
@@ -104,12 +117,28 @@ public class HUD
 	public void renderHealth()
 	{
 		HealthComponent health = linked.getComponent(HealthComponent.class);
-		gctx.setFont(new Font("Arial", 16));
-		gctx.setFill(Color.WHITE);
-		gctx.setStroke(Color.WHITE);
-		String healthText = "HP: " + health.getCurrentHealth() + "/" + health.getMaxHealth();
-		gctx.strokeText(healthText, 2, 14);
-		gctx.fillText(healthText, 2, 14);
+//		gctx.setFont(new Font("Arial", 16));
+//		gctx.setFill(Color.WHITE);
+//		gctx.setStroke(Color.WHITE);
+//		String healthText = "HP: " + health.getCurrentHealth() + "/" + health.getMaxHealth();
+//		gctx.strokeText(healthText, 2, 14);
+//		gctx.fillText(healthText, 2, 14);
+		
+		double pourcentage = ((double) health.getCurrentHealth() / (double) health.getMaxHealth());
+		gctx.drawImage(
+			healthbarEmpty,				// image
+			Positions.HEALTH_BAR_X, 	// dst X
+			Positions.HEALTH_BAR_Y, 	// dst Y
+			Sprites.HEALTH_BAR_W,		// dst W
+			Sprites.HEALTH_BAR_H		// dst H			
+		);
+		gctx.drawImage(
+			healthFill,					// image
+			Positions.HEALTH_FILL_X,	// dst X
+			Positions.HEALTH_FILL_Y,	// dst Y
+			Sprites.HEALTH_FILL_W * pourcentage,	// dst Y
+			Sprites.HEALTH_FILL_H					// dst Y
+		);
 	}
 	
 	/*----------------------------------------*/

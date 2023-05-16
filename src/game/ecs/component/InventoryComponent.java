@@ -2,6 +2,10 @@ package game.ecs.component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.EntityManager;
 import game.ecs.entity.items.AbstractItem;
 
 /**
@@ -57,6 +61,36 @@ public class InventoryComponent extends AbstractComponent
 	}
 	
 	/**
+	 * Deposer un item de l'inventaire au sol.
+	 * @param item Item a deposer
+	 */
+	public void dropItem(AbstractEntity owner, AbstractItem item)
+	{
+		if (inventory.contains(item))
+		{
+			// Remove item from inventory
+			inventory.remove(item);
+			item.setInInventory(false);
+			// Update item components
+			PositionComponent itemPosition = item.getComponent(PositionComponent.class);
+			ColliderComponent itemCollider = item.getComponent(ColliderComponent.class);
+			
+			// TODO Improve: set drop pos in the opposite direction the entity is facing
+			
+			// Determine drop position with a random offset
+	        Random random = new Random();
+        	int randOffsetX = random.nextInt(42) - 16;
+        	int randOffsetY = random.nextInt(42) - 16;
+        	int dropPositionX = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterX() + randOffsetX;
+			int dropPositionY = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterY() + randOffsetY;
+			// Set drop position
+			itemPosition.setPos(dropPositionX, dropPositionY);
+			itemCollider.updateBounds(itemPosition);
+			EntityManager.addEntity(item.getUID(), item);
+		}
+	}
+	
+	/**
 	 * Verifier si l'inventaire est plein.
 	 * @return true, false
 	 */
@@ -90,6 +124,8 @@ public class InventoryComponent extends AbstractComponent
 	public List<AbstractItem> getInventory() { return inventory; }
 	
 	public int getCurrentIndex() { return currentIndex; }
+	
+	public AbstractItem getCurrentItem() { return inventory.get(currentIndex); }
 	
 	public void setCurrentIndex(int idx)
 	{

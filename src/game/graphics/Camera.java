@@ -2,14 +2,12 @@ package game.graphics;
 
 import java.util.List;
 
-import game.ecs.component.ColliderComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.Player;
-import javafx.scene.paint.Color;
 import utils.Point2D;
 import utils.Settings.Sprites;
 import utils.Settings.Window;
@@ -103,7 +101,7 @@ public class Camera
 		updateCameraOffset();
 		
 		// Render map
-		renderMapLayer(map.getLayerTexture());
+		renderMapLayer(map.layerTexture);
 		
 		// Render map objects, entities and the followed entity
 		renderMapObjects();
@@ -111,7 +109,7 @@ public class Camera
 		renderFollowed();
 		
 		// Render elements above all to create a depth illusion
-		renderMapLayer(map.getLayerObjectsAbove());
+		renderMapLayer(map.layerObjectsAbove);
 	}
 	
 	/**
@@ -160,7 +158,7 @@ public class Camera
 		for (MapObject object : mapObjects)
 		{
 			PositionComponent position = object.getComponent(PositionComponent.class);
-			ColliderComponent collider = object.getComponent(ColliderComponent.class);
+//			ColliderComponent collider = object.getComponent(ColliderComponent.class);
 			
 			// Check if object is inside camera view
 			if (position.getX() < origin.getX() * map.getTileWidth() ||
@@ -171,7 +169,7 @@ public class Camera
 				continue;
 			}
 			
-			// Render object
+			// Render objects
 			map.getGraphicsContext().drawImage(
 				map.getTile(object.getImageIndex()), 	// image
 				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(), // dst X
@@ -180,16 +178,16 @@ public class Camera
 				map.getTileWidth() 		// dst H
 			);
 			// TMP draw collider bounds
-			if (collider != null)
-			{
-				map.getGraphicsContext().setStroke(Color.BLUE);
-				map.getGraphicsContext().strokeRect(
-					collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-					collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-					collider.getBounds().getWidth(),
-					collider.getBounds().getHeight()
-				);
-			}
+//			if (collider != null)
+//			{
+//				map.getGraphicsContext().setStroke(Color.BLUE);
+//				map.getGraphicsContext().strokeRect(
+//					collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+//					collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+//					collider.getBounds().getWidth(),
+//					collider.getBounds().getHeight()
+//				);
+//			}
 		}
 	}
 	
@@ -211,7 +209,7 @@ public class Camera
 			// Get required components to render entity
 			PositionComponent position = entity.getComponent(PositionComponent.class);
 			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
-			ColliderComponent collider = entity.getComponent(ColliderComponent.class);
+//			ColliderComponent collider = entity.getComponent(ColliderComponent.class);
 			
 			// Check if entity is inside camera view
 			if (position.getX() < origin.getX() * map.getTileWidth() ||
@@ -231,10 +229,10 @@ public class Camera
 					sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), 	// src Y
 					sprite.getSpriteWidth(), 	// src W
 					sprite.getSpriteHeight(),	// src H
-					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(), // dst X
-					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(), // dst Y
-					sprite.getSpriteWidth(), 	// dst W
-					sprite.getSpriteHeight() 	// dst H
+					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(), 	// dst X
+					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(), 	// dst Y
+					(sprite.getScale() == 0) ? sprite.getSpriteWidth() : sprite.getSpriteWidth() * sprite.getScale(), 	// dst W
+					(sprite.getScale() == 0) ? sprite.getSpriteHeight() : sprite.getSpriteHeight() * sprite.getScale()  		// dst H
 				);
 				// TMP draw borders
 //				map.getGraphicsContext().setStroke(Color.RED);
@@ -245,16 +243,16 @@ public class Camera
 //					sprite.getSpriteHeight()
 //				);
 				// TMP draw collider bounds
-				if (collider != null)
-				{
-					map.getGraphicsContext().setStroke(Color.BLUE);
-					map.getGraphicsContext().strokeRect(
-						collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-						collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-						collider.getBounds().getWidth(),
-						collider.getBounds().getHeight()
-					);
-				}
+//				if (collider != null)
+//				{
+//					map.getGraphicsContext().setStroke(Color.BLUE);
+//					map.getGraphicsContext().strokeRect(
+//						collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+//						collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+//						collider.getBounds().getWidth(),
+//						collider.getBounds().getHeight()
+//					);
+//				}
 			}
 		}
 	}
@@ -265,7 +263,7 @@ public class Camera
 	public void renderFollowed()
 	{
 		SpriteComponent sprite = followed.getComponent(SpriteComponent.class);
-		ColliderComponent collider = followed.getComponent(ColliderComponent.class);
+//		ColliderComponent collider = followed.getComponent(ColliderComponent.class);
 		
 		map.getGraphicsContext().drawImage(
 			sprite.getSpritesheet(), 	// image
@@ -288,21 +286,21 @@ public class Camera
 //			sprite.getSpriteHeight()
 //		);
 		// TMP draw collider bounds
-		map.getGraphicsContext().setStroke(Color.BLUE);
-		map.getGraphicsContext().strokeRect(
-			collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-			collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-			collider.getBounds().getWidth(),
-			collider.getBounds().getHeight()
-		);
+//		map.getGraphicsContext().setStroke(Color.BLUE);
+//		map.getGraphicsContext().strokeRect(
+//			collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+//			collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+//			collider.getBounds().getWidth(),
+//			collider.getBounds().getHeight()
+//		);
 		// TMP draw detection range
-		map.getGraphicsContext().setStroke(Color.YELLOW);
-		map.getGraphicsContext().strokeRect(
-			collider.getDetectionBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-			collider.getDetectionBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-			collider.getDetectionBounds().getWidth(),
-			collider.getDetectionBounds().getHeight()
-		);
+//		map.getGraphicsContext().setStroke(Color.YELLOW);
+//		map.getGraphicsContext().strokeRect(
+//			collider.getDetectionBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+//			collider.getDetectionBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+//			collider.getDetectionBounds().getWidth(),
+//			collider.getDetectionBounds().getHeight()
+//		);
 	}
 	
 	/*----------------------------------------*/

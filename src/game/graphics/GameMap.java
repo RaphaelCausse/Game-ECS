@@ -6,13 +6,12 @@ import java.util.List;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.items.AbstractItem;
-import game.ecs.entity.items.Key;
+import game.ecs.entity.items.HealthPotion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import utils.CSVReader;
-import utils.Settings.Positions;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
@@ -25,9 +24,9 @@ public class GameMap
 	
 	private GraphicsContext gctx;
 	private Image[] tileset;
-	private int[][] layerTexture;
-	private int[][] layerObjects;
-	private int[][] layerObjectsAbove;
+	public int[][] layerTexture;
+	public int[][] layerObjects;
+	public int[][] layerObjectsAbove;
 	private int tileWidth;
 	private int tileHeight;
 	private List<MapObject> mapObjects;
@@ -99,14 +98,36 @@ public class GameMap
 		}
 	}
 	
+	/**
+	 * Creer et faire apparaitre les items sur la map.
+	 */
 	public void spawnItemsOnMap()
 	{
-		AbstractItem i1 = new Key(
-			Positions.PLAYER_SPAWN_X,
-			Positions.PLAYER_SPAWN_Y/2,
-			false
-		);
-		EntityManager.addEntity(i1.getUID(), i1);
+		// Initialize all health potions on the map
+		int[] healthPotionsX = {200, 333,  610, 770,  1270, 1000, 512, 1386, 1570};
+		int[] healthPotionsY = {980, 1165, 800, 1040, 815,  0,    256, 384,  50};
+		for (int x = 0, y = 0; x < healthPotionsX.length && y < healthPotionsY.length; x++, y++)
+		{
+			AbstractItem item = new HealthPotion(healthPotionsX[x], healthPotionsY[y]);
+			EntityManager.addEntity(item.getUID(), item);
+		}
+	}
+	
+	/**
+	 * Affiche en debug une couche de la map.
+	 * @param layer Couche de la map
+	 */
+	public void logMapLayer(int[][] layer)
+	{
+		for (int row = 0; row < layer.length; row++)
+		{
+			for (int col = 0; col < layer[0].length; col++)
+			{
+				System.out.print(layer[row][col] + ", ");
+			}
+			System.out.print("\n");
+		}
+		System.out.println("-----------------------------------");
 	}
 	
 	/*----------------------------------------*/
@@ -115,15 +136,9 @@ public class GameMap
 	
 	public Image getTile(int index) { return tileset[index]; }
 	
-	public int[][] getLayerTexture() { return layerTexture; }
-	
 	public int getRows() { return layerTexture.length; }
 	
 	public int getCols() { return layerTexture[0].length; }
-	
-	public int[][] getLayerObjects() { return layerObjects; }
-	
-	public int[][] getLayerObjectsAbove() { return layerObjectsAbove; }
 	
 	public int getTileWidth() { return tileWidth; }
 

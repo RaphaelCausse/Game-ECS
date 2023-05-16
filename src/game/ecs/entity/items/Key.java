@@ -1,9 +1,13 @@
 package game.ecs.entity.items;
 
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.InteractComponent;
+import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.MapObject;
+import utils.Settings.MapObjectsID;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
@@ -21,19 +25,14 @@ public class Key extends AbstractItem
 	 * Constucteur de la classe Key.
 	 * @param x Position sur la map en X
 	 * @param y Position sur la map en Y
-	 * @param inInventory Est dans l'inventaire
 	 */
-	public Key(int x, int y, boolean inInventory)
+	public Key(int x, int y)
 	{
 		super("Chest key");
 		initialize(x, y);
 	}
 	
-	/**
-	 * Initialisation des composants.
-	 * @param x Position sur la map en X
-	 * @param y Position sur la map en Y
-	 */
+	@Override
 	public void initialize(int x, int y)
 	{
 		// Create and add components
@@ -44,13 +43,13 @@ public class Key extends AbstractItem
 		addComponent(sprite);
 		
 		ColliderComponent collider = new ColliderComponent(
-			x,					// x
-			y,					// y
-			Sprites.ITEM_SIZE,	// w
-			Sprites.ITEM_SIZE,	// h
-			0,					// ox
-			0,					// oy
-			false				// isMoveable
+			x,							// x
+			y,							// y
+			sprite.getSpriteWidth(),	// w
+			sprite.getSpriteHeight(),	// h
+			0,							// ox
+			0,							// oy
+			false						// isMoveable
 		);
 		collider.setCollides(false);
 		addComponent(collider);
@@ -59,10 +58,16 @@ public class Key extends AbstractItem
 	@Override
 	public void useItem(AbstractEntity sender, AbstractEntity receiver)
 	{
-		System.out.println("Using item " + getUID());
+		// Open chest: update map object
+		MapObject receiverObject = (MapObject) receiver;
+		InteractComponent receiverInteract = receiverObject.getComponent(InteractComponent.class);
+		receiverInteract.setActivated(true);
+		receiverObject.setImageIndex(MapObjectsID.CHEST_OPEN_B);
+		used = true;
 		
-//		ColliderComponent receiverCollider = receiver.getComponent(ColliderComponent.class);
-		
+		// Remove item from inventory
+		InventoryComponent senderInventory = sender.getComponent(InventoryComponent.class);
+		senderInventory.removeItem(this);
 	}
 	
 	/*----------------------------------------*/

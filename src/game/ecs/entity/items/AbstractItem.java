@@ -10,8 +10,9 @@ public abstract class AbstractItem extends AbstractEntity
 {
 	/*----------------------------------------*/
 	
-	private String name;
-	private boolean inInventory;
+	protected String name;
+	protected boolean used;
+	protected boolean inInventory;
 	
 	/*----------------------------------------*/
 	
@@ -25,6 +26,13 @@ public abstract class AbstractItem extends AbstractEntity
 		name = _name;
 		inInventory = false;
 	}
+	
+	/**
+	 * Initialisation des composants de l'item.
+	 * @param x Position en X
+	 * @param y Position en Y
+	 */
+	public abstract void initialize(int x, int y);
 
 	/**
 	 * Utiliser l'item sur l'entite cible.
@@ -36,6 +44,8 @@ public abstract class AbstractItem extends AbstractEntity
 	/*----------------------------------------*/
 	
 	public String getName() { return name; }
+	
+	public boolean isUsed() { return used; }
 	
 	public boolean isInInventory() { return inInventory; }
 	

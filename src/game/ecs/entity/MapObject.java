@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.InteractComponent;
 import game.ecs.component.PositionComponent;
+import utils.Settings.MapObjectsID;
 import utils.Settings.Sprites;
 
 /**
@@ -95,9 +97,18 @@ public class MapObject extends AbstractEntity
 			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE, 0, 0, false);
 			addComponent(collider);
 		}
+		
+		// Set interactable if specific map object that can interact with entities
+		if (imageIndex == MapObjectsID.CHEST)
+		{
+			InteractComponent interact = new InteractComponent();
+			addComponent(interact);
+		}
 	}
 
 	/*----------------------------------------*/
 	
 	public int getImageIndex() { return imageIndex; }
+	
+	public void setImageIndex(int _imageIndex) { imageIndex = _imageIndex; } 
 }

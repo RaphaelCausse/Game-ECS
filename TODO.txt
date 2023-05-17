@@ -1,4 +1,3 @@
-- Monsters healthbar above them
 - Monsters attacks
 - NPC interactions (dialog)
 - WIN/LOSE conditions => scenes

@@ -22,7 +22,7 @@ public class DetectionComponent extends AbstractComponent
 	public DetectionComponent(int x, int y, int width, int height, int ox, int oy)
 	{
 		super();
-		detection = new CollisionBounds(x - ox, y - oy, width, height);
+		detection = new CollisionBounds(x + ox, y + oy, width, height);
 		offset = new Point2D(ox, oy);
 		nearbyEntities = new ArrayList<AbstractEntity>();
 	}
@@ -31,9 +31,8 @@ public class DetectionComponent extends AbstractComponent
 	 * Mettre a jour la bordures de detection des entites proches.
 	 * @param position Position a suivre
 	 */
-	public void updateDetectionBounds(AbstractEntity entity)
+	public void updateDetectionBounds(PositionComponent position)
 	{
-		PositionComponent position = entity.getComponent(PositionComponent.class);
 		double x = position.getX() - detection.getMinX() - offset.getX();
 		double y = position.getY() - detection.getMinY() - offset.getY();
 		detection.shift(x, y);
@@ -47,7 +46,7 @@ public class DetectionComponent extends AbstractComponent
 	public void updateNearbyEntities(GameMap map, AbstractEntity entity)
 	{
 		// Update detection bounds 
-		updateDetectionBounds(entity);
+		updateDetectionBounds(entity.getComponent(PositionComponent.class));
 		
 		// Get nearby map object within detection bounds
 		nearbyEntities.clear();

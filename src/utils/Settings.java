@@ -45,8 +45,9 @@ public class Settings
 		// Spritesheets
 		public static final String PLAYER_SPRITESHEET = DirPaths.ENTITIES + "player_spritesheet.png";
 		public static final String BLACKSMITH_SPRITESHEET = DirPaths.ENTITIES + "blacksmith_spritesheet.png";
-		public static final String MONSTER_SPRITESHEET = DirPaths.ENTITIES + "monster_spritesheet.png";
-		public static final String MONSTER_BOSS_SPRITESHEET = DirPaths.ENTITIES + "monster_boss_spritesheet.png";
+		public static final String FLAME_GLEOK_SPRITESHEET = DirPaths.ENTITIES + "flame_gleok_spritesheet.png";
+		public static final String GHOST_WIZARD_SPRITESHEET = DirPaths.ENTITIES + "ghost_wizard_spritesheet.png";
+		public static final String GLODEN_WYRM_SPRITESHEET = DirPaths.ENTITIES + "golden_wyrm_spritesheet.png";
 		// HUD
 		public static final String HEALTH_BAR_EMPTY = DirPaths.HUD + "healthbar_empty.png";
 		public static final String HEALTH_FILL = DirPaths.HUD + "health_fill.png";
@@ -57,8 +58,9 @@ public class Settings
 		public static final String LEFT_RIGHT_KEY = DirPaths.HUD + ".png";
 		// Items
 		public static final String ITEM_KEY = DirPaths.ITEMS + "key.png";
+		public static final String ITEM_DAMAGE_POTION = DirPaths.ITEMS + "damage_potion.png";
 		public static final String ITEM_HEALTH_POTION = DirPaths.ITEMS + "health_potion.png";
-		public static final String ITEM_FLYING_RING = DirPaths.ITEMS + "flying_ring.png";
+		public static final String ITEM_POISON_POTION = DirPaths.ITEMS + "poison_potion.png";
 	}
 	
 	/**
@@ -71,14 +73,17 @@ public class Settings
 		public static final int SPRITE_SIZE = 32;
 		public static final int PLAYER_SIZE = 64;
 		public static final int MONSTER_SIZE = 32;
+		public static final int MONSTER_GHOST_WIZARD_W = 56;
+		public static final int MONSTER_GHOST_WIZARD_H = 82;
 		// Animations
 		public static final int ANIM_FRAMES = 12;
-		public static final int MONSTER_BOSS_ANIM_FRAMES = 8;
+		public static final int MONSTER_ANIM_FRAMES = 8;
+		public static final int MONSTER_GHOST_WIZARD_ANIM_FRAMES = 16;
 		// HUD
-		public static final int HEALTH_BAR_W = 108;
-		public static final int HEALTH_BAR_H = 10;
-		public static final int HEALTH_FILL_W = 100;
-		public static final int HEALTH_FILL_H = 8;
+		public static final int HEALTH_BAR_W = 160;
+		public static final int HEALTH_BAR_H = 15;
+		public static final int HEALTH_FILL_W = 147;
+		public static final int HEALTH_FILL_H = 10;
 		public static final int INVENTORY_W = 160;
 		public static final int INVENTORY_H = 32;
 		public static final int CURRENT_ITEM_BORDER_SIZE = 20;
@@ -103,8 +108,7 @@ public class Settings
 		public static final int LEFT = 3;
 		// Speeds
 		public static final int PLAYER_SPEED = 2;
-		public static final int MONSTER_SPEED = 2;
-		public static final int MONSTER_BOSS_SPEED = 1;
+		public static final int MONSTER_SPEED = 1;
 	}
 	
 	/**
@@ -140,13 +144,15 @@ public class Settings
 		public static final int PLAYER_SPAWN_Y = 1184;
 		public static final int BLACKSMITH_SPAWN_X = 224;
 		public static final int BLACKSMITH_SPAWN_Y = 1024;
-		public static final int MONSTER_BOSS_SPAWN_X = 140;
-		public static final int MONSTER_BOSS_SPAWN_Y = 240;
+		public static final int MONSTER_BOSS_SPAWN1_X = 140;
+		public static final int MONSTER_BOSS_SPAWN1_Y = 240;
+		public static final int MONSTER_BOSS_SPAWN2_X = 1410;
+		public static final int MONSTER_BOSS_SPAWN2_Y = 125;
 		// HUD positions
 		public static final int HEALTH_BAR_X = 4;
 		public static final int HEALTH_BAR_Y = 5;
 		public static final int HEALTH_FILL_X = HEALTH_BAR_X + (Sprites.HEALTH_BAR_W - Sprites.HEALTH_FILL_W);
-		public static final int HEALTH_FILL_Y = HEALTH_BAR_Y;
+		public static final int HEALTH_FILL_Y = HEALTH_BAR_Y + 1;
 		public static final int INVENTORY_BAR_X = Window.SCREEN_W/2 - Sprites.INVENTORY_W/2;
 		public static final int INVENTORY_BAR_Y = Window.SCREEN_H - Sprites.INVENTORY_H;
 	}
@@ -159,11 +165,14 @@ public class Settings
 		// Player
 		public static final int PLAYER_MAX_HEALTH = 100;
 		public static final int PLAYER_BASE_DAMAGE = 20;
+		public static final int PLAYER_ATTACK_COOLDOWN = Window.FPS;
 		// Monster
-		public static final int MONSTER_BOSS_MAX_HEALTH = 400;
+		public static final int MONSTER_BOSS_MAX_HEALTH = 500;
 		public static final int MONSTER_BOSS_BASE_DAMAGE = 30;
-		public static final int MONSTER_MAX_HEALTH = 150;
+		public static final int MONSTER_BOSS_ATTACK_COOLDOWN = Window.FPS*5;
+		public static final int MONSTER_MAX_HEALTH = 100;
 		public static final int MONSTER_BASE_DAMAGE = 10;
+		public static final int MONSTER_ATTACK_COOLDOWN = Window.FPS*4;
 	}
 	
 	/**

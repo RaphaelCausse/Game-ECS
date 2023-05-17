@@ -2,15 +2,21 @@ package game.graphics;
 
 import java.util.List;
 
+import game.ecs.component.AttackComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.DetectionComponent;
+import game.ecs.component.HealthComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
+import game.ecs.entity.Monster;
 import game.ecs.entity.Player;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import utils.Point2D;
 import utils.Settings.Sprites;
 import utils.Settings.Window;
@@ -23,6 +29,7 @@ public class Camera
 	/*----------------------------------------*/
 	
 	private GameMap map;
+	private GraphicsContext gctx;
 	private Player followed;
 	private Point2D followedPosition;
 	private Point2D origin;
@@ -41,6 +48,7 @@ public class Camera
 	public Camera(GameMap _map, Player _followed)
 	{
 		map = _map;
+		gctx = map.getGraphicsContext();
 		followed = _followed;
 		followedPosition = followed.getComponent(PositionComponent.class).getPos();
 		origin = new Point2D(0, 0);
@@ -131,7 +139,7 @@ public class Camera
 					int x = col * map.getTileWidth();
 					int y = row * map.getTileHeight();
 
-					map.getGraphicsContext().drawImage(
+					gctx.drawImage(
 						map.getTile(layer[row][col]), 	// image
 						x - followedPosition.getX() + followed.cameraX + offset.getX(), // dst X
 						y - followedPosition.getY() + followed.cameraY + offset.getY(), // dst Y
@@ -172,7 +180,7 @@ public class Camera
 			}
 			
 			// Render objects
-			map.getGraphicsContext().drawImage(
+			gctx.drawImage(
 				map.getTile(object.getImageIndex()), 	// image
 				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(), // dst X
 				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(), // dst Y
@@ -213,18 +221,19 @@ public class Camera
 			PositionComponent position = entity.getComponent(PositionComponent.class);
 			SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
 			
-			// Check if entity is inside camera view
-			if (position.getX() < origin.getX() * map.getTileWidth() ||
-				position.getX() > end.getX() * map.getTileWidth() ||
-				position.getY() < origin.getY() * map.getTileHeight() ||
-				position.getY() > end.getY() * map.getTileHeight())
-			{
-				continue;
-			}
-			
 			if (sprite != null)
 			{
-				map.getGraphicsContext().drawImage(
+				// Check if entity is inside camera view
+				if (position.getX() + sprite.getSpriteWidth() < origin.getX() * map.getTileWidth() ||
+					position.getX() > end.getX() * map.getTileWidth() ||
+					position.getY() + sprite.getSpriteHeight() < origin.getY() * map.getTileHeight() ||
+					position.getY() > end.getY() * map.getTileHeight())
+				{
+					continue;
+				}
+				
+				// Render entity
+				gctx.drawImage(
 					sprite.getSpritesheet(), 	// image
 					sprite.getSpriteColIndex() * sprite.getSpriteWidth(), 	// src X
 					sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), 	// src Y
@@ -235,6 +244,38 @@ public class Camera
 					(sprite.getScale() == 0) ? sprite.getSpriteWidth() : sprite.getSpriteWidth() * sprite.getScale(), 	// dst W
 					(sprite.getScale() == 0) ? sprite.getSpriteHeight() : sprite.getSpriteHeight() * sprite.getScale()  		// dst H
 				);
+				
+				// Render monsters healthbar and name
+				if (entity instanceof Monster && entity.hasComponent(HealthComponent.class))
+				{
+					Monster monster = (Monster) entity;
+					HealthComponent health = monster.getComponent(HealthComponent.class);
+					double pourcentage = ((double) health.getCurrentHealth() / (double) health.getMaxHealth());
+					gctx.setFill(Color.rgb(0, 0, 0, 0.3));
+					gctx.fillRect(
+						position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+						position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - 10,
+						sprite.getSpriteWidth(),
+						8
+					);
+					gctx.setFill(Color.rgb(255, 0, 0, 0.7));
+					gctx.fillRect(
+						position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+						position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - 10,
+						Math.floor(sprite.getSpriteWidth() * pourcentage),
+						8
+					);
+					gctx.setFont(new Font("Arial", 11));
+					gctx.setFill(Color.WHITE);
+			        String monsterName = monster.getName();
+			        Text text = new Text(monsterName);
+			        gctx.fillText(
+			        	monsterName,
+			        	position.getX() - followedPosition.getX() + followed.cameraX + offset.getX() + sprite.getSpriteWidth()/2 - text.getLayoutBounds().getCenterX(),
+			        	position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - 18
+			        );
+				}
+				
 				// TMP draw borders
 //				map.getGraphicsContext().setStroke(Color.RED);
 //				map.getGraphicsContext().strokeRect(
@@ -243,12 +284,12 @@ public class Camera
 //					sprite.getSpriteWidth(),
 //					sprite.getSpriteHeight()
 //				);
-				// TMP draw collider bounds
+				// TMP draw collider bounds and detection bounds
 				if (entity.hasComponent(ColliderComponent.class))
 				{
 					ColliderComponent collider = entity.getComponent(ColliderComponent.class);
-					map.getGraphicsContext().setStroke(Color.BLUE);
-					map.getGraphicsContext().strokeRect(
+					gctx.setStroke(Color.BLUE);
+					gctx.strokeRect(
 						collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
 						collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
 						collider.getBounds().getWidth(),
@@ -258,8 +299,8 @@ public class Camera
 				if (entity.hasComponent(DetectionComponent.class))
 				{
 					DetectionComponent detection = entity.getComponent(DetectionComponent.class);
-					map.getGraphicsContext().setStroke(Color.YELLOW);
-					map.getGraphicsContext().strokeRect(
+					gctx.setStroke(Color.YELLOW);
+					gctx.strokeRect(
 						detection.getDetectionBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
 						detection.getDetectionBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
 						detection.getDetectionBounds().getWidth(),
@@ -276,8 +317,8 @@ public class Camera
 	public void renderFollowed()
 	{
 		SpriteComponent sprite = followed.getComponent(SpriteComponent.class);
-		
-		map.getGraphicsContext().drawImage(
+		// Render entity
+		gctx.drawImage(
 			sprite.getSpritesheet(), 	// image
 			sprite.getSpriteColIndex() * sprite.getSpriteWidth(), 	// src X
 			sprite.getSpriteRowIndex() * sprite.getSpriteHeight(), 	// src Y
@@ -301,8 +342,8 @@ public class Camera
 		if (followed.hasComponent(ColliderComponent.class))
 		{
 			ColliderComponent collider = followed.getComponent(ColliderComponent.class);
-			map.getGraphicsContext().setStroke(Color.BLUE);
-			map.getGraphicsContext().strokeRect(
+			gctx.setStroke(Color.BLUE);
+			gctx.strokeRect(
 				collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
 				collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
 				collider.getBounds().getWidth(),
@@ -313,15 +354,25 @@ public class Camera
 		if (followed.hasComponent(DetectionComponent.class))
 		{
 			DetectionComponent detection = followed.getComponent(DetectionComponent.class);
-			map.getGraphicsContext().setStroke(Color.YELLOW);
-			map.getGraphicsContext().strokeRect(
+			gctx.setStroke(Color.YELLOW);
+			gctx.strokeRect(
 				detection.getDetectionBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
 				detection.getDetectionBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
 				detection.getDetectionBounds().getWidth(),
 				detection.getDetectionBounds().getHeight()
 			);
 		}
-		
+		if (followed.hasComponent(AttackComponent.class))
+		{
+			AttackComponent attack = followed.getComponent(AttackComponent.class);
+			gctx.setStroke(Color.PURPLE);
+			gctx.strokeRect(
+				attack.getAttackHitbox().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+				attack.getAttackHitbox().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+				attack.getAttackHitbox().getWidth(),
+				attack.getAttackHitbox().getHeight()
+			);
+		}
 	}
 	
 	/*----------------------------------------*/

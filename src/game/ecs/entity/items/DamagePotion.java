@@ -1,7 +1,7 @@
 package game.ecs.entity.items;
 
 import game.ecs.component.ColliderComponent;
-import game.ecs.component.HealthComponent;
+import game.ecs.component.AttackComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
@@ -12,7 +12,7 @@ import utils.Settings.Sprites;
 /**
  *
  */
-public class HealthPotion extends AbstractItem
+public class DamagePotion extends AbstractItem
 {
 	/*----------------------------------------*/
 	
@@ -24,9 +24,9 @@ public class HealthPotion extends AbstractItem
 	 * Constructeur de la classe HealthPotion.
 	 * @param _name Nom de l'item
 	 */
-	public HealthPotion(int x, int y)
+	public DamagePotion(int x, int y)
 	{
-		super("Health Potion");
+		super("Damage Potion");
 		value = 10;
 		initialize(x, y);
 	}
@@ -38,7 +38,7 @@ public class HealthPotion extends AbstractItem
 		PositionComponent position = new PositionComponent(x, y);
 		addComponent(position);
 		
-		SpriteComponent sprite = new SpriteComponent(ResFiles.ITEM_HEALTH_POTION, Sprites.ITEM_SIZE, Sprites.ITEM_SIZE);
+		SpriteComponent sprite = new SpriteComponent(ResFiles.ITEM_DAMAGE_POTION, Sprites.ITEM_SIZE, Sprites.ITEM_SIZE);
 		addComponent(sprite);
 		
 		ColliderComponent collider = new ColliderComponent(
@@ -57,12 +57,9 @@ public class HealthPotion extends AbstractItem
 	@Override
 	public void useItem(AbstractEntity sender, AbstractEntity receiver)
 	{
-		// Restore health
-		HealthComponent receiverHealth = sender.getComponent(HealthComponent.class);
-		int newHealthValue = (receiverHealth.getCurrentHealth() + value > receiverHealth.getMaxHealth()) ?
-			receiverHealth.getMaxHealth() :
-			receiverHealth.getCurrentHealth() + value;
-		receiverHealth.setCurrentHeath(newHealthValue);
+		// Increase damage
+		AttackComponent receiverDamage = sender.getComponent(AttackComponent.class);
+		receiverDamage.setDamage(receiverDamage.getDamage() + value);
 		used = true;
 		
 		// Remove item from inventory

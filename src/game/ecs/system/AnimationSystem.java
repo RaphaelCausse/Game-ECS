@@ -1,6 +1,7 @@
 package game.ecs.system;
 
 import game.ecs.component.AnimationComponent;
+import game.ecs.component.AttackComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
@@ -51,6 +52,10 @@ public class AnimationSystem extends AbstractSystem
 					{
 						animation.setAnimationFrameCount(0);
 						animation.setInAnimation(false);
+						if (entity.hasComponent(AttackComponent.class));
+						{
+							entity.getComponent(AttackComponent.class).setHasAttacked(false);
+						}
 						continue;
 					}
 					// Update sprite indexes in the spritesheet

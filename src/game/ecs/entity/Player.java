@@ -2,7 +2,7 @@ package game.ecs.entity;
 
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
-import game.ecs.component.DamageComponent;
+import game.ecs.component.AttackComponent;
 import game.ecs.component.DetectionComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InteractComponent;
@@ -70,8 +70,8 @@ public class Player extends AbstractEntity
 		addComponent(animation);
 
 		ColliderComponent collider = new ColliderComponent(
-			x + sprite.getSpriteWidth()/2,	// x
-			y + sprite.getSpriteHeight()/2,	// y
+			x,								// x
+			y,								// y
 			sprite.getSpriteWidth()/3,		// w
 			sprite.getSpriteHeight()/4,		// h
 			sprite.getSpriteWidth()/3,		// ox
@@ -79,14 +79,14 @@ public class Player extends AbstractEntity
 			true							// isMoveable
 		);
 		addComponent(collider);
-//		x + ox - (2 * width), y + oy - (2 * height), 5 * width, 5 * height
+		
 		DetectionComponent detection = new DetectionComponent(
-			x,
-			y,
-			sprite.getSpriteWidth() * 3,
-			sprite.getSpriteHeight() * 3,
-			sprite.getSpriteWidth(),
-			sprite.getSpriteHeight()
+			x,								// x
+			y,								// y
+			sprite.getSpriteWidth()*2,		// w
+			sprite.getSpriteHeight()*2,		// h
+			sprite.getSpriteWidth()/2,		// ox
+			sprite.getSpriteHeight()/2		// oy
 		);
 		addComponent(detection);
 		
@@ -97,11 +97,19 @@ public class Player extends AbstractEntity
 		addComponent(inventory);
 		
 		HealthComponent health = new HealthComponent(Stats.PLAYER_MAX_HEALTH);
-		health.setCurrentHeath(health.getMaxHealth()/2);
+		health.setCurrentHeath(health.getMaxHealth()-10);
 		addComponent(health);
 		
-		DamageComponent damage = new DamageComponent(Stats.PLAYER_BASE_DAMAGE);
-		addComponent(damage);
+		AttackComponent attack = new AttackComponent(Stats.PLAYER_BASE_DAMAGE, Stats.PLAYER_ATTACK_COOLDOWN);
+		attack.addAttackHitBox(
+			(int)position.getX() + sprite.getSpriteWidth()/4,
+			(int)position.getY() + sprite.getSpriteHeight()/4,
+			sprite.getSpriteWidth()/3*2,
+			sprite.getSpriteHeight()/3*2,
+			sprite.getSpriteWidth()/6,
+			sprite.getSpriteHeight()/6
+		);
+		addComponent(attack);
 	}
 	
 	/*----------------------------------------*/

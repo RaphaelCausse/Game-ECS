@@ -6,8 +6,9 @@ import java.util.List;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.items.AbstractItem;
+import game.ecs.entity.items.DamagePotion;
 import game.ecs.entity.items.HealthPotion;
-import game.ecs.entity.items.Key;
+import game.ecs.entity.items.PoisonPotion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -104,18 +105,31 @@ public class GameMap
 	 */
 	public void spawnItemsOnMap()
 	{
-		// Initialize all health potions on the map
-		int[] healthPotionsX = {200, 333,  610, 770,  1270, 1000, 512, 1386, 1570};
-		int[] healthPotionsY = {980, 1165, 800, 1040, 815,  0,    256, 384,  50};
+		// Initialize all items potions on the map
+		
+		int[] damagePotionsX = {330, 1386};
+		int[] damagePotionsY = {580, 384};
+		for (int x = 0, y = 0; x < damagePotionsX.length && y < damagePotionsY.length; x++, y++)
+		{
+			AbstractItem item = new DamagePotion(damagePotionsX[x], damagePotionsY[y]);
+			EntityManager.addEntity(item.getUID(), item);
+		}
+		
+		int[] healthPotionsX = {0,   200, 333,  610, 770,  1270, 1000, 512, 1570};
+		int[] healthPotionsY = {385, 980, 1165, 800, 1040, 815,  0,    256, 50};
 		for (int x = 0, y = 0; x < healthPotionsX.length && y < healthPotionsY.length; x++, y++)
 		{
 			AbstractItem item = new HealthPotion(healthPotionsX[x], healthPotionsY[y]);
 			EntityManager.addEntity(item.getUID(), item);
 		}
-		int[] keys = {400, 1000};
-		AbstractItem key = new Key(keys[0], keys[1]);
-		EntityManager.addEntity(key.getUID(), key);
 		
+		int[] poisonPotionsX = {400};
+		int[] poisonPotionsY = {1000};
+		for (int x = 0, y = 0; x < poisonPotionsX.length && y < poisonPotionsY.length; x++, y++)
+		{
+			AbstractItem item = new PoisonPotion(poisonPotionsX[x], poisonPotionsY[y]);
+			EntityManager.addEntity(item.getUID(), item);
+		}
 	}
 	
 	/**

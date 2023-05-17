@@ -2,6 +2,7 @@ package game.graphics;
 
 import java.util.List;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.AttackComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.SpriteComponent;
@@ -54,7 +55,7 @@ public class HUD
 	{
 		renderRelativePosition();
 		renderInventory();
-		renderHealth();
+		renderStats();
 	}
 	
 	public void renderRelativePosition()
@@ -114,8 +115,9 @@ public class HUD
 	/**
 	 * Afficher la barre de points de vie.
 	 */
-	public void renderHealth()
+	public void renderStats()
 	{
+		// Render health stat
 		HealthComponent health = linked.getComponent(HealthComponent.class);
 		double pourcentage = ((double) health.getCurrentHealth() / (double) health.getMaxHealth());
 		gctx.drawImage(
@@ -129,9 +131,18 @@ public class HUD
 			healthFill,					// image
 			Positions.HEALTH_FILL_X,	// dst X
 			Positions.HEALTH_FILL_Y,	// dst Y
-			Sprites.HEALTH_FILL_W * pourcentage,	// dst Y
+			Math.floor(Sprites.HEALTH_FILL_W * pourcentage),	// dst Y
 			Sprites.HEALTH_FILL_H					// dst Y
 		);
+		
+		// Render damage stat
+		AttackComponent damage = linked.getComponent(AttackComponent.class);
+		gctx.setFont(new Font("Arial", 12));
+		gctx.setStroke(Color.YELLOW);
+        gctx.setFill(Color.YELLOW);
+        String damageText = "ATK : " + damage.getDamage();
+        gctx.strokeText(damageText, 5, 32);
+        gctx.fillText(damageText, 5, 32);
 	}
 	
 	/*----------------------------------------*/

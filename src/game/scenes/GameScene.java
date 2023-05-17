@@ -2,11 +2,16 @@ package game.scenes;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import game.ecs.component.InventoryComponent;
+import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.Blacksmith;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.Monster;
 import game.ecs.entity.Player;
+import game.ecs.entity.items.AbstractItem;
+import game.ecs.entity.items.Key;
 import game.ecs.system.SystemManager;
 import game.graphics.Camera;
 import game.graphics.GameMap;
@@ -19,6 +24,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import utils.Settings.Positions;
+import utils.Settings.ResFiles;
+import utils.Settings.Sprites;
+import utils.Settings.Stats;
 import utils.Settings.Window;
 
 /**
@@ -99,17 +107,22 @@ public class GameScene extends AbstractScene
 			Positions.BLACKSMITH_SPAWN_Y
 		);
 		AbstractEntity boss = new Monster(
-			"Great Golden Wyrm",
-			Positions.MONSTER_BOSS_SPAWN_X,
-			Positions.MONSTER_BOSS_SPAWN_Y, 
-			true
+			"Ghost Wizard",
+			Positions.MONSTER_BOSS_SPAWN1_X,
+			Positions.MONSTER_BOSS_SPAWN1_Y,
+			ResFiles.GHOST_WIZARD_SPRITESHEET,
+			Sprites.MONSTER_GHOST_WIZARD_W,
+			Sprites.MONSTER_GHOST_WIZARD_H,
+			Sprites.MONSTER_GHOST_WIZARD_ANIM_FRAMES,
+			Stats.MONSTER_BOSS_MAX_HEALTH,
+			Stats.MONSTER_BOSS_BASE_DAMAGE,
+			Stats.MONSTER_BOSS_ATTACK_COOLDOWN
 		);
-		AbstractEntity flameGleok = new Monster(
-			"Flame Gleok",
-			1410,
-			125, 
-			false
+		AbstractItem key = new Key(
+			(int)boss.getComponent(PositionComponent.class).getX(),
+			(int)boss.getComponent(PositionComponent.class).getY()
 		);
+		boss.getComponent(InventoryComponent.class).addItem(key);
 		
 		// Create Game map, Camera and HUD
 		GameMap map = new GameMap(gctx);
@@ -124,7 +137,6 @@ public class GameScene extends AbstractScene
 		entityManager.addEntity(player.getUID(), player);
 		entityManager.addEntity(blacksmith.getUID(), blacksmith);
 		entityManager.addEntity(boss.getUID(), boss);
-		entityManager.addEntity(flameGleok.getUID(), flameGleok);
 	}
 	
 	/*----------------------------------------*/

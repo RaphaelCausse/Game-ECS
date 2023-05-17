@@ -29,11 +29,12 @@ public class SystemManager
     	// Order systems for execution
     	addSystem(new KeyInputSystem(scene));
     	addSystem(new MovementSystem());
+    	addSystem(new AnimationSystem());
     	addSystem(new DetectionSystem(camera.getMap()));
     	addSystem(new CollisionSystem(camera.getMap()));
+    	addSystem(new AttackSystem());
     	addSystem(new InteractSystem());
     	addSystem(new InventorySystem(camera.getMap()));
-    	addSystem(new AnimationSystem());
     	addSystem(new RenderSystem(camera, hud));
     }
 

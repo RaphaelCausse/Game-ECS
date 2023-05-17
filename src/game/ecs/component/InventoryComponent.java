@@ -43,6 +43,7 @@ public class InventoryComponent extends AbstractComponent
 		if (!isFull())
 		{
 			inventory.add(item);
+			currentIndex = inventory.indexOf(item);
 			item.setInInventory(true);
 		}
 	}
@@ -75,8 +76,6 @@ public class InventoryComponent extends AbstractComponent
 			PositionComponent itemPosition = item.getComponent(PositionComponent.class);
 			ColliderComponent itemCollider = item.getComponent(ColliderComponent.class);
 			
-			// TODO Improve: set drop pos in the opposite direction the entity is facing
-			
 			// Determine drop position with a random offset
 	        Random random = new Random();
         	int randOffsetX = random.nextInt(42) - 16;
@@ -88,6 +87,30 @@ public class InventoryComponent extends AbstractComponent
 			itemCollider.updateBounds(itemPosition);
 			EntityManager.addEntity(item.getUID(), item);
 		}
+	}
+	
+	public void dropInventory(AbstractEntity owner)
+	{
+		List<AbstractItem> toDrop = new ArrayList<>();
+		for (AbstractItem item : inventory)
+		{
+			toDrop.add(item);
+			item.setInInventory(false);
+			// Update item components
+			PositionComponent itemPosition = item.getComponent(PositionComponent.class);
+			ColliderComponent itemCollider = item.getComponent(ColliderComponent.class);
+			// Determine drop position with a random offset
+	        Random random = new Random();
+        	int randOffsetX = random.nextInt(42) - 16;
+        	int randOffsetY = random.nextInt(42) - 16;
+        	int dropPositionX = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterX() + randOffsetX;
+			int dropPositionY = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterY() + randOffsetY;
+			// Set drop position
+			itemPosition.setPos(dropPositionX, dropPositionY);
+			itemCollider.updateBounds(itemPosition);
+			EntityManager.addEntity(item.getUID(), item);
+		}
+		inventory.removeAll(toDrop);
 	}
 	
 	/**

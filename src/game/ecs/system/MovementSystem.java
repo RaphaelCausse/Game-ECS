@@ -2,6 +2,7 @@ package game.ecs.system;
 
 import game.ecs.FlagECS;
 import game.ecs.component.AnimationComponent;
+import game.ecs.component.AttackComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.DetectionComponent;
 import game.ecs.component.KeyInputComponent;
@@ -105,6 +106,9 @@ public class MovementSystem extends AbstractSystem
 					{
 						animation.setAnimationFrameCount(0);
 						animation.setInAnimation(true);
+						AttackComponent attack = entity.getComponent(AttackComponent.class);
+						attack.setAttacking(true);
+						attack.setFlag(FlagECS.TO_UPDATE);
 					}
 				}
 				// Normalize diagonal vector
@@ -115,6 +119,7 @@ public class MovementSystem extends AbstractSystem
 				}
 				// New position by adding normalized velocity
 				position.translate(dx * movement.getVelocity(), dy * movement.getVelocity());
+				
 				collider.setFlag(FlagECS.TO_UPDATE);
 				
 				// Keys released
@@ -123,6 +128,11 @@ public class MovementSystem extends AbstractSystem
 					if (!animation.isInAnimation())
 					{
 						animation.setState(AnimationState.IDLE);
+						if (entity.hasComponent(AttackComponent.class))
+						{
+							AttackComponent attack = entity.getComponent(AttackComponent.class);
+							attack.setAttacking(false);
+						}
 					}
 				}
 				
@@ -137,10 +147,25 @@ public class MovementSystem extends AbstractSystem
 					DetectionComponent detection = entity.getComponent(DetectionComponent.class);
 					for (AbstractEntity nearbyEntity : detection.getNearbyEntities())
 					{
+						// Move towards player if inside detection bounds
 						if (nearbyEntity instanceof Player)
 						{
 							movement.moveToTarget(entity, nearbyEntity);
 							collider.setFlag(FlagECS.TO_UPDATE);
+							
+							// Attack player if close enough to entity
+							AttackComponent entityAttack = entity.getComponent(AttackComponent.class);
+							ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
+							ColliderComponent entityCollider = entity.getComponent(ColliderComponent.class);
+							if (Math.abs(nearbyCollider.getBounds().getCenterX() - entityCollider.getBounds().getCenterX()) < 150 &&
+								Math.abs(nearbyCollider.getBounds().getCenterY() - entityCollider.getBounds().getCenterY()) < 150)
+							{
+								entityAttack.setAttacking(true);
+							}
+							else
+							{
+								entityAttack.setAttacking(false);
+							}
 						}
 					}
 				}

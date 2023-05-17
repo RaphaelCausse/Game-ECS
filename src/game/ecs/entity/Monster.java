@@ -5,6 +5,7 @@ import java.util.Random;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.DamageComponent;
+import game.ecs.component.DetectionComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.MovementComponent;
@@ -88,6 +89,16 @@ public class Monster extends AbstractEntity
 			true
 		);
 		addComponent(collider);
+		
+		DetectionComponent detection = new DetectionComponent(
+			x,
+			y,
+			sprite.getSpriteWidth() * 9,
+			sprite.getSpriteWidth() * 9,
+			sprite.getSpriteWidth() * 4,
+			sprite.getSpriteWidth() * 4
+		);
+		addComponent(detection);
 		
 		HealthComponent health = new HealthComponent(
 			(isBoss) ? Stats.MONSTER_BOSS_MAX_HEALTH : Stats.MONSTER_MAX_HEALTH

@@ -117,13 +117,6 @@ public class HUD
 	public void renderHealth()
 	{
 		HealthComponent health = linked.getComponent(HealthComponent.class);
-//		gctx.setFont(new Font("Arial", 16));
-//		gctx.setFill(Color.WHITE);
-//		gctx.setStroke(Color.WHITE);
-//		String healthText = "HP: " + health.getCurrentHealth() + "/" + health.getMaxHealth();
-//		gctx.strokeText(healthText, 2, 14);
-//		gctx.fillText(healthText, 2, 14);
-		
 		double pourcentage = ((double) health.getCurrentHealth() / (double) health.getMaxHealth());
 		gctx.drawImage(
 			healthbarEmpty,				// image

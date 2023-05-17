@@ -2,6 +2,7 @@ package game.ecs.system;
 
 import game.ecs.FlagECS;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.DetectionComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InteractComponent;
 import game.ecs.component.InventoryComponent;
@@ -55,7 +56,6 @@ public class InventorySystem extends AbstractSystem
 			
 			// Update component to move current inventory item index
 			KeyInputComponent inputs = entity.getComponent(KeyInputComponent.class);
-			ColliderComponent collider = entity.getComponent(ColliderComponent.class);
 			
 			if (inputs != null)
 			{
@@ -90,7 +90,8 @@ public class InventorySystem extends AbstractSystem
 				        	if (item instanceof Key)
 				        	{
 				        		// Check if there is a chest nearby to open it
-				        		for (AbstractEntity nearbyEntity : collider.getNearbyEntities())
+				        		DetectionComponent detection = entity.getComponent(DetectionComponent.class);
+				        		for (AbstractEntity nearbyEntity : detection.getNearbyEntities())
 				        		{
 				        			if (nearbyEntity.hasComponent(InteractComponent.class))
 				        			{
@@ -145,7 +146,6 @@ public class InventorySystem extends AbstractSystem
 		        }
 			}
 	        
-			
 			// Restore stable flag
 			inventory.setFlag(FlagECS.STABLE);
 		}

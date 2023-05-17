@@ -2,6 +2,7 @@ package game.ecs.system;
 
 import game.ecs.FlagECS;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.DetectionComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
@@ -72,67 +73,70 @@ public class CollisionSystem extends AbstractSystem
 			// Check collisions between entities if entity is able to move
 			if (collider.isMoveable())
 			{
-				// Get nearby entities and map object within entity detection bounds
-				collider.updateNearbyEntities(map, entity);
-				
-				// Check collisions with other nearby entities, map objects and items
-				for (AbstractEntity nearbyEntity : collider.getNearbyEntities())
+				if (entity.hasComponent(DetectionComponent.class))
 				{
-				    ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
-				    CollisionBounds nearbyBounds = nearbyCollider.getBounds();
-				    
-				    if (entityBounds.intersects(nearbyBounds))
-				    {
-				    	// Get item on ground when colliding, add it to the inventory
-				    	if (nearbyEntity instanceof AbstractItem)
-				    	{
-				    		InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
-				    		if (!inventory.isFull())
-				    		{
-				    			inventory.addItem((AbstractItem)nearbyEntity);
-				    			EntityManager.removeEntity(nearbyEntity.getUID());
-				    		}
-				    		continue;
-				    	}
-				    	
-				    	// Collisions with rigid entities
-				    	if (collider.doCollides() && nearbyCollider.doCollides())
-						{
-						    // Determine collision direction
-						    double xOverlap = entityBounds.getMaxX() - nearbyBounds.getMinX();
-						    double xReverseOverlap = nearbyBounds.getMaxX() - entityBounds.getMinX();
-						    double yOverlap = entityBounds.getMaxY() - nearbyBounds.getMinY();
-						    double yReverseOverlap = nearbyBounds.getMaxY() - entityBounds.getMinY();
-		
-						    double smallestOverlap = Math.min(
-					    		Math.min(Math.abs(xOverlap), Math.abs(xReverseOverlap)),
-					    		Math.min(Math.abs(yOverlap), Math.abs(yReverseOverlap))
-					    	);
-		
-						    double xDisplacement = 0.0;
-						    double yDisplacement = 0.0;
-		
-						    if (smallestOverlap == Math.abs(xOverlap))
-						    {
-						        xDisplacement = -xOverlap-1;
-						    }
-						    if (smallestOverlap == Math.abs(xReverseOverlap))
-						    {
-						        xDisplacement = xReverseOverlap+1;
-						    }
-						    if (smallestOverlap == Math.abs(yOverlap))
-						    {
-						        yDisplacement = -yOverlap-1;
-						    }
-						    if (smallestOverlap == Math.abs(yReverseOverlap))
-						    {
-						        yDisplacement = yReverseOverlap+1;
-						    }
-		
-						    // Move entity in opposite direction of collision
-						    position.translate((int)xDisplacement, (int)yDisplacement);
-						    collider.updateBounds(position);
-						    continue;
+					// Get nearby entities and map object within entity detection bounds
+					DetectionComponent detection = entity.getComponent(DetectionComponent.class);
+					
+					// Check collisions with other nearby entities, map objects and items
+					for (AbstractEntity nearbyEntity : detection.getNearbyEntities())
+					{
+					    ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
+					    CollisionBounds nearbyBounds = nearbyCollider.getBounds();
+					    
+					    if (entityBounds.intersects(nearbyBounds))
+					    {
+					    	// Get item on ground when colliding, add it to the inventory
+					    	if (nearbyEntity instanceof AbstractItem)
+					    	{
+					    		InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
+					    		if (!inventory.isFull())
+					    		{
+					    			inventory.addItem((AbstractItem)nearbyEntity);
+					    			EntityManager.removeEntity(nearbyEntity.getUID());
+					    		}
+					    		continue;
+					    	}
+					    	
+					    	// Collisions with rigid entities
+					    	if (collider.doCollides() && nearbyCollider.doCollides())
+							{
+							    // Determine collision direction
+							    double xOverlap = entityBounds.getMaxX() - nearbyBounds.getMinX();
+							    double xReverseOverlap = nearbyBounds.getMaxX() - entityBounds.getMinX();
+							    double yOverlap = entityBounds.getMaxY() - nearbyBounds.getMinY();
+							    double yReverseOverlap = nearbyBounds.getMaxY() - entityBounds.getMinY();
+			
+							    double smallestOverlap = Math.min(
+						    		Math.min(Math.abs(xOverlap), Math.abs(xReverseOverlap)),
+						    		Math.min(Math.abs(yOverlap), Math.abs(yReverseOverlap))
+						    	);
+			
+							    double xDisplacement = 0.0;
+							    double yDisplacement = 0.0;
+			
+							    if (smallestOverlap == Math.abs(xOverlap))
+							    {
+							        xDisplacement = -xOverlap-1;
+							    }
+							    if (smallestOverlap == Math.abs(xReverseOverlap))
+							    {
+							        xDisplacement = xReverseOverlap+1;
+							    }
+							    if (smallestOverlap == Math.abs(yOverlap))
+							    {
+							        yDisplacement = -yOverlap-1;
+							    }
+							    if (smallestOverlap == Math.abs(yReverseOverlap))
+							    {
+							        yDisplacement = yReverseOverlap+1;
+							    }
+			
+							    // Move entity in opposite direction of collision
+							    position.translate((int)xDisplacement, (int)yDisplacement);
+							    collider.updateBounds(position);
+							    continue;
+							}
 						}
 					}
 				}

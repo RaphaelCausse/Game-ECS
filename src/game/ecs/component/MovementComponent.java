@@ -1,5 +1,7 @@
 package game.ecs.component;
 
+import game.ecs.entity.AbstractEntity;
+
 /**
  * Classe qui represente un composant de movement.
  * @see AbstractComponent
@@ -25,59 +27,54 @@ public class MovementComponent extends AbstractComponent
 		direction = _direction;
 	}
 	
-//	/**
-//	 * 
-//	 * @param entity
-//	 */
-//	public void moveRandom(AbstractEntity entity)
-//	{
-//		updateMoveCount++;
-//		if (updateMoveCount > Sprites.ANIM_FRAMES / 2)
-//		{
-//			updateMoveCount = 0;
-//			// Get a randow direction
-//			Random rand = new Random();
-//	        int randomDirection = rand.nextInt(4);
-//	        // Decide to follow the random direciton or the previous one
-//	        int followPrevious = rand.nextInt(100);
-//	        if (followPrevious > 10)
-//	        {
-//	        	randomDirection = previousRandomMove;
-//	        }
-//	        
-//	        // Move entity
-//	        PositionComponent position = entity.getComponent(PositionComponent.class);
-//	    	if (randomDirection == Movement.UP)
-//	    	{
-//	    		previousRandomMove = Movement.UP;
-//	    		position.translateY((-1) * velocity);
-//	    	}
-//	    	if (randomDirection == Movement.RIGHT)
-//	    	{
-//	    		previousRandomMove = Movement.RIGHT;
-//	    		position.translateX(velocity);
-//	    	}
-//			if (randomDirection == Movement.DOWN)
-//			{
-//				previousRandomMove = Movement.DOWN;
-//				position.translateY(velocity);
-//			}
-//			if (randomDirection == Movement.LEFT)
-//			{
-//				previousRandomMove = Movement.LEFT;
-//				position.translateX((-1) * velocity);
-//			}
-//		}
-//	}
+	/**
+	 * Deplacement aleatoire de l'entite vers un point.
+	 * @param entity
+	 */
+	public void moveRandom(AbstractEntity entity)
+	{
+		
+	}
 	
-//	/**
-//	 * 
-//	 * @param entity
-//	 */
-//	public void moveToPlayer(AbstractEntity entity)
-//	{
-//		// TODO Move entity towards player position
-//	}
+	/**
+	 * 
+	 * @param entity
+	 */
+	public void moveToTarget(AbstractEntity entity, AbstractEntity target)
+	{
+		// Get components
+		PositionComponent entityPosition = entity.getComponent(PositionComponent.class);
+		MovementComponent entityMovement = entity.getComponent(MovementComponent.class);
+		ColliderComponent entityCollider = entity.getComponent(ColliderComponent.class);
+		ColliderComponent targetCollider = target.getComponent(ColliderComponent.class);
+		
+		System.out.println("Entity collider" + entityCollider.getBounds().getCenterX());
+		System.out.println("Entity collider" + entityCollider.getBounds().getCenterY());
+		System.out.println("Target collider" + targetCollider.getBounds().getCenterX());
+		System.out.println("Target collider" + targetCollider.getBounds().getCenterY());
+		
+		// Move
+        double dx = targetCollider.getBounds().getCenterX() - entityCollider.getBounds().getCenterX();
+        double dy = targetCollider.getBounds().getCenterY() - entityCollider.getBounds().getCenterY();
+        
+        
+        System.out.println("(dx: " + dx + ", dy: " + dy + ")");
+        
+        
+        double angle = Math.atan2(dy, dx);
+        double px =  Math.cos(angle);
+        double py =  Math.sin(angle);
+        double x = px * entityMovement.getVelocity();
+        double y = py * entityMovement.getVelocity();
+        
+//        System.out.println("AVANT TRANSLATE (x: "+ x + ", y: " + y + ")");
+        
+        entityPosition.translate(x, y);
+        
+//        System.out.println("APRES TRANSLATE (x: "+ x + ", y: " + y + ")");
+		
+		// Flag animation
+	}
 	
 	/*----------------------------------------*/
 

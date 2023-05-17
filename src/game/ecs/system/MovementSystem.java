@@ -3,11 +3,13 @@ package game.ecs.system;
 import game.ecs.FlagECS;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.DetectionComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
+import game.ecs.entity.Player;
 import utils.Settings.Actions;
 import utils.Settings.AnimationState;
 import utils.Settings.Movement;
@@ -127,8 +129,22 @@ public class MovementSystem extends AbstractSystem
 				// Restore stable flag
 				movement.setFlag(FlagECS.STABLE);
 			}
-			
-			// TODO Update for entities that movement is not based on inputs
+			// Update for entities that movement is not based on inputs
+			else
+			{
+				if (entity.hasComponent(DetectionComponent.class))
+				{
+					DetectionComponent detection = entity.getComponent(DetectionComponent.class);
+					for (AbstractEntity nearbyEntity : detection.getNearbyEntities())
+					{
+						if (nearbyEntity instanceof Player)
+						{
+							movement.moveToTarget(entity, nearbyEntity);
+							collider.setFlag(FlagECS.TO_UPDATE);
+						}
+					}
+				}
+			}
 		}
 	}
 

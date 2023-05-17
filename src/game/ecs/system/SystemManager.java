@@ -29,6 +29,7 @@ public class SystemManager
     	// Order systems for execution
     	addSystem(new KeyInputSystem(scene));
     	addSystem(new MovementSystem());
+    	addSystem(new DetectionSystem(camera.getMap()));
     	addSystem(new CollisionSystem(camera.getMap()));
     	addSystem(new InteractSystem());
     	addSystem(new InventorySystem(camera.getMap()));

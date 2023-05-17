@@ -7,6 +7,7 @@ import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.items.AbstractItem;
 import game.ecs.entity.items.HealthPotion;
+import game.ecs.entity.items.Key;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -111,6 +112,10 @@ public class GameMap
 			AbstractItem item = new HealthPotion(healthPotionsX[x], healthPotionsY[y]);
 			EntityManager.addEntity(item.getUID(), item);
 		}
+		int[] keys = {400, 1000};
+		AbstractItem key = new Key(keys[0], keys[1]);
+		EntityManager.addEntity(key.getUID(), key);
+		
 	}
 	
 	/**

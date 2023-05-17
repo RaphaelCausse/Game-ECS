@@ -11,8 +11,8 @@ public class Settings
 	{
 		// Window settings
 		public static final String TITLE = "Project-Unknown";
-		public static final int SCREEN_W = 800;
-		public static final int SCREEN_H = SCREEN_W/4*3;
+		public static final int SCREEN_W = 1000;
+		public static final int SCREEN_H = SCREEN_W/16*9;
 		// Framerate settings
 		public static final int FPS = 60;
 		public static final Duration FRAME_TIME = Duration.millis(1000/FPS);

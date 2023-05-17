@@ -3,6 +3,7 @@ package game.ecs.entity;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.DamageComponent;
+import game.ecs.component.DetectionComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InteractComponent;
 import game.ecs.component.InventoryComponent;
@@ -78,6 +79,16 @@ public class Player extends AbstractEntity
 			true							// isMoveable
 		);
 		addComponent(collider);
+//		x + ox - (2 * width), y + oy - (2 * height), 5 * width, 5 * height
+		DetectionComponent detection = new DetectionComponent(
+			x,
+			y,
+			sprite.getSpriteWidth() * 3,
+			sprite.getSpriteHeight() * 3,
+			sprite.getSpriteWidth(),
+			sprite.getSpriteHeight()
+		);
+		addComponent(detection);
 		
 		InteractComponent interact = new InteractComponent();
 		addComponent(interact);

@@ -29,7 +29,6 @@ public class KeyInputComponent extends AbstractComponent
 		inputMap.put(Movement.DOWN, false);
 		inputMap.put(Movement.LEFT, false);
 		inputMap.put(Actions.ATTACK, false);
-		inputMap.put(Actions.INTERACT, false);
 		inputMap.put(Actions.INVENTORY_LEFT, false);
 		inputMap.put(Actions.INVENTORY_RIGHT, false);
 		inputMap.put(Actions.USE_ITEM, false);

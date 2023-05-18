@@ -94,7 +94,7 @@ public class InventorySystem extends AbstractSystem
 				        		DetectionComponent detection = entity.getComponent(DetectionComponent.class);
 				        		for (AbstractEntity nearbyEntity : detection.getNearbyEntities())
 				        		{
-				        			if (nearbyEntity.hasComponent(InteractComponent.class))
+				        			if (nearbyEntity.hasComponent(InteractComponent.class) && nearbyEntity instanceof MapObject)
 				        			{
 				        				MapObject interactableObject = (MapObject) nearbyEntity;
 				        				InteractComponent interact = interactableObject.getComponent(InteractComponent.class);
@@ -102,6 +102,7 @@ public class InventorySystem extends AbstractSystem
 				        				{
 				        					// Open chest with key
 				        					item.useItem(entity, interactableObject);
+				        					interact.setActivated(true);
 				        					PositionComponent objectPosition = interactableObject.getComponent(PositionComponent.class);
 				        					int row = (int)objectPosition.getY() / map.getTileHeight() - 1;
 				        					int col = (int)objectPosition.getX() / map.getTileWidth();

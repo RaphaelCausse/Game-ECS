@@ -134,11 +134,10 @@ public class Settings
 	public static class Actions
 	{
 		public static final int ATTACK = 64;
-		public static final int INTERACT = 65;
-		public static final int INVENTORY_LEFT = 66;
-		public static final int INVENTORY_RIGHT = 67;
-		public static final int USE_ITEM = 68;
-		public static final int DROP_ITEM = 69;
+		public static final int INVENTORY_LEFT = 65;
+		public static final int INVENTORY_RIGHT = 66;
+		public static final int USE_ITEM = 67;
+		public static final int DROP_ITEM = 68;
 	}
 	
 	/**
@@ -174,11 +173,11 @@ public class Settings
 		public static final int PLAYER_BASE_DAMAGE = 20;
 		public static final int PLAYER_ATTACK_COOLDOWN = Window.FPS;
 		// Monster
-		public static final int MONSTER_BOSS_MAX_HEALTH = 600;
-		public static final int MONSTER_BOSS_BASE_DAMAGE = 30;
+		public static final int MONSTER_BOSS_MAX_HEALTH = 1200;
+		public static final int MONSTER_BOSS_BASE_DAMAGE = 20;
 		public static final int MONSTER_BOSS_ATTACK_COOLDOWN = Window.FPS*4;
-		public static final int MONSTER_MAX_HEALTH = 125;
-		public static final int MONSTER_BASE_DAMAGE = 5;
+		public static final int MONSTER_MAX_HEALTH = 400;
+		public static final int MONSTER_BASE_DAMAGE = 10;
 		public static final int MONSTER_ATTACK_COOLDOWN = Window.FPS;
 	}
 	

@@ -1,7 +1,6 @@
 package game.ecs.entity.items;
 
 import game.ecs.component.ColliderComponent;
-import game.ecs.component.InteractComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
@@ -60,8 +59,6 @@ public class Key extends AbstractItem
 	{
 		// Open chest: update map object
 		MapObject receiverObject = (MapObject) receiver;
-		InteractComponent receiverInteract = receiverObject.getComponent(InteractComponent.class);
-		receiverInteract.setActivated(true);
 		receiverObject.setImageIndex(MapObjectsID.CHEST_OPEN_B);
 		used = true;
 		

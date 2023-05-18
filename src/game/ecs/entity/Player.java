@@ -105,9 +105,9 @@ public class Player extends AbstractEntity
 			(int)position.getX() + sprite.getSpriteWidth()/4,
 			(int)position.getY() + sprite.getSpriteHeight()/4,
 			sprite.getSpriteWidth()/3*2,
-			sprite.getSpriteHeight()/3*2,
+			sprite.getSpriteHeight()/2,
 			sprite.getSpriteWidth()/6,
-			sprite.getSpriteHeight()/6
+			sprite.getSpriteHeight()/4
 		);
 		addComponent(attack);
 	}

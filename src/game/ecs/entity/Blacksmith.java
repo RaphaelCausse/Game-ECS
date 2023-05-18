@@ -1,7 +1,11 @@
 package game.ecs.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
+import game.ecs.component.DetectionComponent;
 import game.ecs.component.InteractComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
@@ -23,7 +27,6 @@ public class Blacksmith extends AbstractEntity
 	 * Constructeur de la classe Blacksmith.
 	 * @param x Position en X
 	 * @param y Position en Y
-	 * @param animFrames Nombre de frames de l'animation
 	 */
 	public Blacksmith(int x, int y)
 	{
@@ -35,7 +38,6 @@ public class Blacksmith extends AbstractEntity
 	 * Initialisation des composants de l'entite.
 	 * @param x Position en X
 	 * @param y Position en Y
-	 * @param animFrames Nombre de frames de l'animation
 	 */
 	public void initialize(int x, int y)
 	{
@@ -52,7 +54,19 @@ public class Blacksmith extends AbstractEntity
 		ColliderComponent collider = new ColliderComponent(x, y, sprite.getSpriteWidth(), sprite.getSpriteHeight(), 0, 0, false);
 		addComponent(collider);
 		
-		InteractComponent interact = new InteractComponent();
+		DetectionComponent detection = new DetectionComponent(
+			x,								// x
+			y,								// y
+			sprite.getSpriteWidth()*4,		// w
+			sprite.getSpriteHeight()*2,		// h
+			sprite.getSpriteWidth()*3/2,		// ox
+			0								// oy
+		);
+		addComponent(detection);
+		
+		List<String> dialogs = new ArrayList<>();
+		dialogs.add("Hey, it's dangerous around here !\nCan you kill them all for me please ?");
+		InteractComponent interact = new InteractComponent(dialogs);
 		addComponent(interact);
 	}
 	

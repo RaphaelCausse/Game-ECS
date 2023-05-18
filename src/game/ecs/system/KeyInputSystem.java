@@ -3,7 +3,6 @@ package game.ecs.system;
 import java.util.Map;
 
 import game.ecs.FlagECS;
-import game.ecs.component.InteractComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
@@ -127,18 +126,6 @@ public class KeyInputSystem extends AbstractSystem
 					movement.setFlag(FlagECS.TO_UPDATE);
 				}
 			}
-			InteractComponent interact = entity.getComponent(InteractComponent.class);
-			if (interact != null)
-			{
-				if (isPressed(KeyCode.E))
-				{
-					if (inputMap.containsKey(Actions.INTERACT))
-					{
-						inputMap.put(Actions.INTERACT, true);
-						interact.setFlag(FlagECS.TO_UPDATE);
-					}
-				}
-			}
 			InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
 			if (inventory != null)
 			{
@@ -158,7 +145,7 @@ public class KeyInputSystem extends AbstractSystem
 						inventory.setFlag(FlagECS.TO_UPDATE);
 					}
 				}
-				if (isPressed(KeyCode.A))
+				if (isPressed(KeyCode.UP))
 				{
 					if (inputMap.containsKey(Actions.USE_ITEM))
 					{
@@ -166,7 +153,7 @@ public class KeyInputSystem extends AbstractSystem
 						inventory.setFlag(FlagECS.TO_UPDATE);
 					}
 				}
-				if (isPressed(KeyCode.G))
+				if (isPressed(KeyCode.DOWN))
 				{
 					if (inputMap.containsKey(Actions.DROP_ITEM))
 					{
@@ -203,11 +190,6 @@ public class KeyInputSystem extends AbstractSystem
 				inputMap.put(Actions.ATTACK, false);
 				movement.setFlag(FlagECS.TO_UPDATE);
 			}
-			if (isReleased(KeyCode.E))
-			{
-				inputMap.put(Actions.INTERACT, false);
-				interact.setFlag(FlagECS.TO_UPDATE);
-			}
 			if (isReleased(KeyCode.LEFT))
 			{
 				inputMap.put(Actions.INVENTORY_LEFT, false);
@@ -218,12 +200,12 @@ public class KeyInputSystem extends AbstractSystem
 				inputMap.put(Actions.INVENTORY_RIGHT, false);
 				inventory.setFlag(FlagECS.TO_UPDATE);
 			}
-			if (isReleased(KeyCode.A))
+			if (isReleased(KeyCode.UP))
 			{
 				inputMap.put(Actions.USE_ITEM, false);
 				inventory.setFlag(FlagECS.TO_UPDATE);
 			}
-			if (isReleased(KeyCode.G))
+			if (isReleased(KeyCode.DOWN))
 			{
 				inputMap.put(Actions.DROP_ITEM, false);
 				inventory.setFlag(FlagECS.TO_UPDATE);

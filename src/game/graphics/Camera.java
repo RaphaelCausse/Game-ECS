@@ -1,11 +1,13 @@
 package game.graphics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import game.ecs.component.AttackComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.DetectionComponent;
 import game.ecs.component.HealthComponent;
+import game.ecs.component.InteractComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
@@ -13,6 +15,7 @@ import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.Monster;
 import game.ecs.entity.Player;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -37,6 +40,7 @@ public class Camera
 	private Point2D offset;
 	private int width;
 	private int height;
+	public List<Integer> entitiesWithDialogsToRender;
 	
 	/*----------------------------------------*/
 	
@@ -56,6 +60,7 @@ public class Camera
 		offset = new Point2D(0, 0);
 		width = Window.SCREEN_W;
 		height = Window.SCREEN_H;
+		entitiesWithDialogsToRender = new ArrayList<>();
 	}
 	
 	/**
@@ -121,6 +126,8 @@ public class Camera
 		
 		// Render elements above all to create a depth illusion
 		renderMapLayer(map.layerObjectsAbove);
+		
+		renderDialogs();
 	}
 	
 	/**
@@ -328,6 +335,16 @@ public class Camera
 			        	position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - 18
 			        );
 				}
+				
+				// Dialogs to render last
+				if (entity.hasComponent(InteractComponent.class))
+				{
+					InteractComponent interact = entity.getComponent(InteractComponent.class);
+					if (interact.isActivated())
+					{
+						entitiesWithDialogsToRender.add(entity.getUID());
+					}
+				}
 			}
 		}
 	}
@@ -394,6 +411,37 @@ public class Camera
 				attack.getAttackHitbox().getHeight()
 			);
 		}
+	}
+	
+	public void renderDialogs()
+	{
+		for (Integer uid : entitiesWithDialogsToRender)
+		{
+			AbstractEntity entity = EntityManager.getEntity(uid);
+			PositionComponent position = entity.getComponent(PositionComponent.class);
+			InteractComponent interact = entity.getComponent(InteractComponent.class);
+			
+			String dialog = interact.getDialogs().get(interact.currentDialogIndex);
+			Text text = new Text(dialog);
+			text.setFont(new Font("Arial", 11));
+			text.setTextOrigin(VPos.TOP);
+			text.setWrappingWidth(250);
+			
+			gctx.setFill(Color.rgb(0, 0, 0, 0.5));
+			gctx.fillRect(
+				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - text.getLayoutBounds().getHeight()*3/2,
+				text.getLayoutBounds().getWidth(),
+				text.getLayoutBounds().getHeight()*3/2
+			);
+			gctx.setFill(Color.WHITE);
+			gctx.fillText(
+				text.getText(),
+				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX() + 2,
+				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - text.getLayoutBounds().getHeight()
+			);
+		}
+		entitiesWithDialogsToRender.clear();
 	}
 	
 	/*----------------------------------------*/

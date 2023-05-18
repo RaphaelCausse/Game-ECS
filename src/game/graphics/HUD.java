@@ -53,7 +53,7 @@ public class HUD
 	 */
 	public void render()
 	{
-		renderRelativePosition();
+//		renderRelativePosition();
 		renderInventory();
 		renderStats();
 	}

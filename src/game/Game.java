@@ -1,63 +1,78 @@
 package game;
 
+import game.scenes.AbstractScene;
+import game.scenes.EndGameScene;
 import game.scenes.GameScene;
+import game.scenes.IntroScene;
 import game.scenes.SceneManager;
-import javafx.scene.Group;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import utils.Settings.Window;;
+import utils.Settings.App;
+import utils.Settings.GameStatus;;
 
 /**
- * Classe responsable de la creation et de l'execution du jeu.
+ * Class responsible of game logic.
  */
 public class Game
 {
 	/*----------------------------------------*/
 	
-	private SceneManager sceneManager;
+	public static GameStatus gameStatus;
+	private Timeline gameloop;
+	public static SceneManager sceneManager;
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe Game.
-	 * @param stage Stage principal de l'application
+	 * Constructor of Game class.
+	 * @param stage Main stage of application
 	 */
 	public Game(Stage stage) 
 	{
+		gameStatus = GameStatus.GAME_RUNNING;
+		
 		// Setup stage
-		stage.setTitle(Window.TITLE);
+		stage.setTitle(App.TITLE);
 		stage.setResizable(false);
 		
 		// Init SceneManager and Scenes
 		sceneManager = new SceneManager(stage);
 		
-		GameScene gameScene = new GameScene(sceneManager, new Group());
+		AbstractScene introScene = new IntroScene(sceneManager, new StackPane());
+		AbstractScene gameScene = new GameScene(sceneManager, new StackPane());
+		AbstractScene endgameScene = new EndGameScene(sceneManager, new StackPane());
 		
-		sceneManager.pushScene(gameScene);
+		sceneManager.addScene("IntroScene", introScene);
+		sceneManager.addScene("GameScene", gameScene);
+		sceneManager.addScene("EndGameScene", endgameScene);
+		
+		// Init gameloop
+		gameloop = new Timeline(new KeyFrame(App.FRAME_TIME, event -> {
+			update();
+		}));
+		gameloop.setCycleCount(Animation.INDEFINITE);
 	}
 	
 	/**
-	 * Afficher et lance l'execution de la scene courant.
+	 * Run the game.
 	 */
 	public void run()
 	{
-		sceneManager.getStage().show();
+		gameloop.play();
+		sceneManager.activate("IntroScene"); 
 		sceneManager.start();
+		sceneManager.getStage().show();
 	}
 	
 	/**
-	 * Mettre a jour le gestionnaire de scene et tous ses elements.
+	 * Update the game.
 	 */
 	public void update()
 	{
 		sceneManager.update();
-	}
-	
-	/**
-	 * Stopper le jeu.
-	 */
-	public void stop()
-	{
-		sceneManager.stop();
 	}
 	
 	/*----------------------------------------*/

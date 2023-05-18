@@ -9,7 +9,7 @@ import game.ecs.entity.EntityManager;
 import utils.Settings.AnimationState;
 
 /**
- * Classe responsable de la gestion des animations de sprite.
+ * Class responsible of animations.
  * @see AbstractSystem
  */
 public class AnimationSystem extends AbstractSystem
@@ -19,7 +19,7 @@ public class AnimationSystem extends AbstractSystem
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe AnimationSystem.
+	 * Constructor of AnimationSystem class.
 	 */
 	public AnimationSystem()
 	{

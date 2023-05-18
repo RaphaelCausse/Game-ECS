@@ -9,7 +9,7 @@ import game.ecs.entity.EntityManager;
 import game.ecs.entity.items.AbstractItem;
 
 /**
- * Classe qui represente l'inventaire d'item de l'entite.
+ * Class that represents the inventory of the entity.
  * @see AbstractComponent
  */
 public class InventoryComponent extends AbstractComponent
@@ -23,7 +23,7 @@ public class InventoryComponent extends AbstractComponent
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe InventoryComponent.
+	 * Constructor of InventoryComponent class.
 	 * @param _maxLength Taille max de l'inventaire
 	 */
 	public InventoryComponent(int _maxLength)
@@ -35,8 +35,8 @@ public class InventoryComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Ajouter un item a l'inventaire.
-	 * @param item Item a ajouter
+	 * Add an item to the inventory.
+	 * @param item Item to add
 	 */
 	public void addItem(AbstractItem item)
 	{
@@ -49,8 +49,8 @@ public class InventoryComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Retirer un item de l'inventaire.
-	 * @param item Item a retirer
+	 * Remove an item from the inventory.
+	 * @param item Item to remove
 	 */
 	public void removeItem(AbstractItem item)
 	{
@@ -62,8 +62,8 @@ public class InventoryComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Deposer un item de l'inventaire au sol.
-	 * @param item Item a deposer
+	 * Drop an item on the ground.
+	 * @param item Item to drop
 	 */
 	public void dropItem(AbstractEntity owner, AbstractItem item)
 	{
@@ -89,6 +89,10 @@ public class InventoryComponent extends AbstractComponent
 		}
 	}
 	
+	/**
+	 * Drop all the inventory on the ground.
+	 * @param owner Owner of inventory
+	 */
 	public void dropInventory(AbstractEntity owner)
 	{
 		List<AbstractItem> toDrop = new ArrayList<>();
@@ -101,10 +105,15 @@ public class InventoryComponent extends AbstractComponent
 			ColliderComponent itemCollider = item.getComponent(ColliderComponent.class);
 			// Determine drop position with a random offset
 	        Random random = new Random();
-        	int randOffsetX = random.nextInt(42) - 16;
-        	int randOffsetY = random.nextInt(42) - 16;
-        	int dropPositionX = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterX() + randOffsetX;
-			int dropPositionY = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterY() + randOffsetY;
+        	int randOffsetX = random.nextInt(20, 40);
+        	int randOffsetY = random.nextInt(20, 40);
+        	int randSign = random.nextInt(-1, 2);
+        	if (randSign == 0)
+        	{
+        		randSign = 1;
+        	}
+        	int dropPositionX = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterX() + randOffsetX*randSign;
+			int dropPositionY = (int)owner.getComponent(ColliderComponent.class).getBounds().getCenterY() + randOffsetY*randSign;
 			// Set drop position
 			itemPosition.setPos(dropPositionX, dropPositionY);
 			itemCollider.updateBounds(itemPosition);
@@ -114,7 +123,7 @@ public class InventoryComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Verifier si l'inventaire est plein.
+	 * Check if inventory is full.
 	 * @return true, false
 	 */
 	public boolean isFull()
@@ -123,7 +132,7 @@ public class InventoryComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Mise a jour de l'index de l'item courant dans l'inventaire.
+	 * Update current item index in inventory.
 	 * @param incr Increment
 	 */
 	public void moveCurrentIndex(int incr)
@@ -144,12 +153,28 @@ public class InventoryComponent extends AbstractComponent
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Get the inventory.
+	 * @return inventory
+	 */
 	public List<AbstractItem> getInventory() { return inventory; }
 	
+	/**
+	 * Get current item index in inventory.
+	 * @return currentIndex
+	 */
 	public int getCurrentIndex() { return currentIndex; }
 	
+	/**
+	 * Get current item in inventory.
+	 * @return item
+	 */
 	public AbstractItem getCurrentItem() { return inventory.get(currentIndex); }
 	
+	/**
+	 * Set current item index in inventory.
+	 * @param idx New index
+	 */
 	public void setCurrentIndex(int idx)
 	{
 		if (idx < maxLength) 

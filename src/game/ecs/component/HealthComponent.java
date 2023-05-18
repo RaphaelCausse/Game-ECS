@@ -1,7 +1,7 @@
 package game.ecs.component;
 
 /**
- * Classe qui represente les points de vie de l'entite.
+ * Class that represents health points of entity.
  * @see AbstractComponent
  */
 public class HealthComponent extends AbstractComponent
@@ -15,7 +15,7 @@ public class HealthComponent extends AbstractComponent
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe HealthComponent.
+	 * Constructor of HealthComponent class.
 	 */
 	public HealthComponent(int _maxHealth)
 	{
@@ -26,7 +26,7 @@ public class HealthComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Verifier si l'entite n'a plus de point de vie.
+	 * Check is entity is dead.
 	 * @return true, false
 	 */
 	public boolean isDead()
@@ -41,11 +41,27 @@ public class HealthComponent extends AbstractComponent
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Get entity max health.
+	 * @return maxHealth
+	 */
 	public int getMaxHealth() { return maxHealth; }
 	
+	/**
+	 * Get entity current health.
+	 * @return currentHealth
+	 */
 	public int getCurrentHealth() { return currentHealth; }
 	
+	/**
+	 * Set entity max health.
+	 * @param _maxHealth New max health
+	 */
 	public void setMaxHealth(int _maxHealth) { maxHealth = _maxHealth; }
 	
+	/**
+	 * Set entity current health.
+	 * @param _currentHealth New current health
+	 */
 	public void setCurrentHeath(int _currentHealth) { currentHealth = _currentHealth; }
 }

@@ -8,30 +8,28 @@ import java.util.Map;
 import game.ecs.component.AbstractComponent;
 
 /**
- * Classe responsable de la gestion des entites.
+ * Class responsible of entity management.
  */
 public class EntityManager
 {
 	/*----------------------------------------*/
 	
-	// Instance of itsef
 	private static EntityManager entityManager = new EntityManager();
-	// Collection of entities assiciated with their uid
 	private static Map<Integer, AbstractEntity> entities = new HashMap<Integer, AbstractEntity>();
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur prive de la classe EntityManager.
+	 * Private constructor of EntityManager class.
 	 */
 	private EntityManager()
 	{
 	}
 	
 	/**
-	 * Ajouter une entite dans la collection des entities.
-	 * @param uid Unique ID de l'entity a ajouter
-	 * @param entity Entite a ajouter
+	 * Add entity into the hashmap.
+	 * @param uid Unique ID of entity
+	 * @param entity Entite to add
 	 */
 	public static void addEntity(int uid, AbstractEntity entity)
 	{
@@ -39,8 +37,8 @@ public class EntityManager
 	}
 	
 	/**
-	 * Enlever une entite de la collection des entites.
-	 * @param uid Unique ID de l'entity a enlever
+	 * Remove entity from hashmap.
+	 * @param uid Unique ID of entity to remove
 	 */
 	public static void removeEntity(int uid)
 	{
@@ -48,9 +46,9 @@ public class EntityManager
 	}
 	
 	/**
-	 * Recuperer une liste des entites qui possedent un certain composant.
-	 * @param componentClass Composant a chercher
-	 * @return List<AbstractEntity>
+	 * Get lsit of entity with a specific component.
+	 * @param componentClass Component to search
+	 * @return entities
 	 */
 	public static List<AbstractEntity> getEntitiesWithComponent(Class<? extends AbstractComponent> componentClass)
 	{
@@ -67,7 +65,16 @@ public class EntityManager
 	
 	/*----------------------------------------*/
 
+	/**
+	 * Get instance of EntityManager.
+	 * @return entityManager
+	 */
 	public static EntityManager getInstance() { return entityManager; }
 
+	/**
+	 * Get entity with the corresponding UID.
+	 * @param uid Unique ID of searched entity
+	 * @return entity
+	 */
 	public static AbstractEntity getEntity(int uid) { return entities.get(uid); }
 }

@@ -2,6 +2,7 @@ package game.ecs.system;
 
 import java.util.Random;
 
+import game.Game;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.AttackComponent;
 import game.ecs.component.ColliderComponent;
@@ -13,11 +14,22 @@ import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.Monster;
 import utils.Settings.AnimationState;
+import utils.Settings.GameStatus;
 import utils.Settings.Sprites;
 
+/**
+ * Class responsible of attacks.
+ * @see AbstractSystem
+ */
 public class AttackSystem extends AbstractSystem
 {
-
+	/*----------------------------------------*/
+	
+	/*----------------------------------------*/
+	
+	/**
+	 * Constructor of AttackSystem class.
+	 */
 	public AttackSystem()
 	{
 		super();
@@ -82,7 +94,7 @@ public class AttackSystem extends AbstractSystem
 					if (targetHealth.isDead())
 					{
 						// GAME OVER
-						
+						Game.gameStatus = GameStatus.GAME_OVER;
 					}
 				}
 				// New attack if cooldown allows it
@@ -111,4 +123,5 @@ public class AttackSystem extends AbstractSystem
 		}
 	}
 
+	/*----------------------------------------*/
 }

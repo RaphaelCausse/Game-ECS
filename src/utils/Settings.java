@@ -2,12 +2,15 @@ package utils;
 
 import javafx.util.Duration;
 
+/**
+ * Class responsible of application and game settings.
+ */
 public class Settings
 {
 	/**
-	 * Parametres de l'application.
+	 * Application settings.
 	 */
-	public static class Window
+	public static class App
 	{
 		// Window settings
 		public static final String TITLE = "Project-Unknown";
@@ -18,12 +21,16 @@ public class Settings
 		public static final Duration FRAME_TIME = Duration.millis(1000/FPS);
 	}
 	
+	/**
+	 *	Game status.
+	 */
 	public enum GameStatus
 	{
-		GAME_WIN, GAME_OVER
+		GAME_RUNNING, GAME_WIN, GAME_OVER
 	}
+
 	/**
-	 * Chemins des differents repertoires.
+	 * Directory paths to access resources files.
 	 */
 	public static class DirPaths
 	{
@@ -36,7 +43,7 @@ public class Settings
 	}
 	
 	/**
-	 * Chemins des fichiers ressources.
+	 * Resource file paths.
 	 */
 	public static class ResFiles
 	{
@@ -69,7 +76,7 @@ public class Settings
 	}
 	
 	/**
-	 * Parametres des sprites.
+	 * Sprites settings.
 	 */
 	public static class Sprites
 	{
@@ -103,7 +110,7 @@ public class Settings
 	}
 	
 	/**
-	 * Parametres des movements.
+	 * Movement settings.
 	 */
 	public static class Movement
 	{
@@ -119,7 +126,7 @@ public class Settings
 	}
 	
 	/**
-	 * Etats d'animation.
+	 * Animation states.
 	 */
 	public static class AnimationState
 	{
@@ -129,7 +136,7 @@ public class Settings
 	}
 	
 	/**
-	 * Actions et interactions avec les entites, le HUD.
+	 * Actions in the game.
 	 */
 	public static class Actions
 	{
@@ -141,7 +148,7 @@ public class Settings
 	}
 	
 	/**
-	 * Positions par defaut des entites.
+	 * Positions settings.
 	 */
 	public static class Positions
 	{
@@ -159,30 +166,30 @@ public class Settings
 		public static final int HEALTH_BAR_Y = 5;
 		public static final int HEALTH_FILL_X = HEALTH_BAR_X + (Sprites.HEALTH_BAR_W - Sprites.HEALTH_FILL_W);
 		public static final int HEALTH_FILL_Y = HEALTH_BAR_Y + 1;
-		public static final int INVENTORY_BAR_X = Window.SCREEN_W/2 - Sprites.INVENTORY_W/2;
-		public static final int INVENTORY_BAR_Y = Window.SCREEN_H - Sprites.INVENTORY_H;
+		public static final int INVENTORY_BAR_X = App.SCREEN_W/2 - Sprites.INVENTORY_W/2;
+		public static final int INVENTORY_BAR_Y = App.SCREEN_H - Sprites.INVENTORY_H;
 	}
 	
 	/**
-	 * Statistiques des entites.
+	 * Stats of game entities.
 	 */
 	public static class Stats
 	{
 		// Player
 		public static final int PLAYER_MAX_HEALTH = 100;
 		public static final int PLAYER_BASE_DAMAGE = 20;
-		public static final int PLAYER_ATTACK_COOLDOWN = Window.FPS;
+		public static final int PLAYER_ATTACK_COOLDOWN = App.FPS;
 		// Monster
 		public static final int MONSTER_BOSS_MAX_HEALTH = 1200;
 		public static final int MONSTER_BOSS_BASE_DAMAGE = 20;
-		public static final int MONSTER_BOSS_ATTACK_COOLDOWN = Window.FPS*4;
+		public static final int MONSTER_BOSS_ATTACK_COOLDOWN = App.FPS*4;
 		public static final int MONSTER_MAX_HEALTH = 400;
 		public static final int MONSTER_BASE_DAMAGE = 10;
-		public static final int MONSTER_ATTACK_COOLDOWN = Window.FPS;
+		public static final int MONSTER_ATTACK_COOLDOWN = App.FPS*2;
 	}
 	
 	/**
-	 * Identifiants des objets de la map.
+	 * Map objects ID.
 	 */
 	public static class MapObjectsID
 	{

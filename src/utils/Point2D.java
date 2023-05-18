@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * Class that represents a point in 2D.
+ */
 public class Point2D
 {
 	/*----------------------------------------*/
@@ -9,6 +12,11 @@ public class Point2D
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructor of Point2D class.
+	 * @param _x X position
+	 * @param _y Y position
+	 */
 	public Point2D(double _x, double _y)
 	{
 		x = _x;
@@ -31,15 +39,39 @@ public class Point2D
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Get X position.
+	 * @return x
+	 */
 	public double getX() { return x; }
 
+	/**
+	 * Get Y position.
+	 * @return y
+	 */
     public double getY() { return y; }
     
+    /**
+     * Set x position.
+     * @param _x New X position
+     */
     public void setX(double _x) { x = _x; }
     
+    /**
+     * Set Y position.
+     * @param _y new Y position
+     */
     public void setY(double _y) { y = _y; }
     
+    /**
+     * Translate X position.
+     * @param dx Translate x value
+     */
     public void translateX(double dx) { x += dx; }
     
+    /**
+     * Translate Y position.
+     * @param dy Translate y value
+     */
     public void translateY(double dy) { y += dy; }
 }

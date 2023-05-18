@@ -6,7 +6,7 @@ import utils.Settings.Actions;
 import utils.Settings.Movement;
 
 /**
- * Classe qui represente les inputs possibles de l'entite.
+ * Class that represents possibles inputs for the entity.
  * @see AbstractComponent
  */
 public class KeyInputComponent extends AbstractComponent
@@ -18,7 +18,7 @@ public class KeyInputComponent extends AbstractComponent
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe InputComponent.
+	 * Constructor of InputComponent class.
 	 */
 	public KeyInputComponent()
 	{
@@ -37,7 +37,16 @@ public class KeyInputComponent extends AbstractComponent
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Get input.
+	 * @param key Key of input
+	 * @return true, false
+	 */
 	public Boolean getInput(int key) { return inputMap.getOrDefault(key, false); }
 	
+	/**
+	 * Get input hashmap containing all possibles inputs of the entity.
+	 * @return inputMap
+	 */
 	public Map<Integer, Boolean> getInputMap() { return inputMap; }
 }

@@ -1,7 +1,6 @@
 package game.graphics;
 
 import java.util.List;
-import game.ecs.component.ColliderComponent;
 import game.ecs.component.AttackComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
@@ -15,10 +14,10 @@ import javafx.scene.text.Font;
 import utils.Settings.Positions;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
-import utils.Settings.Window;
+import utils.Settings.App;
 
 /**
- * Classe qui represente l'HUD.
+ * Class representing th game HUD.
  */
 public class HUD
 {
@@ -34,9 +33,9 @@ public class HUD
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe HUD.
-	 * @param _gctx Contexte graphique
-	 * @param _linked Entite liee a l'HUD pour l'affichage de ses donnees
+	 * COnstructor of HUD class.
+	 * @param _gctx Graphics context for rendering
+	 * @param _linked Entity linked to the HUD.
 	 */
 	public HUD(GraphicsContext _gctx, Player _linked)
 	{
@@ -49,29 +48,21 @@ public class HUD
 	}
 	
 	/**
-	 * Afficher l'HUD.
+	 * Render HUD elements.
 	 */
 	public void render()
 	{
-//		renderRelativePosition();
 		renderInventory();
 		renderStats();
 	}
-	
-	public void renderRelativePosition()
-	{
-		ColliderComponent relativePos = linked.getComponent(ColliderComponent.class);
-		gctx.setFont(new Font("Arial", 14));
-        gctx.setFill(Color.WHITE);
-        String posText = "Pos (x: " + (int)relativePos.getBounds().getMinX() + ", y: " + (int)relativePos.getBounds().getMinY() + ")";
-        gctx.fillText(posText, 0, Window.SCREEN_H-2);
-	}
 
 	/**
-	 * Afficher l'inventaire et les items qu'il contient.
+	 * Render inventory on HUD.
 	 */
 	public void renderInventory()
 	{
+		InventoryComponent inventory = linked.getComponent(InventoryComponent.class);
+		
 		// Render inventory bar
 		gctx.drawImage(
 			inventoryBar,				// image
@@ -79,7 +70,6 @@ public class HUD
 			Positions.INVENTORY_BAR_Y	// dst Y
 		);
 		
-		InventoryComponent inventory = linked.getComponent(InventoryComponent.class);
 		// Render border of current item
 		int idx = inventory.getCurrentIndex();
 		gctx.drawImage(
@@ -108,12 +98,12 @@ public class HUD
 			gctx.setFont(new Font("Arial", 14));
 	        gctx.setFill(Color.WHITE);
 	        String itemText = inventory.getCurrentItem().getName();
-	        gctx.fillText(itemText, Window.SCREEN_W/2 - itemText.length()*3 - itemText.length()%10, Positions.INVENTORY_BAR_Y - 4);
+	        gctx.fillText(itemText, App.SCREEN_W/2 - itemText.length()*3 - itemText.length()%10, Positions.INVENTORY_BAR_Y - 4);
 		}
 	}
 	
 	/**
-	 * Afficher la barre de points de vie.
+	 * Render stats on HUD.
 	 */
 	public void renderStats()
 	{

@@ -1,12 +1,15 @@
 package game.scenes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
+import game.Game;
+import game.ecs.component.InteractComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
-import game.ecs.entity.Blacksmith;
+import game.ecs.entity.NPC;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.Monster;
 import game.ecs.entity.Player;
@@ -16,103 +19,74 @@ import game.ecs.system.SystemManager;
 import game.graphics.Camera;
 import game.graphics.GameMap;
 import game.graphics.HUD;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import utils.Settings.GameStatus;
 import utils.Settings.Positions;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 import utils.Settings.Stats;
-import utils.Settings.Window;
+import utils.Settings.App;
 
 /**
- * Classe responsable de la scene de jeu, geree par le gestionnaire de scene.
+ * Class responsible of gameplay scene.
  * @see AbstractScene
  */
 public class GameScene extends AbstractScene
 {
 	/*----------------------------------------*/
 	
-	public static boolean isGameOver;
-	private Timeline gameloop;
-	// Graphics elements
+	
 	public Canvas canvas;
 	public GraphicsContext gctx;
-	// Key inputs buffer
 	public static Map<KeyCode, Boolean> keyInputs = new HashMap<KeyCode, Boolean>();
-	// Managers for ECS
 	private EntityManager entityManager;
 	private SystemManager systemManager;
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructueur de la classe GameScene.
-	 * @param _sceneManager Gestionnaire de scene
-	 * @param _root	Racine de l'arbre de scene
+	 * Constructor of GameScene class.
+	 * @param _sceneManager Scene manager
+	 * @param _root	Root node of scene graph
 	 */
-	public GameScene(SceneManager _sceneManager, Group _root)
+	public GameScene(SceneManager _sceneManager, Pane _root)
 	{
 		super(_sceneManager, _root);
 		
-		isGameOver = false;
-		
 		// Init graphics elements
-		canvas = new Canvas(Window.SCREEN_W, Window.SCREEN_W);
+		canvas = new Canvas(App.SCREEN_W, App.SCREEN_H);
 		gctx = canvas.getGraphicsContext2D();
-		_root.getChildren().add(canvas);
-		
-		// Init gameloop
-		gameloop = new Timeline(new KeyFrame(Window.FRAME_TIME, event -> {
-			update();
-		}));
-		gameloop.setCycleCount(Animation.INDEFINITE);
+		root.getChildren().add(canvas);
 		
 		// Create game world
 		initialize();
 	}
 	
-	@Override
-	public void start()
-	{
-		gameloop.play();
-	}
-	
-	@Override
-	public void update()
-	{
-		systemManager.update();
-	}
-	
-	@Override
-	public void stop()
-	{
-		
-	}
-	
-	/**
-	 * Initialisation de la scene de jeu.
-	 */
 	@SuppressWarnings("static-access")
+	@Override
 	public void initialize()
 	{
-		// Create and add entites to manager
-		
+		// Create and add entities to manager
 		AbstractEntity player = new Player(
 			Positions.PLAYER_SPAWN_X,
 			Positions.PLAYER_SPAWN_Y
 		);
 		entityManager.addEntity(player.getUID(), player);
 		
-		AbstractEntity blacksmith = new Blacksmith(
+		AbstractEntity npc = new NPC(
 			Positions.BLACKSMITH_SPAWN_X,
 			Positions.BLACKSMITH_SPAWN_Y
 		);
-		entityManager.addEntity(blacksmith.getUID(), blacksmith);
+		List<String> dialogs = new ArrayList<>();
+		dialogs.add("Hey, it's dangerous around here !\n"
+				+ "Can you kill them all for me please ?\n"
+				+ "I think they protect something precious...");
+		InteractComponent interact = new InteractComponent(dialogs);
+		npc.addComponent(interact);
+		entityManager.addEntity(npc.getUID(), npc);
 		
 		AbstractEntity monsterBoss = new Monster(
 			"Great Ghost Wizard",
@@ -169,6 +143,24 @@ public class GameScene extends AbstractScene
 		// Init ECS managers
 		entityManager = EntityManager.getInstance();
 		systemManager = new SystemManager(this, camera, hud);
+	}
+	
+	@Override
+	public void start()
+	{
+	}
+	
+	@Override
+	public void update()
+	{
+		if (Game.gameStatus == GameStatus.GAME_RUNNING)
+		{
+			systemManager.update();
+		}
+		else
+		{
+			Game.sceneManager.activate("EndGameScene");
+		}
 	}
 	
 	/*----------------------------------------*/

@@ -16,7 +16,7 @@ import utils.Settings.Actions;
 import utils.Settings.Movement;
 
 /**
- * Classe responsable de la gestion des inputs attaches a un node.
+ * Class responsible of key inputs management in the game.
  * @see AbstractSystem
  */
 public class KeyInputSystem extends AbstractSystem
@@ -29,8 +29,8 @@ public class KeyInputSystem extends AbstractSystem
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe KeyInputSystem.
-	 * @param _scene Scene auquelle est attachee le systeme d'inputs.
+	 * Constructor of KeyInputSystem class.
+	 * @param _scene Scene attached to inupts.
 	 */
 	public KeyInputSystem(Scene _scene)
 	{
@@ -41,7 +41,7 @@ public class KeyInputSystem extends AbstractSystem
 	}
 	
 	/**
-	 * Initialisation des key event handlers sur la scene.
+	 * Initialize key event handlers on the scene.
 	 */
 	public void initKeyEvents()
 	{	
@@ -163,7 +163,6 @@ public class KeyInputSystem extends AbstractSystem
 				}
 			}
 			
-			
 			// Keys released
 			if (isReleased(KeyCode.Z))
 			{
@@ -215,6 +214,11 @@ public class KeyInputSystem extends AbstractSystem
 
 	/*----------------------------------------*/
 
+	/**
+	 * Check if key is pressed.
+	 * @param key Key code
+	 * @return true, false
+	 */
 	public boolean isPressed(KeyCode key)
 	{ 
 		if (keyInputs.containsKey(key))
@@ -224,6 +228,11 @@ public class KeyInputSystem extends AbstractSystem
 		return false;
 	}
 	
+	/**
+	 * Check if key is released.
+	 * @param key Key code
+	 * @return true, false
+	 */
 	public boolean isReleased(KeyCode key)
 	{
 		if (keyInputs.containsKey(key))

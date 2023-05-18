@@ -8,7 +8,7 @@ import game.graphics.HUD;
 import javafx.scene.Scene;
 
 /**
- * Classe responsable de la gestion des sytemes.
+ * Class responsible of system management.
  */
 public class SystemManager
 {
@@ -19,8 +19,8 @@ public class SystemManager
     /*----------------------------------------*/
     
     /**
-     * Contructeur de la classe SystemManager.
-     * @param scene Scene liee au gestionnaire de systeme
+     * Contructor of SystemManager class.
+     * @param scene Scene
      */
     public SystemManager(Scene scene, Camera camera, HUD hud)
     {
@@ -39,8 +39,8 @@ public class SystemManager
     }
 
     /**
-     * Ajouter un systeme a la liste des systemes.
-     * @param system Systeme a ajouter
+     * Add a system to the list.
+     * @param system System to add
      */
     public void addSystem(AbstractSystem system)
     {
@@ -48,8 +48,8 @@ public class SystemManager
     }
 
     /**
-     * Enlever un systeme de la liste des systemes.
-     * @param system Systeme a enlever
+     * Remove a system from the list.
+     * @param system System to remove
      */
     public void removeSystem(AbstractSystem system)
     {
@@ -57,7 +57,7 @@ public class SystemManager
     }
 
     /**
-     * Mettre a jour les systemes.
+     * Update the systems.
      */
     public void update()
     {

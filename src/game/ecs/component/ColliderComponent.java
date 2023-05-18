@@ -5,6 +5,7 @@ import utils.Point2D;
 
 /**
  * Classe qui represente un composant de collision.
+ * Class that represents collision bounds of the entity.
  * @see AbstractComponent
  */
 public class ColliderComponent extends AbstractComponent
@@ -19,12 +20,12 @@ public class ColliderComponent extends AbstractComponent
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe ColliderComponent.
-	 * @param x Position en X
-	 * @param y Position en Y
-	 * @param width Largeur de la box de collision
-	 * @param height Hauteur de la box de collision
-	 * @param ox Offset X 
+	 * Constructor of ColliderComponent class.
+	 * @param x Top left corner X position
+	 * @param y Top left corner Y position
+	 * @param width Bounds width
+	 * @param height Bounds height
+	 * @param ox Offset X
 	 * @param oy Offset Y
 	 */
 	public ColliderComponent(int x, int y, int width, int height, int ox, int oy, boolean _isMoveable)
@@ -36,8 +37,8 @@ public class ColliderComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Mettre a jour les bordures de collision par rapport a la position.
-	 * @param position Position a suivre
+	 * Update collisions bounds to follow entity position.
+	 * @param position Position to follow
 	 */
 	public void updateBounds(PositionComponent position)
 	{
@@ -48,15 +49,42 @@ public class ColliderComponent extends AbstractComponent
 		
 	/*----------------------------------------*/
 	
+	/**
+	 * Get collision bounds.
+	 * @return bounds
+	 */
 	public CollisionBounds getBounds() { return bounds; }
 	
+	/**
+	 * Get collision bounds offset.
+	 * @return offset
+	 */
 	public Point2D getOffset() { return offset; }
 	
+	/**
+	 * Check if is moveable to resolve collisions.
+	 * @return true, false
+	 */
 	public boolean isMoveable() { return isMoveable; }
 	
+	/**
+	 * Check if entity does collides.
+	 * @return true, false
+	 */
 	public boolean doCollides() { return collides; }
 	
+	/**
+	 * Set collisions bounds.
+	 * @param x Top left corner X position
+	 * @param y Top left corner Y position
+	 * @param width Bounds width
+	 * @param height Bounds height
+	 */
 	public void setBounds(double x, double y, double w, double h) { bounds = new CollisionBounds(x, y, w, h); }
 	
+	/**
+	 * Set entity do collides
+	 * @param _collides
+	 */
 	public void setCollides(boolean _collides) { collides = _collides; }
 }

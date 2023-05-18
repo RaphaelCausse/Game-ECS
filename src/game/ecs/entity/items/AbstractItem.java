@@ -3,7 +3,7 @@ package game.ecs.entity.items;
 import game.ecs.entity.AbstractEntity;
 
 /**
- * Classe abstraite qui represente un item.
+ * Abstract class that represents an item.
  * @see AbstractEntity
  */
 public abstract class AbstractItem extends AbstractEntity
@@ -17,7 +17,7 @@ public abstract class AbstractItem extends AbstractEntity
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe abstraite AbstractItem.
+	 * Constructor of AbstractItem class.
 	 * @param _name
 	 */
 	public AbstractItem(String _name)
@@ -28,26 +28,42 @@ public abstract class AbstractItem extends AbstractEntity
 	}
 	
 	/**
-	 * Initialisation des composants de l'item.
-	 * @param x Position en X
-	 * @param y Position en Y
+	 * Initialize item components.
+	 * @param x X position
+	 * @param y Y position
 	 */
 	public abstract void initialize(int x, int y);
 
 	/**
-	 * Utiliser l'item sur l'entite cible.
-	 * @param sender Entite qui effectue l'action de l'item
-	 * @param receiver Entite cible par l'action de l'item
+	 * Use item.
+	 * @param owner Entity that owns the item
+	 * @param target Entity targeted by the item
 	 */
-	public abstract void useItem(AbstractEntity sender, AbstractEntity receiver);
+	public abstract void useItem(AbstractEntity owner, AbstractEntity target);
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Get item name.
+	 * @return name
+	 */
 	public String getName() { return name; }
 	
+	/**
+	 * Check if item is used.
+	 * @return used
+	 */
 	public boolean isUsed() { return used; }
 	
+	/**
+	 * Check if item is in inventory.
+	 * @return inInventory
+	 */
 	public boolean isInInventory() { return inInventory; }
 	
+	/**
+	 * Set in inventory.
+	 * @param _inInventory
+	 */
 	public void setInInventory(boolean _inInventory) { inInventory = _inInventory; }
 }

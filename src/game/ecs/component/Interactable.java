@@ -3,14 +3,14 @@ package game.ecs.component;
 import game.ecs.entity.AbstractEntity;
 
 /**
- *
+ * Interface for interaction between entities.
  */
 public interface Interactable
 {
 	/**
-	 * Comportement d'interaction entre deux entites.
-	 * @param sender Entite qui lance l'interaction
-	 * @param receiver Entite qui recoit l'interaction
+	 * Interaction between two entities.
+	 * @param sender Entity that sends the interaction
+	 * @param receiver Entite that receives the interaction
 	 */
 	public void interact(AbstractEntity sender, AbstractEntity receiver);
 }

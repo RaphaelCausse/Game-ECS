@@ -1,4 +1,4 @@
-- Monsters attacks
-- NPC interactions (dialog)
 - WIN/LOSE conditions => scenes
-- Help keys bottom right corner of HUD
+- remove debugs
+- javadoc
+- class diagramm

@@ -9,6 +9,9 @@ import game.graphics.GameMap;
 import utils.CollisionBounds;
 import utils.Point2D;
 
+/**
+ * Class that represents a detection bounds for the entity.
+ */
 public class DetectionComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
@@ -19,6 +22,15 @@ public class DetectionComponent extends AbstractComponent
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructor of DetectionComponent class.
+	 * @param x Top left corner X position
+	 * @param y Top left corner Y position
+	 * @param width Bounds width
+	 * @param height Bounds height
+	 * @param ox Offset X
+	 * @param oy Offset Y
+	 */
 	public DetectionComponent(int x, int y, int width, int height, int ox, int oy)
 	{
 		super();
@@ -28,8 +40,8 @@ public class DetectionComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Mettre a jour la bordures de detection des entites proches.
-	 * @param position Position a suivre
+	 * Update detection bounds to follow entity position.
+	 * @param position Position to follow
 	 */
 	public void updateDetectionBounds(PositionComponent position)
 	{
@@ -39,9 +51,9 @@ public class DetectionComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Mettre a jour la liste des entites proches dans la map.
-	 * @param map Map de jeu
-	 * @param entity Entite au centre de la zone de detection
+	 * Update list of nearby entities that are within the detection bounds.
+	 * @param map Game map
+	 * @param entity Entity at center of detection bounds
 	 */
 	public void updateNearbyEntities(GameMap map, AbstractEntity entity)
 	{
@@ -77,7 +89,15 @@ public class DetectionComponent extends AbstractComponent
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Get detection bounds.
+	 * @return detection
+	 */
 	public CollisionBounds getDetectionBounds() { return detection; }
 	
+	/**
+	 * Get list of nearby entities.
+	 * @return nearbyEntities
+	 */
 	public List<AbstractEntity> getNearbyEntities() { return nearbyEntities; }
 }

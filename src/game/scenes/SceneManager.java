@@ -1,10 +1,10 @@
 package game.scenes;
 
-import java.util.Stack;
+import java.util.HashMap;
 import javafx.stage.Stage;
 
 /**
- * Classe responsable de la gestion de l'ensemble des scenes de l'application, avec une pile de scene.
+ * Class responsible of scenes management.
  */
 public class SceneManager
 {
@@ -12,61 +12,56 @@ public class SceneManager
 	
 	private Stage stage;
 	private AbstractScene activeScene;
-	private Stack<AbstractScene> sceneStack;
+	private HashMap<String, AbstractScene> scenes;
 	
 	/*----------------------------------------*/
 
 	/**
-	 * Constructeur de la classe SceneManager.
+	 * Constructor of SceneManager class.
 	 * @param _stage Stage principal de l'application
 	 */
 	public SceneManager(Stage _stage)
 	{
 		stage = _stage;
-		sceneStack = new Stack<AbstractScene>();
+		scenes = new HashMap<>();
 	}
 	
 	/**
-	 * Ajouter une scene a la pile et l'activer.
-	 * @param scene Scene a ajouter et a activer
+	 * Add a scene to manager.
+	 * @param name Scene name
+	 * @param scene Scene to add
 	 */
-	public void pushScene(AbstractScene scene)
-	{
-        sceneStack.push(scene);
-        activeScene = sceneStack.peek();
-        stage.setScene(activeScene);
-	}
-	
-	/**
-	 * Retirer la scene courante et activer la prochaine scene de la pile.
-	 * @param scene Scene a retirer
-	 */
-	public void popScene(AbstractScene scene)
-	{
-		if (!sceneStack.isEmpty())
-		{
-			sceneStack.pop();
-			activeScene = sceneStack.peek();
-			stage.setScene(activeScene);
-		}
-	}
-	
-	/**
-	 * Passer a la scene suivante. Retirer la scene courante de la pile et l'ajouter a la fin.
-	 */
-	public void nextScene()
-	{
-		if (!sceneStack.isEmpty())
-		{
-            AbstractScene popped = sceneStack.pop();
-            activeScene = sceneStack.peek();
-            sceneStack.insertElementAt(popped, 0);
-            stage.setScene(activeScene);
+	public void addScene(String name, AbstractScene scene) {
+        if (!scenes.containsKey(name))
+        {
+            scenes.put(name, scene);
         }
-	}
+    }
 	
 	/**
-	 * Appeler la methode start() de la scene active.
+	 * Remove a scene from manager.
+	 * @param name Scene name
+	 */
+	public void removeScene(String name) {
+        if (scenes.containsKey(name))
+        {
+            scenes.remove(name);
+        }
+    }
+	
+	/**
+	 * Activate a scene.
+	 * @param name Scene name
+	 */
+	public void activate(String name) {
+        activeScene = scenes.get(name);
+        stage.setScene(activeScene);
+        stage.sizeToScene();
+        start();
+    }
+	
+	/**
+	 * Start active scene.
 	 */
 	public void start()
 	{
@@ -74,24 +69,31 @@ public class SceneManager
 	}
 	
 	/**
-	 * Appeler la methode update() de la scene active.
+	 * Update active scene.
 	 */
 	public void update()
 	{
 		activeScene.update();
 	}
 	
-	/**
-	 * Appeler la method stop() de la scene active.
-	 */
-	public void stop()
-	{
-		activeScene.stop();
-	}
-	
 	/*----------------------------------------*/
 	
+	/**
+	 * Get stage.
+	 * @return stage
+	 */
 	public Stage getStage() { return stage; }
 
+	/**
+	 * Get active scene.
+	 * @return activeScene
+	 */
 	public AbstractScene getActiveScene() { return activeScene; }
+	
+	/**
+	 * Get specific scene.
+	 * @param name Scene name
+	 * @return activeScene
+	 */
+	public AbstractScene getScene(String name) { return scenes.get(name); }
 }

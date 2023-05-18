@@ -10,24 +10,25 @@ import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- *
+ * Class that represents a poison malus potion.
+ * @see AbstractItem
  */
 public class PoisonPotion extends AbstractItem
 {
 	/*----------------------------------------*/
 	
-	private int value;
+	private int value = 30;
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe PoisonPotion.
-	 * @param _name Nom de l'item
+	 * Constructor of PoisonPotion class.
+	 * @param x X position
+	 * @param y Y position
 	 */
 	public PoisonPotion(int x, int y)
 	{
-		super("Poison Potion");
-		value = 30;
+		super("Poison Potion (???)");
 		initialize(x, y);
 	}
 
@@ -55,18 +56,18 @@ public class PoisonPotion extends AbstractItem
 	}
 	
 	@Override
-	public void useItem(AbstractEntity sender, AbstractEntity receiver)
+	public void useItem(AbstractEntity owner, AbstractEntity target)
 	{
 		// Reduice health
-		HealthComponent receiverHealth = sender.getComponent(HealthComponent.class);
-		int newHealthValue = (receiverHealth.getCurrentHealth() - value < 0) ?
-				0 : receiverHealth.getCurrentHealth() - value;
-		receiverHealth.setCurrentHeath(newHealthValue);
+		HealthComponent targetHealth = owner.getComponent(HealthComponent.class);
+		int newHealthValue = (targetHealth.getCurrentHealth() - value < 0) ?
+				0 : targetHealth.getCurrentHealth() - value;
+		targetHealth.setCurrentHeath(newHealthValue);
 		used = true;
 		
 		// Remove item from inventory
-		InventoryComponent senderInventory = sender.getComponent(InventoryComponent.class);
-		senderInventory.removeItem(this);
+		InventoryComponent ownerInventory = owner.getComponent(InventoryComponent.class);
+		ownerInventory.removeItem(this);
 	}
 
 	/*----------------------------------------*/

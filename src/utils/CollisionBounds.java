@@ -1,7 +1,7 @@
 package utils;
 
 /**
- * Classe qui represente les les bordures d'une boite de collisions.
+ * Class that represents collision bounds of a box.
  */
 public class CollisionBounds
 {
@@ -17,11 +17,11 @@ public class CollisionBounds
 	/*----------------------------------------*/
 
 	/**
-	 * Constructeur de la classe CollisionBounds
-	 * @param _minX Position en X, coin superieur gauche
-	 * @param _minY Position en Y, coin superieur gauche
-	 * @param _width Largeur de la boite
-	 * @param _height Hauteur de la boite
+	 * Constructor of CollisionBounds class.
+	 * @param _minX Top left corner X position
+	 * @param _minY Top left corner Y position
+	 * @param _width Bounds width
+	 * @param _height Bounds height
 	 */
 	public CollisionBounds(double _minX, double _minY, double _width, double _height)
 	{
@@ -34,9 +34,9 @@ public class CollisionBounds
 	}
 	
 	/**
-	 * Decaler la boite.
-	 * @param dx Decalage en X
-	 * @param dy Decalage en Y
+	 * Shift the bounds.
+	 * @param dx X shift
+	 * @param dy Y shift
 	 */
 	public void shift(double dx, double dy)
 	{
@@ -47,8 +47,8 @@ public class CollisionBounds
 	}
 	
 	/**
-	 * Verifier si deux boites se superposent.
-	 * @param b Boite de collision
+	 * Check if two bounds intersects.
+	 * @param b Bounds to check intersection with
 	 * @return true, false
 	 */
 	public boolean intersects(CollisionBounds b)
@@ -72,27 +72,75 @@ public class CollisionBounds
 
 	/*----------------------------------------*/
 
+	/**
+	 * Get top left corner X position.
+	 * @return minX
+	 */
 	public double getMinX() { return minX; }
 
+	/**
+	 * Get top left corner Y position.
+	 * @return minY
+	 */
 	public double getMinY() { return minY; }
 
+	/**
+	 * Get bottom right corner X position.
+	 * @return maxX
+	 */
 	public double getMaxX() { return maxX; }
 
+	/**
+	 * Get bottom right corner Y position
+	 * @return maxY
+	 */
 	public double getMaxY() { return maxY; }
 	
+	/**
+	 * Get center X position.
+	 * @return centerX
+	 */
 	public double getCenterX() { return minX + width/2; }
 	
+	/**
+	 * Get center Y position.
+	 * @return centerY
+	 */
 	public double getCenterY() { return minY + height/2; }
 
+	/**
+	 * Get bounds width.
+	 * @return width
+	 */
 	public double getWidth() {return width; }
 	
+	/**
+	 * Get bounds height.
+	 * @return height
+	 */
 	public double getHeight() { return height; }
 
-	public void setMinX(double minX) { this.minX = minX; }
+	/**
+	 * Set top left corner X position.
+	 * @param minX New top left corner X position
+	 */
+	public void setMinX(double _minX) { minX = _minX; }
 	
-	public void setMinY(double minY) { this.minY = minY; }
+	/**
+	 * Set top left corner Y position.
+	 * @return _minY New top left corner Y position
+	 */
+	public void setMinY(double _minY) { minY = _minY; }
 
-	public void setWidth(double width) { this.width = width; }
+	/**
+	 * Set bounds width;
+	 * @param _width New width
+	 */
+	public void setWidth(double _width) { width = _width; }
 
-	public void setHeight(double height) { this.height = height; }
+	/**
+	 * Set bounds height.
+	 * @param _height New height
+	 */
+	public void setHeight(double _height) { height = _height; }
 }

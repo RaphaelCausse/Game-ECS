@@ -6,7 +6,7 @@ import java.util.List;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.items.AbstractItem;
-import game.ecs.entity.items.DamagePotion;
+import game.ecs.entity.items.AttackPotion;
 import game.ecs.entity.items.HealthPotion;
 import game.ecs.entity.items.PoisonPotion;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,7 +18,7 @@ import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- * Classe qui represente la map de jeu.
+ * Class that represent Game map.
  */
 public class GameMap
 {
@@ -36,8 +36,8 @@ public class GameMap
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe GameMap.
-	 * @param _gctx Contexte graphique
+	 * Constructor of GameMap class.
+	 * @param _gctx Graphic context
 	 */
 	public GameMap(GraphicsContext _gctx)
 	{
@@ -51,10 +51,10 @@ public class GameMap
 	}
 	
 	/**
-	 * Chargement du tileset de la map.
-	 * @param filename Fichier image
-	 * @param tileW Largeur d'une tuile
-	 * @param tileH Hauteur d'une tuile
+	 * Load map tileset.
+	 * @param filename Tileset file name
+	 * @param tileW Tile width
+	 * @param tileH TIle heigth
 	 */
 	public void loadTileset(String filename, int tileW, int tileH)
 	{	
@@ -81,7 +81,7 @@ public class GameMap
 	}
 	
 	/**
-	 * Creation des objets de la map.
+	 * Create map objects.
 	 */
 	public void createMapObjects()
 	{
@@ -101,7 +101,7 @@ public class GameMap
 	}
 	
 	/**
-	 * Creer et faire apparaitre les items sur la map.
+	 * Create items on map.
 	 */
 	public void spawnItemsOnMap()
 	{
@@ -111,7 +111,7 @@ public class GameMap
 		int[] damagePotionsY = {580, 384};
 		for (int x = 0, y = 0; x < damagePotionsX.length && y < damagePotionsY.length; x++, y++)
 		{
-			AbstractItem item = new DamagePotion(damagePotionsX[x], damagePotionsY[y]);
+			AbstractItem item = new AttackPotion(damagePotionsX[x], damagePotionsY[y]);
 			EntityManager.addEntity(item.getUID(), item);
 		}
 		
@@ -133,8 +133,8 @@ public class GameMap
 	}
 	
 	/**
-	 * Affiche en debug une couche de la map.
-	 * @param layer Couche de la map
+	 * Display in console a map layer, for debug usage.
+	 * @param layer Game map layer
 	 */
 	public void logMapLayer(int[][] layer)
 	{
@@ -151,17 +151,46 @@ public class GameMap
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Get graphic context.
+	 * @return gctx
+	 */
 	public GraphicsContext getGraphicsContext() { return gctx; }
 	
+	/**
+	 * Get tile in the tileset by its index.
+	 * @param index Index of tile in tileset
+	 * @return tile
+	 */
 	public Image getTile(int index) { return tileset[index]; }
 	
+	/**
+	 * Get number of rows in game map.
+	 * @return rows
+	 */
 	public int getRows() { return layerTexture.length; }
 	
+	/**
+	 * Get number of columns in game map.
+	 * @return cols
+	 */
 	public int getCols() { return layerTexture[0].length; }
 	
+	/**
+	 * Get tile width.
+	 * @return tileWidth
+	 */
 	public int getTileWidth() { return tileWidth; }
 
+	/**
+	 * Get tile height.
+	 * @return tileHeight
+	 */
 	public int getTileHeight() { return tileHeight; }
 	
+	/**
+	 * Get list of map objects.
+	 * @return mapObjects
+	 */
 	public List<MapObject> getMapObjects() { return mapObjects; }
 }

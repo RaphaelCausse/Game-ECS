@@ -12,14 +12,14 @@ import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.items.AbstractItem;
-import game.ecs.entity.items.DamagePotion;
+import game.ecs.entity.items.AttackPotion;
 import game.ecs.entity.items.HealthPotion;
 import game.ecs.entity.items.PoisonPotion;
 import utils.Settings.AnimationState;
 import utils.Settings.Movement;
 
 /**
- * Classe qui represente un montre ennemi.
+ * Class that represents an enemy monster.
  * @see AbstractEntity
  */
 public class Monster extends AbstractEntity
@@ -31,10 +31,17 @@ public class Monster extends AbstractEntity
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe Monster.
-	 * @param _name Nom du monstre
-	 * @param x Position en X
-	 * @param y Position en Y
+	 * Constructor of Monster class.
+	 * @param _name Monster name
+	 * @param x X position
+	 * @param y Y position
+	 * @param resfile Spritesheet file name
+	 * @param w Sprite width
+	 * @param h Sprite heigth
+	 * @param animFrames Number of frames of the animation
+	 * @param hp Max health
+	 * @param dmg Base damage
+	 * @param cooldown Attack cooldown
 	 */
 	public Monster(String _name, int x, int y, String resfile, int w, int h, int animFrames, int hp, int dmg, int cooldown)
 	{
@@ -44,10 +51,17 @@ public class Monster extends AbstractEntity
 	}
 	
 	/**
-	 * Initialisation des composants de l'entite.
-	 * @param x Position en X
-	 * @param y Position en Y
-	 * @param isBoss Est monstre Boss ou non
+	 * Initialize entity components.
+	 * @param _name Monster name
+	 * @param x X position
+	 * @param y Y position
+	 * @param resfile Spritesheet file name
+	 * @param w Sprite width
+	 * @param h Sprite heigth
+	 * @param animFrames Number of frames of the animation
+	 * @param hp Max health
+	 * @param dmg Base damage
+	 * @param cooldown Attack cooldown
 	 */
 	public void initialize(int x, int y, String resfile, int w, int h, int animFrames, int hp, int dmg, int cooldown)
 	{
@@ -109,7 +123,7 @@ public class Monster extends AbstractEntity
 			}
 			else
 			{
-				AbstractItem potion = new DamagePotion(x, y);
+				AbstractItem potion = new AttackPotion(x, y);
 				inventory.addItem(potion);
 			}
 		}
@@ -117,5 +131,9 @@ public class Monster extends AbstractEntity
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Get monster name.
+	 * @return name
+	 */
 	public String getName() { return name; }
 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.ecs.entity.AbstractEntity;
-import utils.Settings.Window;
+import utils.Settings.App;
 
 /**
- *
+ * Class that represents an interaction component.
  */
 public class InteractComponent extends AbstractComponent implements Interactable
 {
@@ -24,7 +24,7 @@ public class InteractComponent extends AbstractComponent implements Interactable
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe InteractComponent.
+	 * Constructor of InteractComponent class.
 	 */
 	public InteractComponent(List<String> _dialogs)
 	{
@@ -33,10 +33,13 @@ public class InteractComponent extends AbstractComponent implements Interactable
 		interacting = false;
 		canInteract = true;
 		dialogs = _dialogs;
-		dialogDelay = Window.FPS*5;
+		dialogDelay = App.FPS*5;
 		countDelay = 0;
 	}
 	
+	/**
+	 * Default constructor of InteractComponent class.
+	 */
 	public InteractComponent()
 	{
 		this(new ArrayList<>());
@@ -64,9 +67,21 @@ public class InteractComponent extends AbstractComponent implements Interactable
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Check if is activated.
+	 * @return true, false
+	 */
 	public boolean isActivated() { return activated; }
 	
+	/**
+	 * Get list of dialogs.
+	 * @return dialogs
+	 */
 	public List<String> getDialogs() { return dialogs; }
 	
+	/**
+	 * Set activated.
+	 * @param _activated
+	 */
 	public void setActivated(boolean _activated) { activated = _activated; }
 }

@@ -3,7 +3,7 @@ package game.ecs.component;
 import utils.Point2D;
 
 /**
- * Classe qui represente un composant de position.
+ * Class that represents a positon component.
  * @see AbstractComponent
  */
 public class PositionComponent extends AbstractComponent
@@ -15,7 +15,7 @@ public class PositionComponent extends AbstractComponent
 	/*----------------------------------------*/
 
 	/**
-	 * Constructeur de la classe PositionComponent.
+	 * Constructor of PositionComponent class.
 	 * @param x
 	 * @param y
 	 */
@@ -25,8 +25,8 @@ public class PositionComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Translater la position en X.
-	 * @param dx Decalage en X
+	 * Translate X position.
+	 * @param dx Translate X
 	 */
 	public void translateX(double dx)
 	{
@@ -34,8 +34,8 @@ public class PositionComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Translater la position en Y.
-	 * @param dy Decalage en Y
+	 * Translate Y position.
+	 * @param dy Translate Y
 	 */
 	public void translateY(double dy)
 	{ 
@@ -43,9 +43,9 @@ public class PositionComponent extends AbstractComponent
 	}
 
 	/**
-	 * Translater la position.
-	 * @param dx Decalage en X
-	 * @param dy Decalage en Y
+	 * Translate position.
+	 * @param dx Translate X
+	 * @param dy Translate Y
 	 */
 	public void translate(double dx, double dy)
 	{
@@ -55,19 +55,44 @@ public class PositionComponent extends AbstractComponent
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Get position point.
+	 * @return pos
+	 */
 	public Point2D getPos() { return pos; }
 	
+	/**
+	 * Get Y position.
+	 * @return x
+	 */
 	public double getX() { return pos.getX(); }
 
+	/**
+	 * Get Y position.
+	 * @return y
+	 */
 	public double getY() { return pos.getY(); }
 	
+	/**
+	 * Set position.
+	 * @param x New X position
+	 * @param y New Y position
+	 */
 	public void setPos(double x, double y)
 	{ 
 		pos.setX(x);
 		pos.setY(y);
 	}
 	
+	/**
+	 * Set X position.
+	 * @param x New X position
+	 */
 	public void setX(double x) { pos.setX(x); }
 	
+	/**
+	 * Set Y position.
+	 * @param y New Y position
+	 */
 	public void setY(double y) { pos.setY(y); }
 }

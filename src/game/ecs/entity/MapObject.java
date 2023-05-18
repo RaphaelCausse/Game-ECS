@@ -10,7 +10,7 @@ import utils.Settings.MapObjectsID;
 import utils.Settings.Sprites;
 
 /**
- * Classe qui represente un objet de la map de jeu.
+ * Class that represents a map object.
  * @see AbstractEntity
  */
 public class MapObject extends AbstractEntity
@@ -22,10 +22,10 @@ public class MapObject extends AbstractEntity
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe MapObject.
-	 * @param x
-	 * @param y
-	 * @param index
+	 * Constructor of MapObject class.
+	 * @param x X position
+	 * @param y Y position
+	 * @param index Image index according to tileset
 	 */
 	public MapObject(int x, int y, int index)
 	{
@@ -35,9 +35,9 @@ public class MapObject extends AbstractEntity
 	}
 	
 	/**
-	 * Initialisation des composants de l'objet.
-	 * @param x
-	 * @param y
+	 * Initialize entity components.
+	 * @param x X position
+	 * @param y Y position
 	 */
 	public void initialize(int x, int y)
 	{
@@ -49,13 +49,13 @@ public class MapObject extends AbstractEntity
 		List<Integer> patternTop = new ArrayList<>(); 		// Top side colliders
 		patternTop.addAll(Arrays.asList(78, 79));
 		List<Integer> patternBottom = new ArrayList<>(); 	// Bottom side colliders
-		patternBottom.addAll(Arrays.asList());
+		patternBottom.addAll(Arrays.asList(68));
 		List<Integer> patternTopLeft = new ArrayList<>(); 	// Top left side colliders
 		patternTopLeft.addAll(Arrays.asList(45));
 		List<Integer> patternTopRight = new ArrayList<>(); 	// Top right side colliders
 		patternTopRight.addAll(Arrays.asList(44));
 		List<Integer> patternFull = new ArrayList<>();	 	// Full colliders
-		patternFull.addAll(Arrays.asList(26, 28, 37, 42, 43, 46, 47, 54, 56, 57, 58, 59, 60, 61, 68, 70, 71, 72, 73, 74, 75, 82, 83));
+		patternFull.addAll(Arrays.asList(26, 28, 37, 42, 43, 46, 47, 54, 56, 57, 58, 59, 60, 61, 70, 71, 72, 73, 74, 75, 82, 83));
 		
 		// Create and add components
 		PositionComponent position = new PositionComponent(x, y);
@@ -79,7 +79,7 @@ public class MapObject extends AbstractEntity
 		}
 		else if (patternBottom.contains(imageIndex))
 		{
-			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE/2, 0, Sprites.TILE_SIZE/2, false);
+			ColliderComponent collider = new ColliderComponent(x, y, Sprites.TILE_SIZE, Sprites.TILE_SIZE/3*2, 0, Sprites.TILE_SIZE/3, false);
 			addComponent(collider);
 		}
 		else if (patternTopLeft.contains(imageIndex))
@@ -108,7 +108,15 @@ public class MapObject extends AbstractEntity
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Get image index according to tileset.
+	 * @return imageIndex
+	 */
 	public int getImageIndex() { return imageIndex; }
 	
+	/**
+	 * Set image index according to tileset.
+	 * @param _imageIndex New image index
+	 */
 	public void setImageIndex(int _imageIndex) { imageIndex = _imageIndex; } 
 }

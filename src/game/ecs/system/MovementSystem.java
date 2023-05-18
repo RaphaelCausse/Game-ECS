@@ -17,6 +17,7 @@ import utils.Settings.Movement;
 
 /**
  * Classe responsable de la gestion des mouvements.
+ * Class responsible of entities movements in the game.
  * @see AbstractSystem
  */
 public class MovementSystem extends AbstractSystem
@@ -24,7 +25,7 @@ public class MovementSystem extends AbstractSystem
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe MovementSystem.
+	 * Constructor of MovementSystem class.
 	 */
 	public MovementSystem()
 	{

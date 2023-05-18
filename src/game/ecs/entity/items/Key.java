@@ -11,7 +11,7 @@ import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- * Classe qui represente un item cle de coffre.
+ * Class that represents a chest key.
  * @see AbstractItem
  */
 public class Key extends AbstractItem
@@ -21,9 +21,9 @@ public class Key extends AbstractItem
 	/*----------------------------------------*/
 	
 	/**
-	 * Constucteur de la classe Key.
-	 * @param x Position sur la map en X
-	 * @param y Position sur la map en Y
+	 * Constuctor of Key class.
+	 * @param x X position
+	 * @param y Y position
 	 */
 	public Key(int x, int y)
 	{
@@ -55,16 +55,16 @@ public class Key extends AbstractItem
 	}
 
 	@Override
-	public void useItem(AbstractEntity sender, AbstractEntity receiver)
+	public void useItem(AbstractEntity owner, AbstractEntity target)
 	{
 		// Open chest: update map object
-		MapObject receiverObject = (MapObject) receiver;
-		receiverObject.setImageIndex(MapObjectsID.CHEST_OPEN_B);
+		MapObject targetObject = (MapObject) target;
+		targetObject.setImageIndex(MapObjectsID.CHEST_OPEN_B);
 		used = true;
 		
 		// Remove item from inventory
-		InventoryComponent senderInventory = sender.getComponent(InventoryComponent.class);
-		senderInventory.removeItem(this);
+		InventoryComponent ownerInventory = owner.getComponent(InventoryComponent.class);
+		ownerInventory.removeItem(this);
 	}
 	
 	/*----------------------------------------*/

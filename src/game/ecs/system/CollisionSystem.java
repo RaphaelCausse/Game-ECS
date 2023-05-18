@@ -13,7 +13,7 @@ import game.graphics.GameMap;
 import utils.CollisionBounds;
 
 /**
- * Classe responsable de la gestion des collisions entre les entites.
+ * Class responsible of collisions.
  * @see AbstractSystem
  */
 public class CollisionSystem extends AbstractSystem
@@ -25,7 +25,7 @@ public class CollisionSystem extends AbstractSystem
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe CollisionSystem.
+	 * Constructor of CollisionSystem class.
 	 */
 	public CollisionSystem(GameMap _map)
 	{

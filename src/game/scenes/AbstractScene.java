@@ -1,48 +1,46 @@
 package game.scenes;
 
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import utils.Settings.Window;
+import javafx.scene.layout.Pane;
+import utils.Settings.App;
 
 /**
- * Classe abstraite qui represente une scene de base pour JavaFX.
+ * Abstract class that represents a base scene for the application.
  * @see Scene
  */
 public abstract class AbstractScene extends Scene
 {
 	/*----------------------------------------*/
 	
-	private SceneManager sceneManager;
+	protected Pane root;
 	
 	/*----------------------------------------*/
 	
 	/**
-     * Constructeur de la classe AbstractScene.
-     * @param _sceneManager Gestionnaire de scene
-     * @param _root Groupe racine de la scene
+     * Constructor of AbstractScene class.
+     * @param _sceneManager Scene manager
+     * @param _root Root node of scene graph
      */
-	public AbstractScene(SceneManager _sceneManager, Group _root)
+	public AbstractScene(SceneManager _sceneManager, Pane _root)
 	{
-		super(_root, Window.SCREEN_W, Window.SCREEN_H);
-		sceneManager = _sceneManager;
+		super(_root, App.SCREEN_W, App.SCREEN_H);
+		root = _root;
 	}
 	
 	/**
-	 * Lancer l'execution de la scene courante.
+	 * Initialize current scene.
+	 */
+	public abstract void initialize();
+	
+	/**
+	 * Start current scene.
 	 */
 	public abstract void start();
 	
 	/**
-	 * Mettre a jour la scene et tous ses elements.
+	 * Update current scene.
 	 */
 	public abstract void update();
 	
-	/**
-	 * Stopper l'execution de la scene.
-	 */
-	public abstract void stop();
-	
 	/*----------------------------------------*/
-
-	public SceneManager getSceneManager() { return sceneManager; }
 }

@@ -5,23 +5,20 @@ import java.util.Map;
 import game.ecs.component.AbstractComponent;
 
 /**
- * Classe abstraite qui represente une entite de base.
+ * Abstract class that represents a base entity.
  */
 public abstract class AbstractEntity
 {
 	/*----------------------------------------*/
 	
-	// Track count of number of entities
 	public static int entityCount = 0;
-	// Unique ID of entity
 	private int uid;
-	// Entity components collection
 	private Map<Class<? extends AbstractComponent>, AbstractComponent> components;
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe abstraite AbstractEntity.
+	 * Constructor of AbstractEntity class.
 	 */
 	public AbstractEntity()
 	{
@@ -30,8 +27,8 @@ public abstract class AbstractEntity
 	}
 	
 	/**
-	 * Ajouter un composant a la liste des composants de l'entity.
-	 * @param component Composant a ajouter
+	 * Add a component to the entity.
+	 * @param component Component to add
 	 */
 	public void addComponent(AbstractComponent component)
 	{
@@ -42,8 +39,8 @@ public abstract class AbstractEntity
 	}
 
 	/**
-	 * Enlever un composant a la liste des composants de l'entity.
-	 * @param componentClass Classe du composant, cle de la collection
+	 * Remove a component from entity.
+	 * @param componentClass Component class as key of hashmap
 	 */
 	public void removeComponent(Class<? extends AbstractComponent> componentClass)
 	{
@@ -54,8 +51,8 @@ public abstract class AbstractEntity
 	}
 	
 	/**
-	 * Verifier si la collection de composant de l'entity comprend un composant.
-	 * @param componentClass Classe du composant qui sert de cle dans la collection
+	 * Check if entity has a specific component.
+	 * @param componentClass Component class as key of hashmap
 	 * @return true, false
 	 */
 	public boolean hasComponent(Class<? extends AbstractComponent> componentClass)
@@ -65,8 +62,18 @@ public abstract class AbstractEntity
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Get unique ID of entity.
+	 * @return uid
+	 */
 	public int getUID() { return uid; }
 	
+	/**
+	 * Get component of entity.
+	 * @param <T> Component class type
+	 * @param componentClass Component class as key of hashmap
+	 * @return component
+	 */
 	public <T extends AbstractComponent> T getComponent(Class<T> componentClass)
 	{
         return componentClass.cast(components.get(componentClass));

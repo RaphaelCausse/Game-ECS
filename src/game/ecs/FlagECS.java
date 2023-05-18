@@ -1,7 +1,7 @@
 package game.ecs;
 
 /**
- * Flag pour signaler si le composant doit etre mise a jour ou rester dans son etat stable.
+ * Flag to tell if the component needs to be updated by the system.
  */
 public enum FlagECS
 {

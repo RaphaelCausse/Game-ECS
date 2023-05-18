@@ -1,5 +1,6 @@
 package game.ecs.system;
 
+import game.Game;
 import game.ecs.FlagECS;
 import game.ecs.component.DetectionComponent;
 import game.ecs.component.HealthComponent;
@@ -11,16 +12,17 @@ import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.items.AbstractItem;
-import game.ecs.entity.items.DamagePotion;
+import game.ecs.entity.items.AttackPotion;
 import game.ecs.entity.items.HealthPotion;
 import game.ecs.entity.items.Key;
 import game.ecs.entity.items.PoisonPotion;
 import game.graphics.GameMap;
 import utils.Settings.Actions;
+import utils.Settings.GameStatus;
 import utils.Settings.MapObjectsID;
 
 /**
- * Classe responsable de la gestion de l'inventaire.
+ * Class responsible of inventory management.
  * @see AbstractSystem
  */
 public class InventorySystem extends AbstractSystem
@@ -33,7 +35,7 @@ public class InventorySystem extends AbstractSystem
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe InventorySystem.
+	 * Constructor of InventorySystem class.
 	 */
 	public InventorySystem(GameMap _map)
 	{
@@ -97,16 +99,16 @@ public class InventorySystem extends AbstractSystem
 				        			if (nearbyEntity.hasComponent(InteractComponent.class) && nearbyEntity instanceof MapObject)
 				        			{
 				        				MapObject interactableObject = (MapObject) nearbyEntity;
-				        				InteractComponent interact = interactableObject.getComponent(InteractComponent.class);
-				        				if (interactableObject.getImageIndex() == MapObjectsID.CHEST && !interact.isActivated())
+				        				if (interactableObject.getImageIndex() == MapObjectsID.CHEST)
 				        				{
 				        					// Open chest with key
 				        					item.useItem(entity, interactableObject);
-				        					interact.setActivated(true);
 				        					PositionComponent objectPosition = interactableObject.getComponent(PositionComponent.class);
 				        					int row = (int)objectPosition.getY() / map.getTileHeight() - 1;
 				        					int col = (int)objectPosition.getX() / map.getTileWidth();
 				        					map.layerObjectsAbove[row][col] = MapObjectsID.CHEST_OPEN_T;
+				        					// GAME WIN
+				        					Game.gameStatus = GameStatus.GAME_WIN;
 				        					break;
 				        				}
 				        				pressed = true;
@@ -114,7 +116,7 @@ public class InventorySystem extends AbstractSystem
 				        		}
 				        	}
 				        	// Item DamagePotion
-				        	else if (item instanceof DamagePotion)
+				        	else if (item instanceof AttackPotion)
 				        	{
 			        			item.useItem(entity, entity);
 			        			pressed = true;
@@ -170,5 +172,4 @@ public class InventorySystem extends AbstractSystem
 	}
 
 	/*----------------------------------------*/
-	
 }

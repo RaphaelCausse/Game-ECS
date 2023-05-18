@@ -5,6 +5,10 @@ import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.graphics.GameMap;
 
+/**
+ * Class responsible of detections.
+ * @see AbstractSystem
+ */
 public class DetectionSystem extends AbstractSystem
 {
 	/*----------------------------------------*/
@@ -13,6 +17,10 @@ public class DetectionSystem extends AbstractSystem
 	
 	/*----------------------------------------*/
 	
+	/**
+	 * Constructor of DetectionSystem class.
+	 * @param _map Game map
+	 */
 	public DetectionSystem(GameMap _map)
 	{
 		super();

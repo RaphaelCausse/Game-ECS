@@ -10,24 +10,25 @@ import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- *
+ * Class that represents a health bonus potion.
+ * @see AbstractItem
  */
 public class HealthPotion extends AbstractItem
 {
 	/*----------------------------------------*/
 	
-	private int value;
+	private int value = 20;
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe HealthPotion.
-	 * @param _name Nom de l'item
+	 * Constructor of HealthPotion class.
+	 * @param x X position
+	 * @param y Y position
 	 */
 	public HealthPotion(int x, int y)
 	{
-		super("Health Potion");
-		value = 10;
+		super("Health Potion (+20 HP)");
 		initialize(x, y);
 	}
 
@@ -55,19 +56,19 @@ public class HealthPotion extends AbstractItem
 	}
 	
 	@Override
-	public void useItem(AbstractEntity sender, AbstractEntity receiver)
+	public void useItem(AbstractEntity owner, AbstractEntity target)
 	{
 		// Restore health
-		HealthComponent receiverHealth = sender.getComponent(HealthComponent.class);
-		int newHealthValue = (receiverHealth.getCurrentHealth() + value > receiverHealth.getMaxHealth()) ?
-			receiverHealth.getMaxHealth() :
-			receiverHealth.getCurrentHealth() + value;
-		receiverHealth.setCurrentHeath(newHealthValue);
+		HealthComponent targetHealth = owner.getComponent(HealthComponent.class);
+		int newHealthValue = (targetHealth.getCurrentHealth() + value > targetHealth.getMaxHealth()) ?
+			targetHealth.getMaxHealth() :
+			targetHealth.getCurrentHealth() + value;
+		targetHealth.setCurrentHeath(newHealthValue);
 		used = true;
 		
 		// Remove item from inventory
-		InventoryComponent senderInventory = sender.getComponent(InventoryComponent.class);
-		senderInventory.removeItem(this);
+		InventoryComponent ownerInventory = owner.getComponent(InventoryComponent.class);
+		ownerInventory.removeItem(this);
 	}
 
 	/*----------------------------------------*/

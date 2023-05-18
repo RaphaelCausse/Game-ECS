@@ -16,10 +16,10 @@ import utils.Settings.Movement;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 import utils.Settings.Stats;
-import utils.Settings.Window;
+import utils.Settings.App;
 
 /**
- * Classe qui represente un joueur.
+ * Class that represents a player.
  * @see AbstractEntity
  */
 public class Player extends AbstractEntity
@@ -32,24 +32,24 @@ public class Player extends AbstractEntity
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe Player.
-	 * @param x Position en X
-	 * @param y Position en Y
-	 * @param animFrames Nombres de frames de l'animation
+	 * Constructor of Player class.
+	 * @param x X position
+	 * @param y Y position
+	 * @param animFrames Number of frames of the animation.
 	 */
 	public Player(int x, int y)
 	{
 		super();
 		initialize(x, y);
-		cameraX = Window.SCREEN_W/2 - getComponent(SpriteComponent.class).getSpriteWidth()/2;
-		cameraY = Window.SCREEN_H/2 - getComponent(SpriteComponent.class).getSpriteHeight()/2;
+		cameraX = App.SCREEN_W/2 - getComponent(SpriteComponent.class).getSpriteWidth()/2;
+		cameraY = App.SCREEN_H/2 - getComponent(SpriteComponent.class).getSpriteHeight()/2;
 	}
 	
 	/**
-	 * Initialisation des composants de l'entite.
-	 * @param x Position en X
-	 * @param y position en Y
-	 * @param animFrames Nombres de frames de l'animation
+	 * Initialize entity components.
+	 * @param x X position
+	 * @param y Y position
+	 * @param animFrames Number of frames of the animation.
 	 */
 	public void initialize(int x, int y)
 	{

@@ -4,7 +4,7 @@ import java.util.List;
 import game.ecs.entity.AbstractEntity;
 
 /**
- * Classe abstraite qui represente un systeme qui interagit avec les composants associes.
+ * Abstract class that represents a system interacting with components.
  */
 public abstract class AbstractSystem
 {
@@ -15,7 +15,7 @@ public abstract class AbstractSystem
 	/*----------------------------------------*/
 
 	/**
-	 * Executer le systeme pour mettre a jour les composants associes.
+	 * Execute the system to interact with components.
 	 */
 	public abstract void run();
 	

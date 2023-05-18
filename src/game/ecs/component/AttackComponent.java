@@ -7,7 +7,7 @@ import utils.Point2D;
 import utils.Settings.ResFiles;
 
 /**
- * Classe qui represente les points d'attaque de l'entite.
+ * Class that represents the attack component.
  * @see AbstractComponent
  */
 public class AttackComponent extends AbstractComponent
@@ -27,7 +27,7 @@ public class AttackComponent extends AbstractComponent
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe DamageComponent.
+	 * Constructor of AttackComponent class.
 	 */
 	public AttackComponent(int _damage, int _attackCooldown)
 	{
@@ -40,18 +40,34 @@ public class AttackComponent extends AbstractComponent
 		monsterDamageSprite = new Image(ResFiles.POISON_DAMAGE_ORBE);
 	}
 	
+	/**
+	 * Add an attack hitbox
+	 * @param x Top left corner X position
+	 * @param y Top left corner Y position
+	 * @param width Bounds width
+	 * @param height Bounds height
+	 * @param ox Offset X
+	 * @param oy Offset Y
+	 */
 	public void addAttackHitBox(int x, int y, int w, int h, int ox, int oy)
 	{
 		attackHitbox = new CollisionBounds(x, y, w, h);
 		offset = new Point2D(ox, oy);
 	}
 	
+	/**
+	 * Remove the attack hitbox.
+	 */
 	public void removeAttackHitbox()
 	{
 		attackHitbox = null;
 		offset = null;
 	}
 
+	/**
+	 * Update the attack hitbox to follow positon.
+	 * @param position Position to follow
+	 */
 	public void updateAttackHitbox(PositionComponent position)
 	{
 		if (attackHitbox != null)
@@ -62,6 +78,11 @@ public class AttackComponent extends AbstractComponent
 		}
 	}
 	
+	/**
+	 * Check if attack hitbox is hitting another hitbox.
+	 * @param target Entity to check with
+	 * @return true, false
+	 */
 	public boolean isHitting(AbstractEntity target)
 	{
 		CollisionBounds targetBounds = target.getComponent(ColliderComponent.class).getBounds();
@@ -69,8 +90,8 @@ public class AttackComponent extends AbstractComponent
 	}
 	
 	/**
-	 * Infliger des degats aux points de vie de l'entite cible.
-	 * @param targetHealth Composant point de vie de l'entite ciblee.
+	 * Deal damage to target entity.
+	 * @param target Entity to deal damage to.
 	 */
 	public void dealDamageTo(AbstractEntity target)
 	{
@@ -84,17 +105,45 @@ public class AttackComponent extends AbstractComponent
 
 	/*----------------------------------------*/
 	
+	/**
+	 * Get attack hitbox.
+	 * @return attackHitbox
+	 */
 	public CollisionBounds getAttackHitbox() { return attackHitbox; }
 	
+	/**
+	 * Get damage.
+	 * @return damage
+	 */
 	public int getDamage() { return damage; }
 	
+	/**
+	 * Check if is attacking.
+	 * @return true, false
+	 */
 	public boolean isAttacking() { return attacking; }
 	
+	/**
+	 * Check if has perform an attack.
+	 * @return true, false
+	 */
 	public boolean hasAttacked() { return attacked; }
 	
+	/**
+	 * Set damage
+	 * @param _damage New damage
+	 */
 	public void setDamage(int _damage) { damage = _damage; }
 	
+	/**
+	 * Set is attacking.
+	 * @param _attacking
+	 */
 	public void setAttacking(boolean _attacking) { attacking = _attacking; }
 	
+	/**
+	 * Set has attacked.
+	 * @param _attacked
+	 */
 	public void setHasAttacked(boolean _attacked) { attacked = _attacked; }
 }

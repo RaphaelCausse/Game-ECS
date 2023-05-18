@@ -4,7 +4,7 @@ import game.ecs.entity.AbstractEntity;
 import utils.Settings.Movement;
 
 /**
- * Classe qui represente un composant de movement.
+ * Class that represents a movement component.
  * @see AbstractComponent
  */
 public class MovementComponent extends AbstractComponent
@@ -18,7 +18,7 @@ public class MovementComponent extends AbstractComponent
 	/*----------------------------------------*/
 
 	/**
-	 * Constructeur de la classe MovementComponent.
+	 * Constructor of MovementComponent class.
 	 * @param _velocity Vitesse de deplacement
 	 * @param _direction Direction du deplacement
 	 */
@@ -31,8 +31,9 @@ public class MovementComponent extends AbstractComponent
 	}
 	
 	/**
-	 * 
-	 * @param entity
+	 * Move entity towards target position.
+	 * @param entity Entity that moves
+	 * @param target Entity to reach
 	 */
 	public void moveToTarget(AbstractEntity entity, AbstractEntity target)
 	{
@@ -72,11 +73,27 @@ public class MovementComponent extends AbstractComponent
 	
 	/*----------------------------------------*/
 
+	/**
+	 * Get movement velocity.
+	 * @return velocity
+	 */
 	public double getVelocity() { return velocity; }
 	
+	/**
+	 * Get movement direction.
+	 * @return directon
+	 */
 	public int getDirection() { return direction; }
 	
+	/**
+	 * Set movement velocity.
+	 * @param _velocity New movement velocity
+	 */
 	public void setVelocity(double _velocity) { velocity = _velocity; }
 	
+	/**
+	 * Set movement direction.
+	 * @param _direction New movement direction
+	 */
 	public void setDirection(int _direction) { direction = _direction; }
 }

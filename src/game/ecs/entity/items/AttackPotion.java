@@ -10,24 +10,24 @@ import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- *
+ * Class that represents a attack bonus potion.
  */
-public class DamagePotion extends AbstractItem
+public class AttackPotion extends AbstractItem
 {
 	/*----------------------------------------*/
 	
-	private int value;
+	private int value = 20;
 	
 	/*----------------------------------------*/
 	
 	/**
-	 * Constructeur de la classe HealthPotion.
-	 * @param _name Nom de l'item
+	 * Constructor of DamagePotion class.
+	 * @param x X position
+	 * @param y Y position
 	 */
-	public DamagePotion(int x, int y)
+	public AttackPotion(int x, int y)
 	{
-		super("Damage Potion");
-		value = 20;
+		super("Attack Potion (+20 ATK)");
 		initialize(x, y);
 	}
 
@@ -55,16 +55,16 @@ public class DamagePotion extends AbstractItem
 	}
 	
 	@Override
-	public void useItem(AbstractEntity sender, AbstractEntity receiver)
+	public void useItem(AbstractEntity owner, AbstractEntity target)
 	{
 		// Increase damage
-		AttackComponent receiverDamage = sender.getComponent(AttackComponent.class);
-		receiverDamage.setDamage(receiverDamage.getDamage() + value);
+		AttackComponent targetDamage = owner.getComponent(AttackComponent.class);
+		targetDamage.setDamage(targetDamage.getDamage() + value);
 		used = true;
 		
 		// Remove item from inventory
-		InventoryComponent senderInventory = sender.getComponent(InventoryComponent.class);
-		senderInventory.removeItem(this);
+		InventoryComponent ownerInventory = owner.getComponent(InventoryComponent.class);
+		ownerInventory.removeItem(this);
 	}
 
 	/*----------------------------------------*/

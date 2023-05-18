@@ -4,6 +4,9 @@ import game.Game;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Main class to launch the JavaFX application.
+ */
 public class Main extends Application
 {
 	/*----------------------------------------*/
@@ -23,12 +26,6 @@ public class Main extends Application
 		game = new Game(stage);
 		game.run();
 	}
-	
-//	@Override
-//	public void stop()
-//	{
-//		game.stop();
-//	}
 	
 	/*----------------------------------------*/
 }

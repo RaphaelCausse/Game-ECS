@@ -6,23 +6,21 @@ import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 
 /**
- *
+ * Class reponsible of interactions.
+ * @see AbstractSystem
  */
 public class InteractSystem extends AbstractSystem
 {
 	/*----------------------------------------*/
 	
-	public int interactions;
-	
 	/*----------------------------------------*/
 
 	/**
-	 * Constructeur de la classe InteractSystem.
+	 * Constructor of InteractSystem class.
 	 */
 	public InteractSystem()
 	{
 		super();
-		interactions = 0;
 	}
 
 	@Override
@@ -57,7 +55,6 @@ public class InteractSystem extends AbstractSystem
 				interact.setActivated(false);
 			}
 		}
-
 	}
 
 	/*----------------------------------------*/

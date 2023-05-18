@@ -1,8 +1,10 @@
 package game.ecs.component;
 
 import game.ecs.entity.AbstractEntity;
+import javafx.scene.image.Image;
 import utils.CollisionBounds;
 import utils.Point2D;
+import utils.Settings.ResFiles;
 
 /**
  * Classe qui represente les points d'attaque de l'entite.
@@ -12,13 +14,15 @@ public class AttackComponent extends AbstractComponent
 {
 	/*----------------------------------------*/
 	
+	public int targetUID;
 	private CollisionBounds attackHitbox;
 	private Point2D offset;
 	private int damage;
 	private boolean attacking;
 	private boolean attacked;
-	private int attackCooldown;
-	private int cooldownCount;
+	public int attackCooldown;
+	public int cooldownCount;
+	public Image monsterDamageSprite;
 	
 	/*----------------------------------------*/
 	
@@ -33,6 +37,7 @@ public class AttackComponent extends AbstractComponent
 		attacked = true;
 		attackCooldown = _attackCooldown;
 		cooldownCount = 0;
+		monsterDamageSprite = new Image(ResFiles.POISON_DAMAGE_ORBE);
 	}
 	
 	public void addAttackHitBox(int x, int y, int w, int h, int ox, int oy)
@@ -70,7 +75,7 @@ public class AttackComponent extends AbstractComponent
 	public void dealDamageTo(AbstractEntity target)
 	{
 		HealthComponent targetHealth = target.getComponent(HealthComponent.class);
-		if (!attacked && targetHealth != null && !targetHealth.isDead())
+		if (targetHealth != null && !targetHealth.isDead())
 		{
 			targetHealth.setCurrentHeath(targetHealth.getCurrentHealth() - damage);
 			attacked = true;

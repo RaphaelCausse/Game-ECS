@@ -18,6 +18,10 @@ public class Settings
 		public static final Duration FRAME_TIME = Duration.millis(1000/FPS);
 	}
 	
+	public enum GameStatus
+	{
+		GAME_WIN, GAME_OVER
+	}
 	/**
 	 * Chemins des differents repertoires.
 	 */
@@ -61,6 +65,7 @@ public class Settings
 		public static final String ITEM_DAMAGE_POTION = DirPaths.ITEMS + "damage_potion.png";
 		public static final String ITEM_HEALTH_POTION = DirPaths.ITEMS + "health_potion.png";
 		public static final String ITEM_POISON_POTION = DirPaths.ITEMS + "poison_potion.png";
+		public static final String POISON_DAMAGE_ORBE = DirPaths.ITEMS + "poison_damage_orbe.png";
 	}
 	
 	/**
@@ -75,6 +80,8 @@ public class Settings
 		public static final int MONSTER_SIZE = 32;
 		public static final int MONSTER_GHOST_WIZARD_W = 56;
 		public static final int MONSTER_GHOST_WIZARD_H = 82;
+		public static final int POISON_DAMAGE_ORBE_W = 27;
+		public static final int POISON_DAMAGE_ORBE_H = 24;
 		// Animations
 		public static final int ANIM_FRAMES = 12;
 		public static final int MONSTER_ANIM_FRAMES = 8;
@@ -167,12 +174,12 @@ public class Settings
 		public static final int PLAYER_BASE_DAMAGE = 20;
 		public static final int PLAYER_ATTACK_COOLDOWN = Window.FPS;
 		// Monster
-		public static final int MONSTER_BOSS_MAX_HEALTH = 500;
+		public static final int MONSTER_BOSS_MAX_HEALTH = 600;
 		public static final int MONSTER_BOSS_BASE_DAMAGE = 30;
-		public static final int MONSTER_BOSS_ATTACK_COOLDOWN = Window.FPS*5;
-		public static final int MONSTER_MAX_HEALTH = 100;
-		public static final int MONSTER_BASE_DAMAGE = 10;
-		public static final int MONSTER_ATTACK_COOLDOWN = Window.FPS*4;
+		public static final int MONSTER_BOSS_ATTACK_COOLDOWN = Window.FPS*4;
+		public static final int MONSTER_MAX_HEALTH = 125;
+		public static final int MONSTER_BASE_DAMAGE = 5;
+		public static final int MONSTER_ATTACK_COOLDOWN = Window.FPS;
 	}
 	
 	/**

@@ -157,10 +157,11 @@ public class MovementSystem extends AbstractSystem
 							AttackComponent entityAttack = entity.getComponent(AttackComponent.class);
 							ColliderComponent nearbyCollider = nearbyEntity.getComponent(ColliderComponent.class);
 							ColliderComponent entityCollider = entity.getComponent(ColliderComponent.class);
-							if (Math.abs(nearbyCollider.getBounds().getCenterX() - entityCollider.getBounds().getCenterX()) < 150 &&
-								Math.abs(nearbyCollider.getBounds().getCenterY() - entityCollider.getBounds().getCenterY()) < 150)
+							if (Math.abs(nearbyCollider.getBounds().getCenterX() - entityCollider.getBounds().getCenterX()) < 200 &&
+								Math.abs(nearbyCollider.getBounds().getCenterY() - entityCollider.getBounds().getCenterY()) < 200)
 							{
 								entityAttack.setAttacking(true);
+								entityAttack.targetUID = nearbyEntity.getUID();
 							}
 							else
 							{

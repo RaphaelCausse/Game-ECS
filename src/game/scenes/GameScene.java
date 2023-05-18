@@ -37,6 +37,7 @@ public class GameScene extends AbstractScene
 {
 	/*----------------------------------------*/
 	
+	public static boolean isGameOver;
 	private Timeline gameloop;
 	// Graphics elements
 	public Canvas canvas;
@@ -57,6 +58,8 @@ public class GameScene extends AbstractScene
 	public GameScene(SceneManager _sceneManager, Group _root)
 	{
 		super(_sceneManager, _root);
+		
+		isGameOver = false;
 		
 		// Init graphics elements
 		canvas = new Canvas(Window.SCREEN_W, Window.SCREEN_W);
@@ -97,17 +100,22 @@ public class GameScene extends AbstractScene
 	@SuppressWarnings("static-access")
 	public void initialize()
 	{
-		// Create entites
+		// Create and add entites to manager
+		
 		AbstractEntity player = new Player(
 			Positions.PLAYER_SPAWN_X,
 			Positions.PLAYER_SPAWN_Y
 		);
+		entityManager.addEntity(player.getUID(), player);
+		
 		AbstractEntity blacksmith = new Blacksmith(
 			Positions.BLACKSMITH_SPAWN_X,
 			Positions.BLACKSMITH_SPAWN_Y
 		);
-		AbstractEntity boss = new Monster(
-			"Ghost Wizard",
+		entityManager.addEntity(blacksmith.getUID(), blacksmith);
+		
+		AbstractEntity monsterBoss = new Monster(
+			"Great Ghost Wizard",
 			Positions.MONSTER_BOSS_SPAWN1_X,
 			Positions.MONSTER_BOSS_SPAWN1_Y,
 			ResFiles.GHOST_WIZARD_SPRITESHEET,
@@ -119,10 +127,39 @@ public class GameScene extends AbstractScene
 			Stats.MONSTER_BOSS_ATTACK_COOLDOWN
 		);
 		AbstractItem key = new Key(
-			(int)boss.getComponent(PositionComponent.class).getX(),
-			(int)boss.getComponent(PositionComponent.class).getY()
+			(int)monsterBoss.getComponent(PositionComponent.class).getX(),
+			(int)monsterBoss.getComponent(PositionComponent.class).getY()
 		);
-		boss.getComponent(InventoryComponent.class).addItem(key);
+		monsterBoss.getComponent(InventoryComponent.class).addItem(key);
+		entityManager.addEntity(monsterBoss.getUID(), monsterBoss);
+		
+		AbstractEntity monsterGuardian = new Monster(
+			"Guardian of Lost Souls",
+			810,
+			420,
+			ResFiles.GHOST_WIZARD_SPRITESHEET,
+			Sprites.MONSTER_GHOST_WIZARD_W,
+			Sprites.MONSTER_GHOST_WIZARD_H,
+			Sprites.MONSTER_GHOST_WIZARD_ANIM_FRAMES,
+			Stats.MONSTER_MAX_HEALTH,
+			Stats.MONSTER_BASE_DAMAGE,
+			Stats.MONSTER_ATTACK_COOLDOWN
+		);
+		entityManager.addEntity(monsterGuardian.getUID(), monsterGuardian);
+		
+		AbstractEntity monsterMagician = new Monster(
+			"Dark Ghost Magician",
+			Positions.MONSTER_BOSS_SPAWN2_X,
+			Positions.MONSTER_BOSS_SPAWN2_Y,
+			ResFiles.GHOST_WIZARD_SPRITESHEET,
+			Sprites.MONSTER_GHOST_WIZARD_W,
+			Sprites.MONSTER_GHOST_WIZARD_H,
+			Sprites.MONSTER_GHOST_WIZARD_ANIM_FRAMES,
+			Stats.MONSTER_MAX_HEALTH,
+			Stats.MONSTER_BASE_DAMAGE,
+			Stats.MONSTER_ATTACK_COOLDOWN
+		);
+		entityManager.addEntity(monsterMagician.getUID(), monsterMagician);
 		
 		// Create Game map, Camera and HUD
 		GameMap map = new GameMap(gctx);
@@ -132,11 +169,6 @@ public class GameScene extends AbstractScene
 		// Init ECS managers
 		entityManager = EntityManager.getInstance();
 		systemManager = new SystemManager(this, camera, hud);
-				
-		// Add entities
-		entityManager.addEntity(player.getUID(), player);
-		entityManager.addEntity(blacksmith.getUID(), blacksmith);
-		entityManager.addEntity(boss.getUID(), boss);
 	}
 	
 	/*----------------------------------------*/

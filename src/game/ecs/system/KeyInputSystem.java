@@ -3,6 +3,7 @@ package game.ecs.system;
 import java.util.Map;
 
 import game.ecs.FlagECS;
+import game.ecs.component.InteractComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.KeyInputComponent;
 import game.ecs.component.MovementComponent;
@@ -126,12 +127,16 @@ public class KeyInputSystem extends AbstractSystem
 					movement.setFlag(FlagECS.TO_UPDATE);
 				}
 			}
-			if (isPressed(KeyCode.E))
+			InteractComponent interact = entity.getComponent(InteractComponent.class);
+			if (interact != null)
 			{
-				if (inputMap.containsKey(Actions.INTERACT))
+				if (isPressed(KeyCode.E))
 				{
-					inputMap.put(Actions.INTERACT, true);
-					// TODO
+					if (inputMap.containsKey(Actions.INTERACT))
+					{
+						inputMap.put(Actions.INTERACT, true);
+						interact.setFlag(FlagECS.TO_UPDATE);
+					}
 				}
 			}
 			InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
@@ -153,23 +158,24 @@ public class KeyInputSystem extends AbstractSystem
 						inventory.setFlag(FlagECS.TO_UPDATE);
 					}
 				}
-			}
-			if (isPressed(KeyCode.A))
-			{
-				if (inputMap.containsKey(Actions.USE_ITEM))
+				if (isPressed(KeyCode.A))
 				{
-					inputMap.put(Actions.USE_ITEM, true);
-					inventory.setFlag(FlagECS.TO_UPDATE);
+					if (inputMap.containsKey(Actions.USE_ITEM))
+					{
+						inputMap.put(Actions.USE_ITEM, true);
+						inventory.setFlag(FlagECS.TO_UPDATE);
+					}
+				}
+				if (isPressed(KeyCode.G))
+				{
+					if (inputMap.containsKey(Actions.DROP_ITEM))
+					{
+						inputMap.put(Actions.DROP_ITEM, true);
+						inventory.setFlag(FlagECS.TO_UPDATE);
+					}
 				}
 			}
-			if (isPressed(KeyCode.G))
-			{
-				if (inputMap.containsKey(Actions.DROP_ITEM))
-				{
-					inputMap.put(Actions.DROP_ITEM, true);
-					inventory.setFlag(FlagECS.TO_UPDATE);
-				}
-			}
+			
 			
 			// Keys released
 			if (isReleased(KeyCode.Z))
@@ -200,7 +206,7 @@ public class KeyInputSystem extends AbstractSystem
 			if (isReleased(KeyCode.E))
 			{
 				inputMap.put(Actions.INTERACT, false);
-				// TODO
+				interact.setFlag(FlagECS.TO_UPDATE);
 			}
 			if (isReleased(KeyCode.LEFT))
 			{

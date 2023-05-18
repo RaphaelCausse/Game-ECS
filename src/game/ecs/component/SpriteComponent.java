@@ -18,7 +18,7 @@ public class SpriteComponent extends AbstractComponent
     private int spriteHeight;
 	private int spriteRowIndex;
 	private int spriteColIndex;
-	private int scale;
+	private double scale;
 	
 	/*----------------------------------------*/
 	
@@ -38,7 +38,7 @@ public class SpriteComponent extends AbstractComponent
         cols = (int) spritesheet.getWidth() / spriteWidth;
 		spriteRowIndex = 0;
 		spriteColIndex = 0;
-		scale = 0;
+		scale = 0.0;
 	}
 	
 	/*----------------------------------------*/
@@ -59,11 +59,11 @@ public class SpriteComponent extends AbstractComponent
 	
 	public Point2D getSpriteCenter() { return new Point2D(spriteWidth/2, spriteHeight/2); }
 	
-	public int getScale() { return scale; }
+	public double getScale() { return scale; }
 	
 	public void setSpriteRowIndex(int _spriteRowIndex) { spriteRowIndex = _spriteRowIndex; }
 	
 	public void setSpriteColIndex(int _spriteColIndex) { spriteColIndex = _spriteColIndex; }
 	
-	public void setScale(int _scale) { scale = _scale; }
+	public void setScale(double _scale) { scale = _scale; }
 }

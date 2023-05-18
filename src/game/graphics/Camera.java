@@ -232,6 +232,59 @@ public class Camera
 					continue;
 				}
 				
+				// TMP draw borders
+//				map.getGraphicsContext().setStroke(Color.RED);
+//				map.getGraphicsContext().strokeRect(
+//					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+//					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+//					sprite.getSpriteWidth(),
+//					sprite.getSpriteHeight()
+//				);
+				// TMP draw collider bounds and detection bounds
+				if (entity.hasComponent(ColliderComponent.class))
+				{
+					ColliderComponent collider = entity.getComponent(ColliderComponent.class);
+					gctx.setStroke(Color.BLUE);
+					gctx.strokeRect(
+						collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+						collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+						collider.getBounds().getWidth(),
+						collider.getBounds().getHeight()
+					);
+				}
+				if (entity.hasComponent(DetectionComponent.class))
+				{
+					DetectionComponent detection = entity.getComponent(DetectionComponent.class);
+					gctx.setStroke(Color.YELLOW);
+					gctx.strokeRect(
+						detection.getDetectionBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+						detection.getDetectionBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+						detection.getDetectionBounds().getWidth(),
+						detection.getDetectionBounds().getHeight()
+					);
+				}
+				if (entity.hasComponent(AttackComponent.class))
+				{
+					AttackComponent attack = entity.getComponent(AttackComponent.class );
+					if (attack.getAttackHitbox() != null)
+					{
+						gctx.drawImage(
+							attack.monsterDamageSprite,
+							attack.getAttackHitbox().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+							attack.getAttackHitbox().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+							attack.getAttackHitbox().getWidth(),
+							attack.getAttackHitbox().getHeight()
+						);
+						gctx.setStroke(Color.PURPLE);
+						gctx.strokeRect(
+							attack.getAttackHitbox().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
+							attack.getAttackHitbox().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
+							attack.getAttackHitbox().getWidth(),
+							attack.getAttackHitbox().getHeight()
+						);
+					}
+				}
+				
 				// Render entity
 				gctx.drawImage(
 					sprite.getSpritesheet(), 	// image
@@ -241,8 +294,8 @@ public class Camera
 					sprite.getSpriteHeight(),	// src H
 					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(), 	// dst X
 					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(), 	// dst Y
-					(sprite.getScale() == 0) ? sprite.getSpriteWidth() : sprite.getSpriteWidth() * sprite.getScale(), 	// dst W
-					(sprite.getScale() == 0) ? sprite.getSpriteHeight() : sprite.getSpriteHeight() * sprite.getScale()  		// dst H
+					(sprite.getScale() == 0) ? sprite.getSpriteWidth() : sprite.getSpriteWidth() * sprite.getScale(),	// dst W
+					(sprite.getScale() == 0) ? sprite.getSpriteHeight() : sprite.getSpriteHeight() * sprite.getScale()	// dst H
 				);
 				
 				// Render monsters healthbar and name
@@ -274,38 +327,6 @@ public class Camera
 			        	position.getX() - followedPosition.getX() + followed.cameraX + offset.getX() + sprite.getSpriteWidth()/2 - text.getLayoutBounds().getCenterX(),
 			        	position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - 18
 			        );
-				}
-				
-				// TMP draw borders
-//				map.getGraphicsContext().setStroke(Color.RED);
-//				map.getGraphicsContext().strokeRect(
-//					position.getX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-//					position.getY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-//					sprite.getSpriteWidth(),
-//					sprite.getSpriteHeight()
-//				);
-				// TMP draw collider bounds and detection bounds
-				if (entity.hasComponent(ColliderComponent.class))
-				{
-					ColliderComponent collider = entity.getComponent(ColliderComponent.class);
-					gctx.setStroke(Color.BLUE);
-					gctx.strokeRect(
-						collider.getBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-						collider.getBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-						collider.getBounds().getWidth(),
-						collider.getBounds().getHeight()
-					);
-				}
-				if (entity.hasComponent(DetectionComponent.class))
-				{
-					DetectionComponent detection = entity.getComponent(DetectionComponent.class);
-					gctx.setStroke(Color.YELLOW);
-					gctx.strokeRect(
-						detection.getDetectionBounds().getMinX() - followedPosition.getX() + followed.cameraX + offset.getX(),
-						detection.getDetectionBounds().getMinY() - followedPosition.getY() + followed.cameraY + offset.getY(),
-						detection.getDetectionBounds().getWidth(),
-						detection.getDetectionBounds().getHeight()
-					);
 				}
 			}
 		}

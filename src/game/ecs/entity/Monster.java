@@ -1,5 +1,7 @@
 package game.ecs.entity;
 
+import java.util.Random;
+
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.AttackComponent;
@@ -9,6 +11,10 @@ import game.ecs.component.InventoryComponent;
 import game.ecs.component.MovementComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
+import game.ecs.entity.items.AbstractItem;
+import game.ecs.entity.items.DamagePotion;
+import game.ecs.entity.items.HealthPotion;
+import game.ecs.entity.items.PoisonPotion;
 import utils.Settings.AnimationState;
 import utils.Settings.Movement;
 
@@ -82,11 +88,31 @@ public class Monster extends AbstractEntity
 		HealthComponent health = new HealthComponent(hp);
 		addComponent(health);
 		
-		AttackComponent damage = new AttackComponent(dmg, cooldown);
-		addComponent(damage);
+		AttackComponent attack = new AttackComponent(dmg, cooldown);
+		addComponent(attack);
 		
-		InventoryComponent inventory = new InventoryComponent(1);
+		InventoryComponent inventory = new InventoryComponent(2);
 		addComponent(inventory);
+		Random random = new Random();
+		int rand = random.nextInt(0, 11);
+		if (rand <= 3)
+		{
+			AbstractItem potion = new HealthPotion(x, y);
+			inventory.addItem(potion);
+		}
+		else
+		{
+			if (rand <= 7)
+			{
+				AbstractItem potion = new PoisonPotion(x, y);
+				inventory.addItem(potion);
+			}
+			else
+			{
+				AbstractItem potion = new DamagePotion(x, y);
+				inventory.addItem(potion);
+			}
+		}
 	}
 
 	/*----------------------------------------*/

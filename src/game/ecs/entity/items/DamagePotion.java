@@ -27,7 +27,7 @@ public class DamagePotion extends AbstractItem
 	public DamagePotion(int x, int y)
 	{
 		super("Damage Potion");
-		value = 10;
+		value = 20;
 		initialize(x, y);
 	}
 

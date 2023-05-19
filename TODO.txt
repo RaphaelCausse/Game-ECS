@@ -1,4 +1,0 @@
-- WIN/LOSE conditions => scenes
-- remove debugs
-- javadoc
-- class diagramm

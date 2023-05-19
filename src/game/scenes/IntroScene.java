@@ -47,7 +47,7 @@ public class IntroScene extends AbstractScene
 		
 		// Title text
 	    Text titleText = new Text("Project Unknown: Level One");
-	    titleText.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+	    titleText.setFont(Font.font("Arial", FontWeight.BOLD, 38));
 	    titleText.setTextAlignment(TextAlignment.CENTER);
 	    pane.setTop(titleText);
 	    BorderPane.setAlignment(titleText, Pos.CENTER);
@@ -56,6 +56,7 @@ public class IntroScene extends AbstractScene
 	    List<Button> buttons = new ArrayList<>();
 	    Button playButton = new Button("Play");
 	    playButton.setPrefSize(200, 50);
+	    playButton.setStyle("-fx-font-size: 24px;");
 	    playButton.setTextAlignment(TextAlignment.CENTER);
 	    playButton.setOnAction(e ->
 	    {
@@ -67,6 +68,7 @@ public class IntroScene extends AbstractScene
 
 	    Button quitButton = new Button("Quit");
 	    quitButton.setPrefSize(200, 50);
+	    quitButton.setStyle("-fx-font-size: 24px;");
 	    quitButton.setTextAlignment(TextAlignment.CENTER);
 	    quitButton.setOnAction(e ->
 	    {

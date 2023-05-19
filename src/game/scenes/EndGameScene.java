@@ -17,6 +17,10 @@ import javafx.scene.text.TextAlignment;
 import utils.Settings.App;
 import utils.Settings.GameStatus;
 
+/**
+ * Class responsible of endgame scene.
+ * @see AbstractScene 
+ */
 public class EndGameScene extends AbstractScene
 {
 	/*----------------------------------------*/
@@ -54,6 +58,7 @@ public class EndGameScene extends AbstractScene
 
 	    Button quitButton = new Button("Quit");
 	    quitButton.setPrefSize(200, 50);
+	    quitButton.setStyle("-fx-font-size: 24px;");
 	    quitButton.setTextAlignment(TextAlignment.CENTER);
 	    quitButton.setOnAction(e ->
 	    {
@@ -70,7 +75,6 @@ public class EndGameScene extends AbstractScene
 	    creditsText.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 	    creditsText.setTextAlignment(TextAlignment.RIGHT);
 	    pane.setBottom(creditsText);
-		
 	}
 	
 	@Override

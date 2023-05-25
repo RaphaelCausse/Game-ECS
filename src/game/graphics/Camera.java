@@ -13,7 +13,6 @@ import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
 import game.ecs.entity.Monster;
 import game.ecs.entity.Player;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -432,21 +431,21 @@ public class Camera
 			String dialog = interact.getDialogs().get(interact.currentDialogIndex);
 			Text text = new Text(dialog);
 			text.setFont(new Font("Arial", 11));
-			text.setTextOrigin(VPos.TOP);
-			text.setWrappingWidth(250);
+			text.setWrappingWidth(300);
 			
 			gctx.setFill(Color.rgb(0, 0, 0, 0.5));
 			gctx.fillRect(
 				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX() + sprite.getSpriteWidth()/2,
-				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - text.getLayoutBounds().getHeight()*3/2,
-				text.getLayoutBounds().getWidth(),
-				text.getLayoutBounds().getHeight()*3/2
+				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - (text.getLayoutBounds().getHeight()+6),
+				text.getLayoutBounds().getWidth()+12,
+				text.getLayoutBounds().getHeight()+12
 			);
 			gctx.setFill(Color.WHITE);
 			gctx.fillText(
 				text.getText(),
 				position.getX() - followedPosition.getX() + followed.cameraX + offset.getX() + sprite.getSpriteWidth()/2 + 6,
-				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - text.getLayoutBounds().getHeight()
+				position.getY() - followedPosition.getY() + followed.cameraY + offset.getY() - text.getLayoutBounds().getMaxY(),
+				text.getLayoutBounds().getWidth()
 			);
 		}
 		entitiesWithDialogsToRender.clear();

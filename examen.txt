@@ -1,0 +1,90 @@
+Examen Raphael CAUSSE
+
+------------------------------------------------------------------------------
+1)
+	a)	- Ajout d'un monstre "Golden Wyrm" au Nord-Est de la position du joueur.
+			* GameScene.java @ initialize, lignes 134-146 :
+				Creation du monstre "Golden Wyrm"
+			
+		- Modification de l'item "Poison Potion" pour tuer un "Golden Wyrm en une utilisation.
+			* PoisonPotion.java @ useItem, lignes 60-66 :
+				Action de l'item sur l'entite "target"
+	
+	b) 	- Tuer le monstre avec les attaques du joueurs, (touche SPACE).
+			=> Inchangé
+	
+	c) 	- Pas de dialog lorsque le montre est tue.
+			=> Pas implemente, mauvaise structure des dialogs
+			
+		- Fin du jeu (victoire) apres avoir tuer le monstre.
+			* PoisonPotion.java @ useItem, ligne 74 :
+				Fin du jeu, victoire
+		
+	TESTING :
+			Se deplacer au Nord-Est, récuperer l'item "Poison Potion" (fiole violette), continuer au Nord-Est
+			et utiliser l'item en etant assez proche du monstre (touche UP_ARROW)
+			
+------------------------------------------------------------------------------
+2)
+	a)	- Creation de l'item "Insensitive Ring" pour traverser les tombes "RIP".
+			* InsensitiveRing.java (new file)
+			* InventorySystem.java @ run, lignes 167-170 :
+				Desactiver l'effet de l'item lors du drop
+				
+		- Faire spawn l'item sur la map.
+			GameMap.java @ spawnItemsOnMap, lignes 135-141
+				
+		- Modification du composant de collision.
+			* ColliderComponent, ligne 22 + 41 :
+				Ajout d'une liste des id des MapObjects que l'on peut traverser
+			* CollisionSystem @ run, lignes 101-103 :
+				Activer l'effet de l'item lors du ramassage depuis la map
+			* CollisionSystem @ run, lignes 115-130 :
+				Traitement des collisions avec la liste des MapObject dont la collision est autorisee
+		
+	b)	- Mort du joueur s'il collide avec les MapObject spécifiques.
+			* CollisionSystem @ run, lignes 115-130 :
+				Traitement des collisions avec la liste des MapObject, mort s'il touche ces derniers
+				
+	TESTING :
+		Se deplacer a l'Est pour recuperer l'item "Insensitive Ring" (anneau dore avec une gemme bleu)
+		et utiliser l'item (touche UP_ARROW), puis traverser les tombes "RIP".
+		Dropper l'item (touche DOWN_ARROW) pour desactiver l'effet.
+		Si le joueur touche les tombes "RIP", game over.
+				
+------------------------------------------------------------------------------
+3)
+		- Modifications des fichiers de map.
+			* map_objects.csv
+			* map_objects_abave.csv
+		
+		TESTING :
+			Un rocher bloc les escaliers au Nord-Est de la map.
+
+------------------------------------------------------------------------------
+4)
+	a)	- Creation des nouveaux monstres.
+			* GameScene.java @ initialize, lignes 148-149 :
+				Creation des monstres "Flame Gleeok"
+		
+		- Joueur tue ces monstres en une seule attaque (touche SPACE).
+			* AttackSystem.java @ run, lignes 67-72 :
+				Lorsque le joueur attaque un monstre "Flame Gleeok", celui ci meurt directement, et drop son inventaire.
+	
+	b)  - Ajout d'un compteur de monstres "Flame Gleeok" tues.
+			* Player.java, lignes 30-31
+		
+		- Drop d'un item spécial (une cle de coffre) lorsque le dernier "Flame Gleeok" est tue par le joueur.
+			* AttackSystem.java @ run, lignes 85-92.
+	
+	TESTING :
+		Se deplacer au Nord (1 monstre "Flame Gleeok") et a l'Est (2 monstres "Flame Gleeok"), les attaquer pour les tuer (touche SPACE).
+		Lorsque le dernier monstre est tue, une clé est drop.
+				
+------------------------------------------------------------------------------
+5)
+	a) 	- Creation d'un nouveau NPC.
+			* GameScene.java @ initialize, lignes 87-93
+		
+		- 
+	

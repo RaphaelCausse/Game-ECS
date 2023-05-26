@@ -13,6 +13,9 @@ import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.Monster;
+import game.ecs.entity.Player;
+import game.ecs.entity.items.AbstractItem;
+import game.ecs.entity.items.Key;
 import utils.Settings.AnimationState;
 import utils.Settings.GameStatus;
 import utils.Settings.Sprites;
@@ -61,6 +64,12 @@ public class AttackSystem extends AbstractSystem
 					{
 						// Compute damages
 						HealthComponent nearbyHealth = nearbyEntity.getComponent(HealthComponent.class);
+						if (nearbyEntity instanceof Monster && ((Monster) nearbyEntity).getName() == "Flame Gleeok")
+						{
+							nearbyHealth.setCurrentHeath(0);
+							Player player = (Player) EntityManager.getEntity(0);
+							player.flameGleeokKilled++;
+						}
 						if (!attack.hasAttacked())
 						{
 							attack.dealDamageTo(nearbyEntity);
@@ -73,6 +82,14 @@ public class AttackSystem extends AbstractSystem
 							InventoryComponent nearbyInventory = nearbyEntity.getComponent(InventoryComponent.class);
 							EntityManager.removeEntity(nearbyEntity.getUID());
 							nearbyInventory.dropInventory(nearbyEntity);
+							// Drop special item if all Flame Gleeok monsters are killed
+							Player player = (Player) EntityManager.getEntity(0);
+							if (player.flameGleeokKilled == player.nbFlameGleeok)
+							{
+								PositionComponent nearbyPosition = nearbyEntity.getComponent(PositionComponent.class);
+								AbstractItem specialItem = new Key((int)nearbyPosition.getX(), (int)nearbyPosition.getY());
+								EntityManager.addEntity(specialItem.getUID(), specialItem);
+							}
 						}
 					}
 				}

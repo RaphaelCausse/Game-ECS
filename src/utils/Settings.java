@@ -13,7 +13,7 @@ public class Settings
 	public static class App
 	{
 		// Window settings
-		public static final String TITLE = "Project-Unknown";
+		public static final String TITLE = "Project Unknown";
 		public static final int SCREEN_W = 1000;
 		public static final int SCREEN_H = SCREEN_W/16*9;
 		// Framerate settings
@@ -56,7 +56,7 @@ public class Settings
 		// Spritesheets
 		public static final String PLAYER_SPRITESHEET = DirPaths.ENTITIES + "player_spritesheet.png";
 		public static final String BLACKSMITH_SPRITESHEET = DirPaths.ENTITIES + "blacksmith_spritesheet.png";
-		public static final String FLAME_GLEOK_SPRITESHEET = DirPaths.ENTITIES + "flame_gleok_spritesheet.png";
+		public static final String FLAME_GLEEOK_SPRITESHEET = DirPaths.ENTITIES + "flame_gleeok_spritesheet.png";
 		public static final String GHOST_WIZARD_SPRITESHEET = DirPaths.ENTITIES + "ghost_wizard_spritesheet.png";
 		public static final String GLODEN_WYRM_SPRITESHEET = DirPaths.ENTITIES + "golden_wyrm_spritesheet.png";
 		// HUD
@@ -72,6 +72,7 @@ public class Settings
 		public static final String ITEM_DAMAGE_POTION = DirPaths.ITEMS + "damage_potion.png";
 		public static final String ITEM_HEALTH_POTION = DirPaths.ITEMS + "health_potion.png";
 		public static final String ITEM_POISON_POTION = DirPaths.ITEMS + "poison_potion.png";
+		public static final String ITEM_INSENSITIVE_RING = DirPaths.ITEMS + "insensitive_ring.png";
 		public static final String POISON_DAMAGE_ORBE = DirPaths.ITEMS + "poison_damage_orbe.png";
 	}
 	
@@ -196,5 +197,6 @@ public class Settings
 		public static final int CHEST = 42;
 		public static final int CHEST_OPEN_B = 43;
 		public static final int CHEST_OPEN_T = 29;
+		public static final int TOMBSTONE_RIP = 46;
 	}
 }

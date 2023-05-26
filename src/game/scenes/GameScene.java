@@ -1,8 +1,6 @@
 package game.scenes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import game.Game;
 import game.ecs.component.InteractComponent;
@@ -37,7 +35,6 @@ import utils.Settings.App;
 public class GameScene extends AbstractScene
 {
 	/*----------------------------------------*/
-	
 	
 	public Canvas canvas;
 	public GraphicsContext gctx;
@@ -76,16 +73,23 @@ public class GameScene extends AbstractScene
 		);
 		entityManager.addEntity(player.getUID(), player);
 		
-		AbstractEntity npc = new NPC(
+		AbstractEntity blacksmith = new NPC(
 			Positions.BLACKSMITH_SPAWN_X,
 			Positions.BLACKSMITH_SPAWN_Y
 		);
-		List<String> dialogs = new ArrayList<>();
-		dialogs.add("Hey, it's dangerous around here !\n"
+		InteractComponent interact = new InteractComponent();
+		interact.addDialog("Hey, it's dangerous around here !\n"
 				+ "Can you kill them all for me please ?\n"
 				+ "I think they protect something precious...");
-		InteractComponent interact = new InteractComponent(dialogs);
-		npc.addComponent(interact);
+		blacksmith.addComponent(interact);
+		entityManager.addEntity(blacksmith.getUID(), blacksmith);
+		
+		AbstractEntity npc = new NPC(
+			745,
+			1090
+		);
+		InteractComponent npcInteract = new InteractComponent();
+		npc.addComponent(npcInteract);
 		entityManager.addEntity(npc.getUID(), npc);
 		
 		AbstractEntity monsterBoss = new Monster(
@@ -134,6 +138,64 @@ public class GameScene extends AbstractScene
 			Stats.MONSTER_ATTACK_COOLDOWN
 		);
 		entityManager.addEntity(monsterMagician.getUID(), monsterMagician);
+		
+		AbstractEntity goldenWyrm = new Monster(
+			"Golden Wyrm",
+			1000,
+			800,
+			ResFiles.GLODEN_WYRM_SPRITESHEET,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_ANIM_FRAMES,
+			Stats.MONSTER_MAX_HEALTH,
+			Stats.MONSTER_BASE_DAMAGE,
+			Stats.MONSTER_ATTACK_COOLDOWN
+		);
+		entityManager.addEntity(goldenWyrm.getUID(), goldenWyrm);
+		
+		AbstractEntity m1 = new Monster(
+			"Flame Gleeok",
+			325,
+			750,
+			ResFiles.FLAME_GLEEOK_SPRITESHEET,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_ANIM_FRAMES,
+			Stats.MONSTER_MAX_HEALTH,
+			Stats.MONSTER_BASE_DAMAGE,
+			Stats.MONSTER_ATTACK_COOLDOWN
+		);
+		entityManager.addEntity(m1.getUID(), m1);
+		
+		AbstractEntity m2 = new Monster(
+			"Flame Gleeok",
+			1075,
+			1075,
+			ResFiles.FLAME_GLEEOK_SPRITESHEET,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_ANIM_FRAMES,
+			Stats.MONSTER_MAX_HEALTH,
+			Stats.MONSTER_BASE_DAMAGE,
+			Stats.MONSTER_ATTACK_COOLDOWN
+		);
+		entityManager.addEntity(m2.getUID(), m2);
+		
+		AbstractEntity m3 = new Monster(
+			"Flame Gleeok",
+			1125,
+			1105,
+			ResFiles.FLAME_GLEEOK_SPRITESHEET,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_SIZE,
+			Sprites.MONSTER_ANIM_FRAMES,
+			Stats.MONSTER_MAX_HEALTH,
+			Stats.MONSTER_BASE_DAMAGE,
+			Stats.MONSTER_ATTACK_COOLDOWN
+		);
+		entityManager.addEntity(m3.getUID(), m3);
+		
+		((Player) player).nbFlameGleeok = 3;
 		
 		// Create Game map, Camera and HUD
 		GameMap map = new GameMap(gctx);

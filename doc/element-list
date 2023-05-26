@@ -1,0 +1,10 @@
+app
+game
+game.ecs
+game.ecs.component
+game.ecs.entity
+game.ecs.entity.items
+game.ecs.system
+game.graphics
+game.scenes
+utils

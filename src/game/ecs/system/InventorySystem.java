@@ -2,6 +2,7 @@ package game.ecs.system;
 
 import game.Game;
 import game.ecs.FlagECS;
+import game.ecs.component.ColliderComponent;
 import game.ecs.component.DetectionComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InteractComponent;
@@ -11,9 +12,11 @@ import game.ecs.component.PositionComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
 import game.ecs.entity.MapObject;
+import game.ecs.entity.Monster;
 import game.ecs.entity.items.AbstractItem;
 import game.ecs.entity.items.AttackPotion;
 import game.ecs.entity.items.HealthPotion;
+import game.ecs.entity.items.InsensitiveRing;
 import game.ecs.entity.items.Key;
 import game.ecs.entity.items.PoisonPotion;
 import game.graphics.GameMap;
@@ -134,11 +137,18 @@ public class InventorySystem extends AbstractSystem
 				        	// Item PoisonPotion
 				        	else if (item instanceof PoisonPotion)
 				        	{
-				        		HealthComponent health = entity.getComponent(HealthComponent.class);
-				        		if (health.getCurrentHealth() > 0)
+				        		// Get nearby monster and check if its a "Golden Wyrn"
+				        		DetectionComponent detection = entity.getComponent(DetectionComponent.class);
+				        		for (AbstractEntity nearbyEntity : detection.getNearbyEntities())
 				        		{
-				        			item.useItem(entity, entity);
-				        			pressed = true;
+				        			if (nearbyEntity instanceof Monster && ((Monster) nearbyEntity).getName() == "Golden Wyrm")
+				        			{
+			        					item.useItem(entity, nearbyEntity);
+			        					InventoryComponent nearbyInventory = nearbyEntity.getComponent(InventoryComponent.class);
+										EntityManager.removeEntity(nearbyEntity.getUID());
+										nearbyInventory.dropInventory(nearbyEntity);
+					        			pressed = true;
+				        			}
 				        		}
 				        	}
 			        	}
@@ -153,6 +163,11 @@ public class InventorySystem extends AbstractSystem
 			        	{
 			        		AbstractItem item = inventory.getCurrentItem();
 			        		inventory.dropItem(entity, item);
+			        		if (item instanceof InsensitiveRing)
+			        		{
+			        			ColliderComponent collider = entity.getComponent(ColliderComponent.class);
+			        			collider.mapObjectsAllowedForCollision.remove((Integer) MapObjectsID.TOMBSTONE_RIP);
+			        		}
 			        		pressed = true;
 			        	}
 		        	}

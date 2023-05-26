@@ -1,5 +1,8 @@
 package game.ecs.component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import utils.CollisionBounds;
 import utils.Point2D;
 
@@ -16,6 +19,7 @@ public class ColliderComponent extends AbstractComponent
 	private Point2D offset;
 	private boolean isMoveable;
 	private boolean collides;
+	public List<Integer> mapObjectsAllowedForCollision;
 	
 	/*----------------------------------------*/
 	
@@ -34,6 +38,7 @@ public class ColliderComponent extends AbstractComponent
 		offset = new Point2D(ox, oy);
 		isMoveable = _isMoveable;
 		collides = true;
+		mapObjectsAllowedForCollision = new ArrayList<>();
 	}
 	
 	/**

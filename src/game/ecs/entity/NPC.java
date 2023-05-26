@@ -3,6 +3,7 @@ package game.ecs.entity;
 import game.ecs.component.AnimationComponent;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.DetectionComponent;
+import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import utils.Settings.AnimationState;
@@ -59,6 +60,9 @@ public class NPC extends AbstractEntity
 			0								// oy
 		);
 		addComponent(detection);
+		
+		InventoryComponent inventory = new InventoryComponent(1);
+		addComponent(inventory);
 	}
 	
 	/*----------------------------------------*/

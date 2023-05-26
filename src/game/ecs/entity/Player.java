@@ -28,6 +28,8 @@ public class Player extends AbstractEntity
 	
 	public int cameraX;
 	public int cameraY;
+	public int flameGleeokKilled;
+	public int nbFlameGleeok;
 	
 	/*----------------------------------------*/
 	
@@ -43,6 +45,7 @@ public class Player extends AbstractEntity
 		initialize(x, y);
 		cameraX = App.SCREEN_W/2 - getComponent(SpriteComponent.class).getSpriteWidth()/2;
 		cameraY = App.SCREEN_H/2 - getComponent(SpriteComponent.class).getSpriteHeight()/2;
+		flameGleeokKilled = 0;
 	}
 	
 	/**

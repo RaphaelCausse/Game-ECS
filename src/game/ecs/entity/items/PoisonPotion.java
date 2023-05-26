@@ -1,23 +1,24 @@
 package game.ecs.entity.items;
 
+import game.Game;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
+import game.ecs.entity.Monster;
+import utils.Settings.GameStatus;
 import utils.Settings.ResFiles;
 import utils.Settings.Sprites;
 
 /**
- * Class that represents a poison malus potion.
+ * Class that represents a poison potion that kill a monster.
  * @see AbstractItem
  */
 public class PoisonPotion extends AbstractItem
 {
 	/*----------------------------------------*/
-	
-	private int value = 30;
 	
 	/*----------------------------------------*/
 	
@@ -28,7 +29,7 @@ public class PoisonPotion extends AbstractItem
 	 */
 	public PoisonPotion(int x, int y)
 	{
-		super("Poison Potion (???)");
+		super("Poison Potion (Kills a Golden Wyrm)");
 		initialize(x, y);
 	}
 
@@ -58,16 +59,19 @@ public class PoisonPotion extends AbstractItem
 	@Override
 	public void useItem(AbstractEntity owner, AbstractEntity target)
 	{
-		// Reduice health
-		HealthComponent targetHealth = owner.getComponent(HealthComponent.class);
-		int newHealthValue = (targetHealth.getCurrentHealth() - value < 0) ?
-				0 : targetHealth.getCurrentHealth() - value;
-		targetHealth.setCurrentHeath(newHealthValue);
-		used = true;
-		
-		// Remove item from inventory
-		InventoryComponent ownerInventory = owner.getComponent(InventoryComponent.class);
-		ownerInventory.removeItem(this);
+		if (target instanceof Monster && ((Monster) target).getName() == "Golden Wyrm")
+		{
+			// Kill monster
+			HealthComponent targetHealth = target.getComponent(HealthComponent.class);
+			targetHealth.setCurrentHeath(0);
+			used = true;
+			
+			// Remove item from inventory
+			InventoryComponent ownerInventory = owner.getComponent(InventoryComponent.class);
+			ownerInventory.removeItem(this);
+			
+			Game.gameStatus = GameStatus.GAME_WIN;
+		}
 	}
 
 	/*----------------------------------------*/

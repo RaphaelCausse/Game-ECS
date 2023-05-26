@@ -2,6 +2,7 @@ package game.graphics;
 
 import java.util.List;
 import game.ecs.component.AttackComponent;
+import game.ecs.component.ColliderComponent;
 import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.SpriteComponent;
@@ -54,8 +55,19 @@ public class HUD
 	{
 		renderInventory();
 		renderStats();
+		renderRelativePosition();
 	}
 
+	// TMP TO REMOVE
+	public void renderRelativePosition()
+	{
+		ColliderComponent relativePos = linked.getComponent(ColliderComponent.class);
+		gctx.setFont(new Font("Arial", 14));
+        gctx.setFill(Color.WHITE);
+        String posText = "Pos (x: " + (int)relativePos.getBounds().getMinX() + ", y: " + (int)relativePos.getBounds().getMinY() + ")";
+        gctx.fillText(posText, 0, App.SCREEN_H-2);
+	}
+	
 	/**
 	 * Render inventory on HUD.
 	 */

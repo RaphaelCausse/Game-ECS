@@ -1,16 +1,22 @@
 package game.ecs.system;
 
+import game.Game;
 import game.ecs.FlagECS;
 import game.ecs.component.ColliderComponent;
 import game.ecs.component.DetectionComponent;
+import game.ecs.component.HealthComponent;
 import game.ecs.component.InventoryComponent;
 import game.ecs.component.PositionComponent;
 import game.ecs.component.SpriteComponent;
 import game.ecs.entity.AbstractEntity;
 import game.ecs.entity.EntityManager;
+import game.ecs.entity.MapObject;
 import game.ecs.entity.items.AbstractItem;
+import game.ecs.entity.items.InsensitiveRing;
 import game.graphics.GameMap;
 import utils.CollisionBounds;
+import utils.Settings.GameStatus;
+import utils.Settings.MapObjectsID;
 
 /**
  * Class responsible of collisions.
@@ -89,16 +95,40 @@ public class CollisionSystem extends AbstractSystem
 					    	// Get item on ground when colliding, add it to the inventory
 					    	if (nearbyEntity instanceof AbstractItem)
 					    	{
+					    		AbstractItem nearbyItem = (AbstractItem) nearbyEntity;
 					    		InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
 					    		if (!inventory.isFull())
 					    		{
-					    			inventory.addItem((AbstractItem)nearbyEntity);
+					    			inventory.addItem(nearbyItem);
+					    			if (nearbyItem instanceof InsensitiveRing)
+					    			{
+					    				nearbyItem.useItem(entity, entity);
+					    				System.out.println("use insensitive ring");
+					    			}
 					    			EntityManager.removeEntity(nearbyEntity.getUID());
 					    		}
 					    		continue;
 					    	}
 					    	
 					    	// Collisions with rigid entities
+					    	if (nearbyEntity instanceof MapObject)
+					    	{
+					    		if (((MapObject) nearbyEntity).getImageIndex() == MapObjectsID.TOMBSTONE_RIP)
+					    		{
+					    			// Dies when colliding specific MapObjects
+					    			if (!collider.mapObjectsAllowedForCollision.contains(MapObjectsID.TOMBSTONE_RIP))
+						    		{
+					    				HealthComponent health = entity.getComponent(HealthComponent.class);
+					    				health.setCurrentHeath(0);
+					    				Game.gameStatus = GameStatus.GAME_OVER;
+						    		}
+					    			// Can go through it
+						    		else
+						    		{
+						    			continue;
+						    		}
+					    		}
+					    	}
 					    	if (collider.doCollides() && nearbyCollider.doCollides())
 							{
 							    // Determine collision direction

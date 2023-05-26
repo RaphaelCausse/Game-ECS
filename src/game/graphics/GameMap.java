@@ -8,6 +8,7 @@ import game.ecs.entity.MapObject;
 import game.ecs.entity.items.AbstractItem;
 import game.ecs.entity.items.AttackPotion;
 import game.ecs.entity.items.HealthPotion;
+import game.ecs.entity.items.InsensitiveRing;
 import game.ecs.entity.items.PoisonPotion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -128,6 +129,14 @@ public class GameMap
 		for (int x = 0, y = 0; x < poisonPotionsX.length && y < poisonPotionsY.length; x++, y++)
 		{
 			AbstractItem item = new PoisonPotion(poisonPotionsX[x], poisonPotionsY[y]);
+			EntityManager.addEntity(item.getUID(), item);
+		}
+		
+		int[] insensitiveRingX = {690};
+		int[] insensitiveRingY = {1111};
+		for (int x = 0, y = 0; x < insensitiveRingX.length && y < insensitiveRingY.length; x++, y++)
+		{
+			AbstractItem item = new InsensitiveRing(insensitiveRingX[x], insensitiveRingY[y]);
 			EntityManager.addEntity(item.getUID(), item);
 		}
 	}

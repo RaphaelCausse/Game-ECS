@@ -45,6 +45,24 @@ public class InteractComponent extends AbstractComponent implements Interactable
 		this(new ArrayList<>());
 	}
 	
+	/**
+	 * Add dialog to the list of dialogs.
+	 * @param dialog Dialog to add
+	 */
+	public void addDialog(String dialog)
+	{
+		dialogs.add(dialog);
+	}
+	
+	/**
+	 * Remove dialogs from the list of dialogs.
+	 * @param index Index of dialog to remove
+	 */
+	public void removeDialog(int index)
+	{
+		dialogs.remove(index);
+	}
+	
 	@Override
 	public void interact(AbstractEntity sender, AbstractEntity receiver)
 	{		

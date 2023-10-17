@@ -1,4 +1,4 @@
-# PROJECT UNKNOWN
+# GAME ECS
 
 # Table of Contents
 
@@ -36,7 +36,7 @@ Open a termial, move to the root of project folder.
 Run the executable JAR File using the following command, and make sure to write your path to the `lib` folder as previously mentionned :
 
 ```shell
-java --module-path "your_path_to_javafx_lib_folder" --add-modules javafx.base,javafx.controls,javafx.graphics,javafx.media -jar Runnable-Project-Unknown.jar
+java --module-path "your_path_to_javafx_lib_folder" --add-modules javafx.base,javafx.controls,javafx.graphics,javafx.media -jar Runnable-Game-ECS.jar
 ```
 
 ## GAME MANUAL
